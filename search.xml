@@ -60,6 +60,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[《高级程序设计》整理(三)- - -JS对象]]></title>
+    <url>%2F2018%2F03%2F20%2F2018-3-20-%E3%80%8A%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E3%80%8B%E6%95%B4%E7%90%86-%E4%B8%89-JS%E5%AF%B9%E8%B1%A1-1%2F</url>
+    <content type="text"><![CDATA[JS对象一、属性类型 数据属性 [[Configurable]]表示能否通过delete删除属性从而重新定义属性，能否修改属性的特性，能否把属性修改为访问器属性。直接在对象上定义的属性，默认值为true。 [[Enumerable]]表示能否通过for-in循环返回属性。直接在对象上定义的属性，默认值为true。 [[Writable]]表示能否修改属性的值。直接在对象上定义的属性，默认为true。 [[Value]]包含这个属性的数据值；读取属性值的时候，从这个位置读取；写入属性值的时候，把值保存在这里。默认为undefined。 访问器属性- 属性有getter和setter方法，(读/写属性)。 [[Configurable]]表示能否通过delete删除属性从而重新定义属性，能否修改属性的特性，能否把属性修改为访问器属性。直接在对象上定义的属性，默认值为true。 [[Enumerable]]表示能否通过for-in循环返回属性。直接在对象上定义的属性，默认值为true。 [[get]]在读取属性时调用的函数；默认值为undefined。 [[set]]在写入属性时调用的函数；默认值为undefined。 Object.defineProperty(obj, prop, descriptor):方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性， 并返回这个对象。 1234567 var person = &#123;&#125; Object.defineProperty(person, &apos;name&apos;, &#123; writable:false, value:jiaying&#125;);person.name = zeqing //严格模式下报错 &gt; Object.defineProperties(obj, props):方法直接在一个对象上定义新的属性或修改现有属性，并返回该对象。 12345678910111213141516171819202122 var person = &#123;&#125; var obj = &#123;&#125;; Object.defineProperties(obj, &#123; &apos;property1&apos;: &#123; value: true, writable: true &#125;, &apos;property2&apos;: &#123; value: &apos;Hello&apos;, writable: true &#125;, &apos;property3&apos;: &#123; get: function() &#123; return this[&apos;property2&apos;] &#125;, set: function(newValue) &#123; this[&apos;property2&apos;] = newValue; this[&apos;property1&apos;] = false; &#125; &#125; // etc. etc.&#125;) -Object.getOwnPropertyDescriptor(obj, prop)方法，可以取得给定属性的描述符 12345678910111213141516171819202122var person = &#123;&#125;;Object.defineProperties(person, &#123; _name: &#123; value: &quot;CC&quot;, writable: false &#125;, _age: &#123; value: 23, writable: true &#125;, age: &#123; get: function() &#123; return this._age &#125;, set: function(newValue) &#123; this._age = newValue; &#125; &#125; &#125;);var descriptor = Object.getOwnPropertyDescriptor(person, &quot;_age&quot;);console.log(descriptor.value); //&quot;23&quot;console.log(descriptor.writable); //true]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[《高级程序设计》整理(二)- - -正则与函数篇]]></title>
     <url>%2F2018%2F03%2F20%2F2018-3-20-%E3%80%8A%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E3%80%8B%E6%95%B4%E7%90%86-%E4%BA%8C-%E6%AD%A3%E5%88%99%E4%B8%8E%E5%87%BD%E6%95%B0%E7%AF%87%2F</url>
     <content type="text"><![CDATA[《高级程序设计》整理(二)- - -正则与函数篇 ###一、正则（RegExp） &nbsp; &nbsp; - - -| let pattern = / patern / ( i | g | m ) i:忽略大小写 g:全局匹配 m:多行匹配 &nbsp; &nbsp; &nbsp; &nbsp; （元字符需要转义—-&gt; ‘ ( { \ ^ $ | ) ? * + . ] } ‘ ） &nbsp; &nbsp; - - -| RegExp的实例属性：global、ignoreCase、multiline 表示是否设置了该标志 &nbsp; &nbsp; - - -| RegExp的实例方法： &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;— exec(): 包含第一个匹配项信息的数组（[match[0],match[1],match[2]…]）；或者在没有匹配项的情况下返回null。返回的数组虽然是Array的实例，但包含两个额外的属性：index（匹配项的索引）和input（输入）。 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;— test(): /.*/.test(str) ==&gt;boolean 常用于if语句 &nbsp; &nbsp; - - -| RegExp的构造函数属性：| 长属性名 | 短属性名 | 说明 ||——–| :—–:| —- || input | $_ | 最近一次要匹配的字符串。Opera未实现此属性 || lastMatch | $&amp; | 最近一次的匹配性。 Opera未实现此属性 || lastParen | $+ | 最近一次匹配的捕获组。 Opera未实现此属性 ||leftContext |$|input字符串中lastMatch之前的文本| |multiline |$*|布尔值，是否所有表达式都使用多行模式。IE和Opera未实现此属性| |rightContext|$·|input字符串中lastMatch之后的文本| ||\$1、\$2、\$3...|第一、第二、第三...匹配的捕获组 （常用`）12345678910111213141516var text=&quot;this has been a short summer&quot;;var pattern=/(.)hort/g;/**注意：Opera不支持input、lastMatch、lastParen和multiline属性*IE 不支持multiline属性*/if(pattern.test(text))&#123; alert(RegExp.$_); // this has been a short summer alert(RegExp.[&quot;$`&quot;]); //this has been a alert(RegExp.[&quot;$·&quot;]); //summer alert(RegExp.[&quot;$&amp;&quot;]); //short alert(RegExp.[&quot;$+&quot;]); //s alert(RegExp.[&quot;$*&quot;]); //false alert(RegExp.[&quot;$1&quot;]); //s&#125; ###四、Function类型 每个函数都是function类型的实例，*即函数是对象，而函数名是指针- - -| 函数的两种定义方式：12345678910 1.function sum(num1, num2) &#123;//函数声明 return num1 + num2 &#125;2.var sum = function(num1, num2) &#123;//函数表达式 return num1 + num2 &#125;;*注意：用不含括号的函数名访问的是函数指针，而非调用函数 即：var anotherSum = sum sum = null anotherSum(10,10) //==&gt;20 函数声明和函数表达式- - -| 解析器会将函数声明提升，率先解析函数声明并生成引用;- - -| 表达式则是按解析顺序自上而下执行。 函数内部属性（arguments, this）- - -| this：引用函数的执行环境 - - -| arguments：类数组对象，包含传入函数的所有参数。&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - - callee：arguments.callee()指向拥有该arguments对象的函数；常用于递归解耦&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - - arguments[Symbol.iterator]()：返回一个新的Array迭代器对象，该对象包含参数中每个索引的值。 1234 /*将arguments转成数组对象的方法*/var args = Array.prototype.slice.call(arguments);var args = [].slice.call(arguments);const args = Array.from(arguments);// ES2015 函数属性和方法- - 属性:length：函数希望接收的参数个数；prototype：保存所有实例方法- - 方法：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;–apply()和call(): 每个函数都包含两个非继承而来的方法：apply()和call()。这两个方法的用途都是在特定的作用域中调用函数，实际上等于函数体内this对象的值; 他们的第一参数都是作用域,apply()的第二参数为数组而call()则需将传递参数列举出来。例子： 1234567 function sum(num1, num2)&#123; return num1 + num2;&#125;function callSum1(num1, num2)&#123; return sum.apply(this, arguments);&#125;console.log(callSum1(10,10));//20 扩充作用域-&gt;例子: 123456789 window.color = &quot;red&quot;;var o = &#123; color: &quot;blue&quot; &#125;;function sayColor()&#123; alert(this.color);&#125;sayColor(); //redsayColor.call(this); //redsayColor.call(window); //redsayColor.call(o); //blue bind():call() / apply() ,都是立马就调用了对应的函数，而 bind() 不会， bind() 会生成一个新的函数，bind() 函数的参数跟 call() 一致,可以随时调用。例子： 1234567window.color = &quot;red&quot;;var o = &#123; color: &quot;blue&quot; &#125;;function sayColor()&#123; alert(this.color);&#125;var objectSayColor = sayColor.bind(o);objectSayColor(); //blue]]></content>
@@ -69,17 +80,6 @@
       <tags>
         <tag>javascript</tag>
         <tag>RegExp</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[《高级程序设计》整理(三)- - -JS对象]]></title>
-    <url>%2F2018%2F03%2F20%2F2018-3-20-%E3%80%8A%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E3%80%8B%E6%95%B4%E7%90%86-%E4%B8%89-JS%E5%AF%B9%E8%B1%A1-1%2F</url>
-    <content type="text"><![CDATA[JS对象一、属性类型 数据属性 [[Configurable]]表示能否通过delete删除属性从而重新定义属性，能否修改属性的特性，能否把属性修改为访问器属性。直接在对象上定义的属性，默认值为true。 [[Enumerable]]表示能否通过for-in循环返回属性。直接在对象上定义的属性，默认值为true。 [[Writable]]表示能否修改属性的值。直接在对象上定义的属性，默认为true。 [[Value]]包含这个属性的数据值；读取属性值的时候，从这个位置读取；写入属性值的时候，把值保存在这里。默认为undefined。 访问器属性- 属性有getter和setter方法，(读/写属性)。 [[Configurable]]表示能否通过delete删除属性从而重新定义属性，能否修改属性的特性，能否把属性修改为访问器属性。直接在对象上定义的属性，默认值为true。 [[Enumerable]]表示能否通过for-in循环返回属性。直接在对象上定义的属性，默认值为true。 [[get]]在读取属性时调用的函数；默认值为undefined。 [[set]]在写入属性时调用的函数；默认值为undefined。 Object.defineProperty(obj, prop, descriptor):方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性， 并返回这个对象。 1234567 var person = &#123;&#125; Object.defineProperty(person, &apos;name&apos;, &#123; writable:false, value:jiaying&#125;);person.name = zeqing //严格模式下报错 &gt; Object.defineProperties(obj, props):方法直接在一个对象上定义新的属性或修改现有属性，并返回该对象。 12345678910111213141516171819202122 var person = &#123;&#125; var obj = &#123;&#125;; Object.defineProperties(obj, &#123; &apos;property1&apos;: &#123; value: true, writable: true &#125;, &apos;property2&apos;: &#123; value: &apos;Hello&apos;, writable: true &#125;, &apos;property3&apos;: &#123; get: function() &#123; return this[&apos;property2&apos;] &#125;, set: function(newValue) &#123; this[&apos;property2&apos;] = newValue; this[&apos;property1&apos;] = false; &#125; &#125; // etc. etc.&#125;) -Object.getOwnPropertyDescriptor(obj, prop)方法，可以取得给定属性的描述符 12345678910111213141516171819202122var person = &#123;&#125;;Object.defineProperties(person, &#123; _name: &#123; value: &quot;CC&quot;, writable: false &#125;, _age: &#123; value: 23, writable: true &#125;, age: &#123; get: function() &#123; return this._age &#125;, set: function(newValue) &#123; this._age = newValue; &#125; &#125; &#125;);var descriptor = Object.getOwnPropertyDescriptor(person, &quot;_age&quot;);console.log(descriptor.value); //&quot;23&quot;console.log(descriptor.writable); //true]]></content>
-      <categories>
-        <category>javascript</category>
-      </categories>
-      <tags>
-        <tag>javascript</tag>
       </tags>
   </entry>
   <entry>
@@ -132,8 +132,8 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Vue +Node +Mysql 从简至全（一）]]></title>
-    <url>%2F2017%2F11%2F06%2FVue%20%2BNode%20%2BMysql%20%E4%BB%8E%E7%AE%80%E8%87%B3%E5%85%A8%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
+    <title><![CDATA[Vue +Node +Mysql 从简至全（二）]]></title>
+    <url>%2F2017%2F11%2F06%2FVue%20%2BNode%20%2BMysql%20%E4%BB%8E%E7%AE%80%E8%87%B3%E5%85%A8%EF%BC%88%E4%BA%8C%EF%BC%89%2F</url>
     <content type="text"><![CDATA[##简单的后端接口连接的实现 –这一部分是实现后端的接口，接下来会依次实现数据库操作和前后端数据交互过程。 后端： npm install express mysql -S 编写后端入口文件（app.js）： 编写路由文件： node app.js 这个时候最简单的后台接口就启动了，可以http://localhost:3000/test访问到该接口]]></content>
       <categories>
         <category>vue</category>
@@ -159,8 +159,8 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Vue +Node +Mysql 从简至全（二）]]></title>
-    <url>%2F2017%2F11%2F06%2FVue%20%2BNode%20%2BMysql%20%E4%BB%8E%E7%AE%80%E8%87%B3%E5%85%A8%EF%BC%88%E4%BA%8C%EF%BC%89%2F</url>
+    <title><![CDATA[Vue +Node +Mysql 从简至全（一）]]></title>
+    <url>%2F2017%2F11%2F06%2FVue%20%2BNode%20%2BMysql%20%E4%BB%8E%E7%AE%80%E8%87%B3%E5%85%A8%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
     <content type="text"><![CDATA[##简单的后端接口连接的实现 –这一部分是实现后端的接口，接下来会依次实现数据库操作和前后端数据交互过程。 后端： npm install express mysql -S 编写后端入口文件（app.js）： 编写路由文件： node app.js 这个时候最简单的后台接口就启动了，可以http://localhost:3000/test访问到该接口]]></content>
       <categories>
         <category>vue</category>

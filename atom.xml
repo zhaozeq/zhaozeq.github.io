@@ -160,31 +160,6 @@
   </entry>
   
   <entry>
-    <title>《高级程序设计》整理(二)- - -正则与函数篇</title>
-    <link href="http://sunjiaying.com/2018/03/20/2018-3-20-%E3%80%8A%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E3%80%8B%E6%95%B4%E7%90%86-%E4%BA%8C-%E6%AD%A3%E5%88%99%E4%B8%8E%E5%87%BD%E6%95%B0%E7%AF%87/"/>
-    <id>http://sunjiaying.com/2018/03/20/2018-3-20-《高级程序设计》整理-二-正则与函数篇/</id>
-    <published>2018-03-20T02:07:00.000Z</published>
-    <updated>2018-11-17T10:40:20.205Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;《高级程序设计》整理(二)- - -正则与函数篇&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;###一、正则（RegExp）&lt;br&gt; &amp;nbsp; &amp;nbsp; - - -| let pattern = / patern / ( i | g | m )    i:忽略大小写  g:全局匹配  m:多行匹配&lt;br&gt; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; （元字符需要转义—-&amp;gt; ‘ ( { \ ^ $ | ) ? * + . ] } ‘ ）&lt;/p&gt;
-&lt;p&gt; &amp;nbsp; &amp;nbsp;  - - -|   RegExp的实例属性：&lt;code&gt;global&lt;/code&gt;、&lt;code&gt;ignoreCase&lt;/code&gt;、&lt;code&gt;multiline&lt;/code&gt; 表示是否设置了该标志&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="javascript" scheme="http://sunjiaying.com/categories/javascript/"/>
-    
-    
-      <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
-    
-      <category term="RegExp" scheme="http://sunjiaying.com/tags/RegExp/"/>
-    
-  </entry>
-  
-  <entry>
     <title>《高级程序设计》整理(三)- - -JS对象</title>
     <link href="http://sunjiaying.com/2018/03/20/2018-3-20-%E3%80%8A%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E3%80%8B%E6%95%B4%E7%90%86-%E4%B8%89-JS%E5%AF%B9%E8%B1%A1-1/"/>
     <id>http://sunjiaying.com/2018/03/20/2018-3-20-《高级程序设计》整理-三-JS对象-1/</id>
@@ -215,6 +190,31 @@
     
     
       <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《高级程序设计》整理(二)- - -正则与函数篇</title>
+    <link href="http://sunjiaying.com/2018/03/20/2018-3-20-%E3%80%8A%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E3%80%8B%E6%95%B4%E7%90%86-%E4%BA%8C-%E6%AD%A3%E5%88%99%E4%B8%8E%E5%87%BD%E6%95%B0%E7%AF%87/"/>
+    <id>http://sunjiaying.com/2018/03/20/2018-3-20-《高级程序设计》整理-二-正则与函数篇/</id>
+    <published>2018-03-20T02:07:00.000Z</published>
+    <updated>2018-11-17T10:40:20.205Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;《高级程序设计》整理(二)- - -正则与函数篇&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;###一、正则（RegExp）&lt;br&gt; &amp;nbsp; &amp;nbsp; - - -| let pattern = / patern / ( i | g | m )    i:忽略大小写  g:全局匹配  m:多行匹配&lt;br&gt; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; （元字符需要转义—-&amp;gt; ‘ ( { \ ^ $ | ) ? * + . ] } ‘ ）&lt;/p&gt;
+&lt;p&gt; &amp;nbsp; &amp;nbsp;  - - -|   RegExp的实例属性：&lt;code&gt;global&lt;/code&gt;、&lt;code&gt;ignoreCase&lt;/code&gt;、&lt;code&gt;multiline&lt;/code&gt; 表示是否设置了该标志&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="javascript" scheme="http://sunjiaying.com/categories/javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
+    
+      <category term="RegExp" scheme="http://sunjiaying.com/tags/RegExp/"/>
     
   </entry>
   
@@ -345,9 +345,9 @@
   </entry>
   
   <entry>
-    <title>Vue +Node +Mysql 从简至全（一）</title>
-    <link href="http://sunjiaying.com/2017/11/06/Vue%20+Node%20+Mysql%20%E4%BB%8E%E7%AE%80%E8%87%B3%E5%85%A8%EF%BC%88%E4%B8%80%EF%BC%89/"/>
-    <id>http://sunjiaying.com/2017/11/06/Vue +Node +Mysql 从简至全（一）/</id>
+    <title>Vue +Node +Mysql 从简至全（二）</title>
+    <link href="http://sunjiaying.com/2017/11/06/Vue%20+Node%20+Mysql%20%E4%BB%8E%E7%AE%80%E8%87%B3%E5%85%A8%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
+    <id>http://sunjiaying.com/2017/11/06/Vue +Node +Mysql 从简至全（二）/</id>
     <published>2017-11-06T02:07:00.000Z</published>
     <updated>2018-10-14T12:37:34.582Z</updated>
     
@@ -414,9 +414,9 @@
   </entry>
   
   <entry>
-    <title>Vue +Node +Mysql 从简至全（二）</title>
-    <link href="http://sunjiaying.com/2017/11/06/Vue%20+Node%20+Mysql%20%E4%BB%8E%E7%AE%80%E8%87%B3%E5%85%A8%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
-    <id>http://sunjiaying.com/2017/11/06/Vue +Node +Mysql 从简至全（二）/</id>
+    <title>Vue +Node +Mysql 从简至全（一）</title>
+    <link href="http://sunjiaying.com/2017/11/06/Vue%20+Node%20+Mysql%20%E4%BB%8E%E7%AE%80%E8%87%B3%E5%85%A8%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+    <id>http://sunjiaying.com/2017/11/06/Vue +Node +Mysql 从简至全（一）/</id>
     <published>2017-11-06T02:07:00.000Z</published>
     <updated>2018-10-14T12:37:34.582Z</updated>
     
