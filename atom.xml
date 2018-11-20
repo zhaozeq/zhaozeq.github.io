@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Z_S</title>
+  
+  <subtitle>赵泽清 -- 一个追逐太阳的程序猿</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://sunjiaying.com/"/>
+  <updated>2018-11-20T15:30:38.762Z</updated>
+  <id>http://sunjiaying.com/</id>
+  
+  <author>
+    <name>赵泽清</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>canvas 基础以及2048游戏实践</title>
+    <link href="http://sunjiaying.com/2018/11/16/canvas%20%E5%9F%BA%E7%A1%80%E4%BB%A5%E5%8F%8A2048%E6%B8%B8%E6%88%8F%E5%AE%9E%E8%B7%B5/"/>
+    <id>http://sunjiaying.com/2018/11/16/canvas 基础以及2048游戏实践/</id>
+    <published>2018-11-16T02:07:00.000Z</published>
+    <updated>2018-11-20T15:30:38.762Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;canvas（画布）：顾名思义用来画画的容器 ta本领很大 可以实现ps上大部分功能&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;http://sunjiaying.com/images/2048.jpg&quot; alt=&quot;2048游戏&quot;&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="html5/css3" scheme="http://sunjiaying.com/categories/html5-css3/"/>
+    
+    
+      <category term="canvas" scheme="http://sunjiaying.com/tags/canvas/"/>
+    
+      <category term="html5" scheme="http://sunjiaying.com/tags/html5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>node fs系统</title>
+    <link href="http://sunjiaying.com/2018/11/16/node%20fs%E7%B3%BB%E7%BB%9F/"/>
+    <id>http://sunjiaying.com/2018/11/16/node fs系统/</id>
+    <published>2018-11-16T02:07:00.000Z</published>
+    <updated>2018-11-17T10:47:08.071Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt; 引入fs模块 &lt;code&gt;const fs = require(&amp;quot;fs&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&quot;1-fs-access-检测-path-指定的文件或目录的用户权限&quot;&gt;&lt;a href=&quot;#1-fs-access-检测-path-指定的文件或目录的用户权限&quot; class=&quot;headerlink&quot; title=&quot;1. fs.access  检测 path 指定的文件或目录的用户权限&quot;&gt;&lt;/a&gt;1. fs.access  检测 path 指定的文件或目录的用户权限&lt;/h2&gt;&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//- path&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//- mode 默认fs.constants.F_OK / ~R_OK / ~W_OK&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// (文件存在？/可读？/可写？) &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;fs.stat(path, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;err, stats&lt;/span&gt;) &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (err) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(err)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;&quot;文件：&quot;&lt;/span&gt; + stats.isFile())&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;&quot;目录：&quot;&lt;/span&gt; + stats.isDirectory())&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="node" scheme="http://sunjiaying.com/categories/node/"/>
+    
+    
+      <category term="node" scheme="http://sunjiaying.com/tags/node/"/>
+    
+      <category term="fs" scheme="http://sunjiaying.com/tags/fs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端面试题总结</title>
+    <link href="http://sunjiaying.com/2018/09/02/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/"/>
+    <id>http://sunjiaying.com/2018/09/02/前端面试题总结/</id>
+    <published>2018-09-01T16:00:00.000Z</published>
+    <updated>2018-10-14T12:37:34.582Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;React相关&quot;&gt;&lt;a href=&quot;#React相关&quot; class=&quot;headerlink&quot; title=&quot;React相关&quot;&gt;&lt;/a&gt;React相关&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;React中的props和state的用法：&lt;ul&gt;
+&lt;li&gt;props:(只读性)&lt;ul&gt;
+&lt;li&gt;单项数据流且不可改变&lt;/li&gt;
+&lt;li&gt;只有通过父组件重新渲染的方式才可以把新的props传入组件中。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;state:(可变)&lt;ul&gt;
+&lt;li&gt;组件内部数据状态&lt;/li&gt;
+&lt;li&gt;需要通过this.setState()方法来修改state。&lt;/li&gt;
+&lt;li&gt;调用this.setState方法时，组件进行重新渲染。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;setState(updater, callback)&lt;/code&gt;：&lt;ul&gt;
+&lt;li&gt;(prevState, props) =&amp;gt; stateChange&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="javascript" scheme="http://sunjiaying.com/categories/javascript/"/>
+    
+    
+      <category term="阿里面试" scheme="http://sunjiaying.com/tags/%E9%98%BF%E9%87%8C%E9%9D%A2%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ES6</title>
+    <link href="http://sunjiaying.com/2018/08/10/ES6/"/>
+    <id>http://sunjiaying.com/2018/08/10/ES6/</id>
+    <published>2018-08-09T16:00:00.000Z</published>
+    <updated>2018-11-17T10:40:20.079Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一、-变量赋值与解构&quot;&gt;&lt;a href=&quot;#一、-变量赋值与解构&quot; class=&quot;headerlink&quot; title=&quot;一、 变量赋值与解构&quot;&gt;&lt;/a&gt;一、 变量赋值与解构&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;默认值赋值注意点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;只有当一个数组成员严格等于undefined，默认值才会生效。&lt;/p&gt;
+&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; [x = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;] = [&lt;span class=&quot;literal&quot;&gt;undefined&lt;/span&gt;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;x &lt;span class=&quot;comment&quot;&gt;// 1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; [x = &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;] = [&lt;span class=&quot;literal&quot;&gt;null&lt;/span&gt;];&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;x &lt;span class=&quot;comment&quot;&gt;// null&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;默认值可以引用解构赋值的其他变量，但该变量必须已经声明。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;let [x = 1, y = x] = [];     // x=1; y=1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let [x = 1, y = x] = [2];    // x=2; y=2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let [x = 1, y = x] = [1, 2]; // x=1; y=2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;let [x = y, y = 1] = [];     // ReferenceError: y is not defined&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="javascript" scheme="http://sunjiaying.com/categories/javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redux实践——减少样板代码</title>
+    <link href="http://sunjiaying.com/2018/05/27/2018-5-27-Redux%E5%AE%9E%E8%B7%B5%E2%80%94%E2%80%94%E5%87%8F%E5%B0%91%E6%A0%B7%E6%9D%BF%E4%BB%A3%E7%A0%81/"/>
+    <id>http://sunjiaying.com/2018/05/27/2018-5-27-Redux实践——减少样板代码/</id>
+    <published>2018-05-27T02:07:00.000Z</published>
+    <updated>2018-10-14T14:36:36.661Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在编写Redux代码时，可能最令人感到厌烦的是必须写一大堆样板代码。在编写同步action时还能忍受，但在编写异步action时，大量的样板代码不仅使代码量陡增，而且难以维护。接下来我们就来探究如何使用&lt;code&gt;高阶函数（High-order Function）&lt;/code&gt;和&lt;code&gt;中间件（middleware）&lt;/code&gt;减少样板代码。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="React" scheme="http://sunjiaying.com/categories/React/"/>
+    
+      <category term="Redux" scheme="http://sunjiaying.com/categories/React/Redux/"/>
+    
+    
+      <category term="React" scheme="http://sunjiaying.com/tags/React/"/>
+    
+      <category term="Redux" scheme="http://sunjiaying.com/tags/Redux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《高级程序设计》整理(二)- - -正则与函数篇</title>
+    <link href="http://sunjiaying.com/2018/03/20/2018-3-20-%E3%80%8A%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E3%80%8B%E6%95%B4%E7%90%86-%E4%BA%8C-%E6%AD%A3%E5%88%99%E4%B8%8E%E5%87%BD%E6%95%B0%E7%AF%87/"/>
+    <id>http://sunjiaying.com/2018/03/20/2018-3-20-《高级程序设计》整理-二-正则与函数篇/</id>
+    <published>2018-03-20T02:07:00.000Z</published>
+    <updated>2018-11-17T10:40:20.205Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;《高级程序设计》整理(二)- - -正则与函数篇&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;###一、正则（RegExp）&lt;br&gt; &amp;nbsp; &amp;nbsp; - - -| let pattern = / patern / ( i | g | m )    i:忽略大小写  g:全局匹配  m:多行匹配&lt;br&gt; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; （元字符需要转义—-&amp;gt; ‘ ( { \ ^ $ | ) ? * + . ] } ‘ ）&lt;/p&gt;
+&lt;p&gt; &amp;nbsp; &amp;nbsp;  - - -|   RegExp的实例属性：&lt;code&gt;global&lt;/code&gt;、&lt;code&gt;ignoreCase&lt;/code&gt;、&lt;code&gt;multiline&lt;/code&gt; 表示是否设置了该标志&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="javascript" scheme="http://sunjiaying.com/categories/javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
+    
+      <category term="RegExp" scheme="http://sunjiaying.com/tags/RegExp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《高级程序设计》整理(三)- - -JS对象</title>
+    <link href="http://sunjiaying.com/2018/03/20/2018-3-20-%E3%80%8A%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E3%80%8B%E6%95%B4%E7%90%86-%E4%B8%89-JS%E5%AF%B9%E8%B1%A1-1/"/>
+    <id>http://sunjiaying.com/2018/03/20/2018-3-20-《高级程序设计》整理-三-JS对象-1/</id>
+    <published>2018-03-20T02:07:00.000Z</published>
+    <updated>2018-11-17T10:40:20.080Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;JS对象&lt;br&gt;一、属性类型&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;数据属性&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;[[Configurable]]&lt;br&gt;表示能否通过delete删除属性从而重新定义属性，能否修改属性的特性，能否把属性修改为访问器属性。直接在对象上定义的属性，默认值为true。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;[[Enumerable]]&lt;br&gt;表示能否通过&lt;code&gt;for-in&lt;/code&gt;循环返回属性。直接在对象上定义的属性，默认值为true。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;[[Writable]]&lt;br&gt;表示能否修改属性的值。直接在对象上定义的属性，默认为true。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;[[Value]]&lt;br&gt;包含这个属性的数据值；读取属性值的时候，从这个位置读取；写入属性值的时候，把值保存在这里。默认为undefined。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="javascript" scheme="http://sunjiaying.com/categories/javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《高级程序设计》整理(一)- - -数据类型和数组篇</title>
+    <link href="http://sunjiaying.com/2018/03/20/2018-3-20-%E3%80%8A%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E3%80%8B%E6%95%B4%E7%90%86-%E4%B8%80-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E6%95%B0%E7%BB%84%E7%AF%87/"/>
+    <id>http://sunjiaying.com/2018/03/20/2018-3-20-《高级程序设计》整理-一-数据类型和数组篇/</id>
+    <published>2018-03-20T02:07:00.000Z</published>
+    <updated>2018-11-17T10:40:20.079Z</updated>
+    
+    <summary type="html">
+    
+      &lt;hr&gt;
+&lt;p&gt;###一、JavaScript六种数据类型 &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Undefined == &lt;code&gt;Boolean&lt;/code&gt;  ==》等于&lt;code&gt;true&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Null:表示一个空指针对象 &lt;code&gt;typeof(null)===&amp;quot;object&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Boolean:true / false&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Number  &lt;code&gt;NAN==NAN&lt;/code&gt; ==》&lt;code&gt;false&lt;/code&gt;&lt;br&gt;- - -|  &lt;code&gt;isNAN(true)=1&lt;/code&gt;&lt;br&gt;- - -|  &lt;code&gt;Number(null) = 0&lt;/code&gt; - - &lt;code&gt;Number(&amp;quot;&amp;quot;) = 0&lt;/code&gt;   对于各种进制的字符串将其转换成相同大小的十进制– –&amp;gt;更常用的是&lt;code&gt;parsent(&amp;quot;&amp;quot;)=NAN&lt;/code&gt; - - &lt;code&gt;parsent(&amp;quot;070&amp;quot;)=56&lt;/code&gt; ES3识别成八进制 ES5识别成70—-&amp;gt;&lt;code&gt;parsent(&amp;quot;070&amp;quot;,8)&lt;/code&gt; 八进制&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;String&lt;br&gt;- - -|  &lt;code&gt;toString(2|8|10|16)&lt;/code&gt;   null/undefined 没有toString方法&lt;br&gt;- - -|  转型函数String()  如果有&lt;code&gt;tostring()&lt;/code&gt;方法则调用他 如果是 null/undefined —&amp;gt;”null”/“undefined”&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="javascript" scheme="http://sunjiaying.com/categories/javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
+    
+      <category term="array" scheme="http://sunjiaying.com/tags/array/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Webpack配置由简至全</title>
+    <link href="http://sunjiaying.com/2018/02/12/2018-2-12-Webpack%E9%85%8D%E7%BD%AE%E7%94%B1%E7%AE%80%E8%87%B3%E5%85%A8%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+    <id>http://sunjiaying.com/2018/02/12/2018-2-12-Webpack配置由简至全（一）/</id>
+    <published>2018-02-12T02:07:00.000Z</published>
+    <updated>2018-10-14T12:37:34.582Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;###一、基本安装&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;第一步&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span
+        
+      
+    
+    </summary>
+    
+      <category term="node" scheme="http://sunjiaying.com/categories/node/"/>
+    
+    
+      <category term="node" scheme="http://sunjiaying.com/tags/node/"/>
+    
+      <category term="webpack" scheme="http://sunjiaying.com/tags/webpack/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Webpack3配置由简至全（二）</title>
+    <link href="http://sunjiaying.com/2018/02/12/2018-2-14-Webpack%E9%85%8D%E7%BD%AE%E7%94%B1%E7%AE%80%E8%87%B3%E5%85%A8%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
+    <id>http://sunjiaying.com/2018/02/12/2018-2-14-Webpack配置由简至全（二）/</id>
+    <published>2018-02-12T02:07:00.000Z</published>
+    <updated>2018-10-14T12:37:34.582Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;###二、完善&lt;code&gt;webpack.config.js&lt;/code&gt;配置（2）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;4. 为了开发-开发工具&lt;/strong&gt;&lt;br&gt;官网&lt;a href=&quot;https://webpack.js.org&quot; target=&quot;_blank&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="node" scheme="http://sunjiaying.com/categories/node/"/>
+    
+    
+      <category term="node" scheme="http://sunjiaying.com/tags/node/"/>
+    
+      <category term="webpack3" scheme="http://sunjiaying.com/tags/webpack3/"/>
+    
+      <category term="react" scheme="http://sunjiaying.com/tags/react/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>formatDate函数</title>
+    <link href="http://sunjiaying.com/2017/12/12/Date()%20%E6%97%B6%E9%97%B4%E7%9A%84%E4%B8%80%E4%B8%AA%20format%20%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%87%BD%E6%95%B0/"/>
+    <id>http://sunjiaying.com/2017/12/12/Date() 时间的一个 format 格式化函数/</id>
+    <published>2017-12-12T02:07:00.000Z</published>
+    <updated>2018-11-17T10:40:20.080Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span
+        
+      
+    
+    </summary>
+    
+      <category term="javascript" scheme="http://sunjiaying.com/categories/javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
+    
+      <category term="Exp" scheme="http://sunjiaying.com/tags/Exp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vue +Node +Mysql 从简至全（一）</title>
+    <link href="http://sunjiaying.com/2017/11/06/Vue%20+Node%20+Mysql%20%E4%BB%8E%E7%AE%80%E8%87%B3%E5%85%A8%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+    <id>http://sunjiaying.com/2017/11/06/Vue +Node +Mysql 从简至全（一）/</id>
+    <published>2017-11-06T02:07:00.000Z</published>
+    <updated>2018-10-14T12:37:34.582Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;##简单的后端接口连接的实现&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;–这一部分是实现后端的接口，接下来会依次实现数据库操作和前后端数据交互过程。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;后端：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;npm install express mysql
+        
+      
+    
+    </summary>
+    
+      <category term="vue" scheme="http://sunjiaying.com/categories/vue/"/>
+    
+    
+      <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
+    
+      <category term="vue" scheme="http://sunjiaying.com/tags/vue/"/>
+    
+      <category term="node" scheme="http://sunjiaying.com/tags/node/"/>
+    
+      <category term="Mysql" scheme="http://sunjiaying.com/tags/Mysql/"/>
+    
+      <category term="html" scheme="http://sunjiaying.com/tags/html/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SVG路径描边动画效果</title>
+    <link href="http://sunjiaying.com/2017/11/06/SVG%E8%B7%AF%E5%BE%84%E6%8F%8F%E8%BE%B9%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
+    <id>http://sunjiaying.com/2017/11/06/SVG路径描边动画效果的实现/</id>
+    <published>2017-11-06T02:07:00.000Z</published>
+    <updated>2018-10-14T12:37:34.582Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;blockquote&gt;
+&lt;p&gt;理解SVG坐标系和变换：视窗,viewBox和preserveAspectRatio部分&lt;br&gt;参考自: &lt;a href=&quot;http://www.w3cplus.com/html5/svg-coordinate-systems.html&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="svg" scheme="http://sunjiaying.com/categories/svg/"/>
+    
+    
+      <category term="svg" scheme="http://sunjiaying.com/tags/svg/"/>
+    
+      <category term="css3" scheme="http://sunjiaying.com/tags/css3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Vue +Node +Mysql 从简至全（二）</title>
+    <link href="http://sunjiaying.com/2017/11/06/Vue%20+Node%20+Mysql%20%E4%BB%8E%E7%AE%80%E8%87%B3%E5%85%A8%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
+    <id>http://sunjiaying.com/2017/11/06/Vue +Node +Mysql 从简至全（二）/</id>
+    <published>2017-11-06T02:07:00.000Z</published>
+    <updated>2018-10-14T12:37:34.582Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;##简单的后端接口连接的实现&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;–这一部分是实现后端的接口，接下来会依次实现数据库操作和前后端数据交互过程。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;后端：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;npm install express mysql
+        
+      
+    
+    </summary>
+    
+      <category term="vue" scheme="http://sunjiaying.com/categories/vue/"/>
+    
+    
+      <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
+    
+      <category term="vue" scheme="http://sunjiaying.com/tags/vue/"/>
+    
+      <category term="node" scheme="http://sunjiaying.com/tags/node/"/>
+    
+      <category term="Mysql" scheme="http://sunjiaying.com/tags/Mysql/"/>
+    
+      <category term="html" scheme="http://sunjiaying.com/tags/html/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>fullPage代码从基层往上爬（一）</title>
+    <link href="http://sunjiaying.com/2017/10/07/fullPage%E4%BB%A3%E7%A0%81%E4%BB%8E%E5%9F%BA%E5%B1%82%E5%BE%80%E4%B8%8A%E7%88%AC%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+    <id>http://sunjiaying.com/2017/10/07/fullPage代码从基层往上爬（一）/</id>
+    <published>2017-10-07T02:07:00.000Z</published>
+    <updated>2018-10-14T12:37:34.566Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;自己打算通过fullPage.js来好好巩固滚轮事件、兼容性实现、jquery、函数封装等等….&lt;br&gt;这一部分先完成fullPage的基础功能，接下来就会进行封装、优雅降级、添加功能等…&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;html代码结构&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;str
+        
+      
+    
+    </summary>
+    
+      <category term="javascript" scheme="http://sunjiaying.com/categories/javascript/"/>
+    
+      <category term="jQuery" scheme="http://sunjiaying.com/categories/javascript/jQuery/"/>
+    
+    
+      <category term="jQuery" scheme="http://sunjiaying.com/tags/jQuery/"/>
+    
+      <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
+    
+      <category term="html" scheme="http://sunjiaying.com/tags/html/"/>
+    
+      <category term="css" scheme="http://sunjiaying.com/tags/css/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>组建通信的双向绑定问题</title>
+    <link href="http://sunjiaying.com/2017/09/06/VueAvoid%20mutating%20a%20prop%20directly%20since%20the%20value%20will%20be%20overwritten%20...%E8%AD%A6%E5%91%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
+    <id>http://sunjiaying.com/2017/09/06/VueAvoid mutating a prop directly since the value will be overwritten ...警告解决方法/</id>
+    <published>2017-09-06T03:04:38.000Z</published>
+    <updated>2018-10-14T12:37:34.566Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;这个问题的本质还是组建通信的双向绑定问题&quot;&gt;&lt;a href=&quot;#这个问题的本质还是组建通信的双向绑定问题&quot; class=&quot;headerlink&quot; title=&quot;这个问题的本质还是组建通信的双向绑定问题&quot;&gt;&lt;/a&gt;这个问题的本质还是组建通信的双向绑定问题&lt;/h3&gt;&lt;p&gt;####在&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="vue" scheme="http://sunjiaying.com/categories/vue/"/>
+    
+    
+      <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
+    
+      <category term="vue" scheme="http://sunjiaying.com/tags/vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>jQuery 拓展方法</title>
+    <link href="http://sunjiaying.com/2017/03/06/3.jQuery%E6%8B%93%E5%B1%95%E6%96%B9%E6%B3%95extend();/"/>
+    <id>http://sunjiaying.com/2017/03/06/3.jQuery拓展方法extend();/</id>
+    <published>2017-03-06T06:04:58.000Z</published>
+    <updated>2018-10-14T12:37:34.566Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;####&lt;strong&gt;1.当只写一个对象自变量的时候，JQ中扩展插件的形式&lt;/strong&gt;&lt;br&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span
+        
+      
+    
+    </summary>
+    
+      <category term="javascript" scheme="http://sunjiaying.com/categories/javascript/"/>
+    
+    
+      <category term="jQuery" scheme="http://sunjiaying.com/tags/jQuery/"/>
+    
+      <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>理解merge和pushStack可以更好的了解jQuery源码</title>
+    <link href="http://sunjiaying.com/2017/03/06/2.%E7%90%86%E8%A7%A3merge%E5%92%8CpushStack%E5%8F%AF%E4%BB%A5%E6%9B%B4%E5%A5%BD%E7%9A%84%E4%BA%86%E8%A7%A3jQuery%E6%BA%90%E7%A0%81/"/>
+    <id>http://sunjiaying.com/2017/03/06/2.理解merge和pushStack可以更好的了解jQuery源码/</id>
+    <published>2017-03-06T03:04:38.000Z</published>
+    <updated>2018-10-14T12:37:34.566Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;我就想看看自己JS学到什么程度然后让自己对jquery方法有更深的印象就“作死着”去看了看jquery源码，毕竟都说其编码结构很NB…&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;目前还只看到前面一部分，基本是在&lt;em&gt;jQuery&lt;/em&gt;构造方法下 定义了一些变量和方法。&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;然后发现 &lt;code&gt;merge()&lt;/code&gt; 和 &lt;code&gt;pushStack()&lt;/code&gt; 出现多次,然后就去看了这两个方法，相信对大家也会很有用的。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="javascript" scheme="http://sunjiaying.com/categories/javascript/"/>
+    
+    
+      <category term="jQuery" scheme="http://sunjiaying.com/tags/jQuery/"/>
+    
+      <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>jQuery由来</title>
+    <link href="http://sunjiaying.com/2017/03/06/1.jQuery()%E5%92%8C$()%E7%9A%84%E7%94%B1%E6%9D%A5/"/>
+    <id>http://sunjiaying.com/2017/03/06/1.jQuery()和$()的由来/</id>
+    <published>2017-03-06T02:04:08.000Z</published>
+    <updated>2018-10-14T12:37:34.566Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span
+        
+      
+    
+    </summary>
+    
+      <category term="javascript" scheme="http://sunjiaying.com/categories/javascript/"/>
+    
+    
+      <category term="jQuery" scheme="http://sunjiaying.com/tags/jQuery/"/>
+    
+      <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
+    
+  </entry>
+  
+</feed>
