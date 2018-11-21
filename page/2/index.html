@@ -255,7 +255,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sunjiaying.com/2018/03/20/2018-3-20-《高级程序设计》整理-二-正则与函数篇/">
+    <link itemprop="mainEntityOfPage" href="http://sunjiaying.com/2018/03/20/2018-3-20-《高级程序设计》整理-三-JS对象-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="赵泽清">
@@ -274,7 +274,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/20/2018-3-20-《高级程序设计》整理-二-正则与函数篇/" itemprop="url">《高级程序设计》整理(二)- - -正则与函数篇</a></h2>
+                <a class="post-title-link" href="/2018/03/20/2018-3-20-《高级程序设计》整理-三-JS对象-1/" itemprop="url">《高级程序设计》整理(三)- - -JS对象</a></h2>
         
 
         <div class="post-meta">
@@ -359,13 +359,24 @@
 
       
         
-          <p>《高级程序设计》整理(二)- - -正则与函数篇</p>
-<hr>
-<p>###一、正则（RegExp）<br> &nbsp; &nbsp; - - -| let pattern = / patern / ( i | g | m )    i:忽略大小写  g:全局匹配  m:多行匹配<br> &nbsp; &nbsp; &nbsp; &nbsp; （元字符需要转义—-&gt; ‘ ( { \ ^ $ | ) ? * + . ] } ‘ ）</p>
-<p> &nbsp; &nbsp;  - - -|   RegExp的实例属性：<code>global</code>、<code>ignoreCase</code>、<code>multiline</code> 表示是否设置了该标志</p>
+          <p>JS对象<br>一、属性类型</p>
+<ol>
+<li><p>数据属性</p>
+<ul>
+<li><p>[[Configurable]]<br>表示能否通过delete删除属性从而重新定义属性，能否修改属性的特性，能否把属性修改为访问器属性。直接在对象上定义的属性，默认值为true。</p>
+</li>
+<li><p>[[Enumerable]]<br>表示能否通过<code>for-in</code>循环返回属性。直接在对象上定义的属性，默认值为true。</p>
+</li>
+<li><p>[[Writable]]<br>表示能否修改属性的值。直接在对象上定义的属性，默认为true。</p>
+</li>
+<li><p>[[Value]]<br>包含这个属性的数据值；读取属性值的时候，从这个位置读取；写入属性值的时候，把值保存在这里。默认为undefined。</p>
+</li>
+</ul>
+</li>
+</ol>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/20/2018-3-20-《高级程序设计》整理-二-正则与函数篇/#more" rel="contents">
+            <a class="btn" href="/2018/03/20/2018-3-20-《高级程序设计》整理-三-JS对象-1/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -541,209 +552,6 @@
             </a>
           </div>
           <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sunjiaying.com/2018/02/12/2018-2-12-Webpack配置由简至全（一）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="赵泽清">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Z_S">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/12/2018-2-12-Webpack配置由简至全（一）/" itemprop="url">Webpack配置由简至全</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-12T10:07:00+08:00">
-                2018-02-12
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-10-14T20:37:34+08:00">
-                2018-10-14
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/node/" itemprop="url" rel="index">
-                    <span itemprop="name">node</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>###一、基本安装</p>
-<ul>
-<li><p>第一步</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir project-name &amp;&amp; cd project-name</span><br><span class="line">$ npm init -y   //-y:跳过询问</span><br><span class="line">$ npm install webpack --save-dev</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>第二步<br>在当前目录创建index.html 、 index.js 和 webpack.config.js<br>|- package.json<br>|- index.html<br>|- src<br>|- webpack.config.js<br>&nbsp;&nbsp;&nbsp;&nbsp;|- index.js</p>
-</li>
-<li>第三步<code>html</code>&amp;<code>webpack.config.js</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//index.html</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">  &lt;title&gt;test&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div id=&quot;root&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//webpack.config.js</span><br><span class="line">const path = require(&apos;path&apos;);</span><br><span class="line">module.exports = &#123;</span><br><span class="line">  entry: &apos;./src/index.js&apos;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: &apos;bundle.js&apos;,</span><br><span class="line">    path: path.resolve(__dirname, &apos;dist&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>第四步<br>运行<code>webpack.config.js</code> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./node_modules/.bin/webpack --config webpack.config.js</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ ./node_modules/.bin/webpack --mode development --config  webpack.config.js</span><br><span class="line">Hash: e0686a5b50f610b48d10</span><br><span class="line">Version: webpack 4.10.2</span><br><span class="line">Time: 66ms</span><br><span class="line">Built at: 2018-05-31 19:21:18</span><br><span class="line">    Asset   Size  Chunks             Chunk Names</span><br><span class="line">bundle.js  4 KiB    main  [emitted]  main</span><br><span class="line">Entrypoint main = bundle.js</span><br><span class="line">[./src/index.js] 227 bytes &#123;main&#125; [built]</span><br></pre></td></tr></table></figure></p>
-<p>自此我们已经完成了一个最简单的打包过程了</p>
-<p>###二、完善<code>webpack.config.js</code>配置</p>
-<ul>
-<li><strong>1. HtmlWebpackPlugin插件  <code>//打包生成html文件</code></strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install html-webpack-plugin -D</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>在<code>webpack.config.js</code>中引入<code>html-webpack-plugin</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">plugins: [</span><br><span class="line">    new HtmlWebpackPlugin(&#123;</span><br><span class="line">        template: __dirname + &quot;/index.html&quot;,  //目标文件</span><br><span class="line">        inject: true, //script标签位置； false:不插入js标签</span><br><span class="line">        minify: &#123;     //一些压缩操作 =&gt;自 create-react-app</span><br><span class="line">          removeComments: true,</span><br><span class="line">          collapseWhitespace: true, //折叠空格</span><br><span class="line">          removeRedundantAttributes: true,</span><br><span class="line">          useShortDoctype: true,</span><br><span class="line">          removeEmptyAttributes: true,</span><br><span class="line">          removeStyleLinkTypeAttributes: true,</span><br><span class="line">          keepClosingSlash: true,</span><br><span class="line">          minifyJS: true,</span><br><span class="line">          minifyCSS: true,</span><br><span class="line">          minifyURLs: true,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li><strong>2 . module –为了识别各种文件</strong></li>
-</ul>
-<p>为了从 JavaScript 模块中 import 一个 CSS 文件<br> 首先下载loaders:<br> <code>$ npm install --save-dev style-loader css-loader</code><br> 然后</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">module: &#123;</span><br><span class="line">  rules: [</span><br><span class="line">    &#123;</span><br><span class="line">      test: /\.css$/,//根据正则匹配css后缀的文件</span><br><span class="line">     use: [</span><br><span class="line">        &apos;style-loader&apos;,</span><br><span class="line">        &apos;css-loader&apos;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</code></pre><p>其他类似，根据所用文件来使用相应解析器，如</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],</span><br><span class="line">    loader: require.resolve(&apos;url-loader&apos;),</span><br><span class="line">    options: &#123; </span><br><span class="line">        limit: 1024,</span><br><span class="line">        name: &apos;static/media/[name].[hash:8].[ext]&apos;,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-</code></pre><ul>
-<li><strong>3 . hash | chunkhash | contenthash –为了解决缓存问题</strong><br>写法：<code>filename: &#39;[name].[chunkhash:8].js&#39;</code><ul>
-<li><code>hash</code>：一个版本一个独一无二的hash<ul>
-<li>（全部文件都共用相同的hash值）</li>
-</ul>
-</li>
-<li><code>chunkhash</code>：一个模块独一无二的hash<ul>
-<li>（只要模块不改变，chunkhash不变）</li>
-</ul>
-</li>
-<li><code>contenthash</code>：一个文件独一无二的hash<ul>
-<li>（文件改变内容，contenthash即改变） </li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>这里hash值改变就会产生一个问题：打包后的文件会始终叠加<br>因此需要用一个删除文件的插件<code>clean-webpack-plugin</code><br><code>new CleanWebpackPlugin(pathsToClean)//pathsToClean:&#39;dist&#39;</code></p>
-</blockquote>
-
-          
         
       
     </div>
@@ -998,6 +806,209 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sunjiaying.com/2018/02/12/2018-2-12-Webpack配置由简至全（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵泽清">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Z_S">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/12/2018-2-12-Webpack配置由简至全（一）/" itemprop="url">Webpack配置由简至全</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-12T10:07:00+08:00">
+                2018-02-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-10-14T20:37:34+08:00">
+                2018-10-14
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node/" itemprop="url" rel="index">
+                    <span itemprop="name">node</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>###一、基本安装</p>
+<ul>
+<li><p>第一步</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir project-name &amp;&amp; cd project-name</span><br><span class="line">$ npm init -y   //-y:跳过询问</span><br><span class="line">$ npm install webpack --save-dev</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第二步<br>在当前目录创建index.html 、 index.js 和 webpack.config.js<br>|- package.json<br>|- index.html<br>|- src<br>|- webpack.config.js<br>&nbsp;&nbsp;&nbsp;&nbsp;|- index.js</p>
+</li>
+<li>第三步<code>html</code>&amp;<code>webpack.config.js</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//index.html</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">  &lt;title&gt;test&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div id=&quot;root&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//webpack.config.js</span><br><span class="line">const path = require(&apos;path&apos;);</span><br><span class="line">module.exports = &#123;</span><br><span class="line">  entry: &apos;./src/index.js&apos;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: &apos;bundle.js&apos;,</span><br><span class="line">    path: path.resolve(__dirname, &apos;dist&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第四步<br>运行<code>webpack.config.js</code> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./node_modules/.bin/webpack --config webpack.config.js</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ ./node_modules/.bin/webpack --mode development --config  webpack.config.js</span><br><span class="line">Hash: e0686a5b50f610b48d10</span><br><span class="line">Version: webpack 4.10.2</span><br><span class="line">Time: 66ms</span><br><span class="line">Built at: 2018-05-31 19:21:18</span><br><span class="line">    Asset   Size  Chunks             Chunk Names</span><br><span class="line">bundle.js  4 KiB    main  [emitted]  main</span><br><span class="line">Entrypoint main = bundle.js</span><br><span class="line">[./src/index.js] 227 bytes &#123;main&#125; [built]</span><br></pre></td></tr></table></figure></p>
+<p>自此我们已经完成了一个最简单的打包过程了</p>
+<p>###二、完善<code>webpack.config.js</code>配置</p>
+<ul>
+<li><strong>1. HtmlWebpackPlugin插件  <code>//打包生成html文件</code></strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install html-webpack-plugin -D</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在<code>webpack.config.js</code>中引入<code>html-webpack-plugin</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">plugins: [</span><br><span class="line">    new HtmlWebpackPlugin(&#123;</span><br><span class="line">        template: __dirname + &quot;/index.html&quot;,  //目标文件</span><br><span class="line">        inject: true, //script标签位置； false:不插入js标签</span><br><span class="line">        minify: &#123;     //一些压缩操作 =&gt;自 create-react-app</span><br><span class="line">          removeComments: true,</span><br><span class="line">          collapseWhitespace: true, //折叠空格</span><br><span class="line">          removeRedundantAttributes: true,</span><br><span class="line">          useShortDoctype: true,</span><br><span class="line">          removeEmptyAttributes: true,</span><br><span class="line">          removeStyleLinkTypeAttributes: true,</span><br><span class="line">          keepClosingSlash: true,</span><br><span class="line">          minifyJS: true,</span><br><span class="line">          minifyCSS: true,</span><br><span class="line">          minifyURLs: true,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><strong>2 . module –为了识别各种文件</strong></li>
+</ul>
+<p>为了从 JavaScript 模块中 import 一个 CSS 文件<br> 首先下载loaders:<br> <code>$ npm install --save-dev style-loader css-loader</code><br> 然后</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">module: &#123;</span><br><span class="line">  rules: [</span><br><span class="line">    &#123;</span><br><span class="line">      test: /\.css$/,//根据正则匹配css后缀的文件</span><br><span class="line">     use: [</span><br><span class="line">        &apos;style-loader&apos;,</span><br><span class="line">        &apos;css-loader&apos;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre><p>其他类似，根据所用文件来使用相应解析器，如</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],</span><br><span class="line">    loader: require.resolve(&apos;url-loader&apos;),</span><br><span class="line">    options: &#123; </span><br><span class="line">        limit: 1024,</span><br><span class="line">        name: &apos;static/media/[name].[hash:8].[ext]&apos;,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+</code></pre><ul>
+<li><strong>3 . hash | chunkhash | contenthash –为了解决缓存问题</strong><br>写法：<code>filename: &#39;[name].[chunkhash:8].js&#39;</code><ul>
+<li><code>hash</code>：一个版本一个独一无二的hash<ul>
+<li>（全部文件都共用相同的hash值）</li>
+</ul>
+</li>
+<li><code>chunkhash</code>：一个模块独一无二的hash<ul>
+<li>（只要模块不改变，chunkhash不变）</li>
+</ul>
+</li>
+<li><code>contenthash</code>：一个文件独一无二的hash<ul>
+<li>（文件改变内容，contenthash即改变） </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>这里hash值改变就会产生一个问题：打包后的文件会始终叠加<br>因此需要用一个删除文件的插件<code>clean-webpack-plugin</code><br><code>new CleanWebpackPlugin(pathsToClean)//pathsToClean:&#39;dist&#39;</code></p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://sunjiaying.com/2017/12/12/Date() 时间的一个 format 格式化函数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1151,7 +1162,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sunjiaying.com/2017/11/06/Vue +Node +Mysql 从简至全（二）/">
+    <link itemprop="mainEntityOfPage" href="http://sunjiaying.com/2017/11/06/SVG路径描边动画效果的实现/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="赵泽清">
@@ -1170,7 +1181,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/06/Vue +Node +Mysql 从简至全（二）/" itemprop="url">Vue +Node +Mysql 从简至全（二）</a></h2>
+                <a class="post-title-link" href="/2017/11/06/SVG路径描边动画效果的实现/" itemprop="url">SVG路径描边动画效果</a></h2>
         
 
         <div class="post-meta">
@@ -1217,8 +1228,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
+                  <a href="/categories/svg/" itemprop="url" rel="index">
+                    <span itemprop="name">svg</span>
                   </a>
                 </span>
 
@@ -1256,22 +1267,40 @@
       
         
           
-            <p>##简单的后端接口连接的实现</p>
-<blockquote>
-<p>–这一部分是实现后端的接口，接下来会依次实现数据库操作和前后端数据交互过程。</p>
+            <blockquote>
+<p>理解SVG坐标系和变换：视窗,viewBox和preserveAspectRatio部分<br>参考自: <a href="http://www.w3cplus.com/html5/svg-coordinate-systems.html" target="_blank" rel="noopener">http://www.w3cplus.com/html5/svg-coordinate-systems.html</a> © w3cplus.com</p>
 </blockquote>
-<p>后端：</p>
-<ol>
-<li><p><code>npm install express mysql -S</code></p>
+<p>先来放一个自己写的效果：<br><img src="http://img.blog.csdn.net/20170909140356663?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY1NzE2MDI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>是不是很酷！！！</p>
+<p>###一、先看下svg几个属性：</p>
+<p>####1.<code>stroke:none | currentColor | &lt;color&gt;</code>(描边颜色)<br>    none:        没有颜色<br>    <color>:     常规的颜色值。RGBA, HSBA都支持。<br>    currentColor:可以让路径绘制的文字直接继承父标签的color颜色值。<br><code>stroke-width 表示描边的粗细。</code></color></p>
+<p><code>stroke-linecap 表示描边端点表现方式。可用值有：butt, round, square, inherit.</code></p>
+<p><code>stroke-linejoin 表示描边转角的表现方式。可用值有：miter, round, bevel, inherit.</code></p>
+<p><code>stroke-miterlimit 表示描边相交（锐角）的表现方式。默认大小是4.</code> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">stroke-dasharray 表示虚线描边。可选值为：none, &lt;dasharray&gt;, inherit. </span><br><span class="line"></span><br><span class="line">none表示不是虚线；</span><br><span class="line">&lt;dasharray&gt;为一个逗号或空格分隔的数值列表。表示各个虚线段的长度。可以是固定的长度值，也可以是百分比值；</span><br><span class="line">inherit表继承。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stroke-dashoffset 表示虚线的起始偏移。可选值为：&lt;percentage&gt;, &lt;length&gt;, inherit. 百分比值，长度值，继承。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stroke-opacity 表示描边透明度。默认是1.</span><br></pre></td></tr></table></figure>
+<p>&nbsp;</p>
+<p>####2.SVG坐标系和变换：viewport,viewBox和preserveAspectRatio</p>
+<ul>
+<li><p>viewport：<br>你可以在最外层<svg>元素上使用width和height属性声明视窗尺寸<br/>视窗的初始坐标原点(0,0)在视窗的左上角，<code>X</code>轴正向指向右，<code>Y</code>轴正向指向下，初始坐标系中的一个单位等于视窗中的一个”像素”。</svg></p>
 </li>
-<li><p>编写后端入口文件（app.js）：</p>
-<p><img src="http://img.blog.csdn.net/20171011104140855?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY1NzE2MDI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="入口文件"></p>
+<li><p>viewBox：这个可以声明自己的用户坐标系。<br>viewBox属性接收四个参数值，包括：<code>&lt;min-x&gt;</code>, <code>&lt;min-y&gt;</code>, <code>width</code> 和 <code>height</code>。<br><code>&lt;min-x&gt;</code> 和 <code>&lt;min-y&gt;</code> 值决定viewBox的左上角，<code>width</code>和<code>height</code>决定视窗的宽高。这里要注意视窗的宽高不一定和父<code>&lt;svg&gt;</code>元素的宽高一样。</p>
 </li>
-<li><p>编写路由文件：<br><img src="http://img.blog.csdn.net/20171011104511699?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY1NzE2MDI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="路由文件"></p>
+<li><p>preserveAspectRatio：<br>当视窗的宽高比和用户坐标宽高比不同时就会使得svg发生形变，而preserveAspectRatio属性就是强制统一缩放比来保持图形的宽高比。<br><code>preserveAspectRatio = defer? &lt;align&gt; &lt;meetOrSlice&gt;?</code><br>– defer声明是可选的，并且只有当你在<image>上添加preserveAspectRatio才被用到。在svg中显然没啥用。<br>– align参数声明是否强制统一放缩，如果是，对齐方法会在viewBox的宽高比不符合viewport的宽高比的情况下生效。<br>  如果align值设为none，图形不再保持宽高比而会缩放来适应视窗。<br>– meetOrSlice也是可选的，默认值为meet。这个属性声明整个viewBox在视窗中是否可见。如果是，它和align参数通过一个或多个空格分隔。<br>&nbsp;<br>####3.SVG—&gt;text标签<br>#####有x,y,dx,dy,rotate,textLength,lengthAdjust  这些属性</image></p>
 </li>
-<li><p><code>node app.js</code> 这个时候最简单的后台接口就启动了，可以<a href="http://localhost:3000/test访问到该接口" target="_blank" rel="noopener">http://localhost:3000/test访问到该接口</a></p>
-</li>
-</ol>
+<li>x,y表示文本的横纵坐标。  </li>
+<li>dx,dy表示移动的横纵坐标。 </li>
+<li>rotate表示旋转的度数。</li>
+<li>text-anchor：设置文本排列属性 start|middle|end|inherit<br>&nbsp;</li>
+</ul>
+<p>###二、动画要点：stroke-dasharray和stroke-dashoffset以及CSS3</p>
+<p>stroke-dasharray: 虚线的疏密程度</p>
+<p>stroke-dashoffset: 偏移</p>
+<p>@keyframes stroke {<br>  100% {<br>    stroke-dashoffset: -400; } } </p>
+<p>设置好stroke-dasharray，通过改变stroke-dashoffset来实现动画，思路很简单，就看你的想象力了。</p>
+<p>六、路径的长度<br>如果想知道路径，或线条的准确长度。可能需要借助JavaScript，类似下面的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var path = document.querySelector(&apos;path&apos;);</span><br><span class="line">var length = path.getTotalLength();</span><br></pre></td></tr></table></figure>
 
           
         

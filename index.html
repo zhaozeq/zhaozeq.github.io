@@ -255,6 +255,165 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sunjiaying.com/2018/11/16/node fs系统/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵泽清">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Z_S">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/16/node fs系统/" itemprop="url">node fs系统</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-16T10:07:00+08:00">
+                2018-11-16
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-11-17T18:47:08+08:00">
+                2018-11-17
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node/" itemprop="url" rel="index">
+                    <span itemprop="name">node</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p> 引入fs模块 <code>const fs = require(&quot;fs&quot;)</code></p>
+<h2 id="1-fs-access-检测-path-指定的文件或目录的用户权限"><a href="#1-fs-access-检测-path-指定的文件或目录的用户权限" class="headerlink" title="1. fs.access  检测 path 指定的文件或目录的用户权限"></a>1. fs.access  检测 path 指定的文件或目录的用户权限</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//- path</span></span><br><span class="line"><span class="comment">//- mode 默认fs.constants.F_OK / ~R_OK / ~W_OK</span></span><br><span class="line"><span class="comment">// (文件存在？/可读？/可写？) </span></span><br><span class="line">fs.stat(path, <span class="function"><span class="keyword">function</span>(<span class="params">err, stats</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"文件："</span> + stats.isFile())</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"目录："</span> + stats.isDirectory())</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/11/16/node fs系统/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://sunjiaying.com/2018/11/16/canvas 基础以及2048游戏实践/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -366,165 +525,6 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/11/16/canvas 基础以及2048游戏实践/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sunjiaying.com/2018/11/16/node fs系统/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="赵泽清">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Z_S">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/16/node fs系统/" itemprop="url">node fs系统</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-16T10:07:00+08:00">
-                2018-11-16
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-11-17T18:47:08+08:00">
-                2018-11-17
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/node/" itemprop="url" rel="index">
-                    <span itemprop="name">node</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p> 引入fs模块 <code>const fs = require(&quot;fs&quot;)</code></p>
-<h2 id="1-fs-access-检测-path-指定的文件或目录的用户权限"><a href="#1-fs-access-检测-path-指定的文件或目录的用户权限" class="headerlink" title="1. fs.access  检测 path 指定的文件或目录的用户权限"></a>1. fs.access  检测 path 指定的文件或目录的用户权限</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//- path</span></span><br><span class="line"><span class="comment">//- mode 默认fs.constants.F_OK / ~R_OK / ~W_OK</span></span><br><span class="line"><span class="comment">// (文件存在？/可读？/可写？) </span></span><br><span class="line">fs.stat(path, <span class="function"><span class="keyword">function</span>(<span class="params">err, stats</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(err)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"文件："</span> + stats.isFile())</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"目录："</span> + stats.isDirectory())</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/16/node fs系统/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1091,7 +1091,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sunjiaying.com/2018/03/20/2018-3-20-《高级程序设计》整理-三-JS对象-1/">
+    <link itemprop="mainEntityOfPage" href="http://sunjiaying.com/2018/03/20/2018-3-20-《高级程序设计》整理-二-正则与函数篇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="赵泽清">
@@ -1110,7 +1110,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/20/2018-3-20-《高级程序设计》整理-三-JS对象-1/" itemprop="url">《高级程序设计》整理(三)- - -JS对象</a></h2>
+                <a class="post-title-link" href="/2018/03/20/2018-3-20-《高级程序设计》整理-二-正则与函数篇/" itemprop="url">《高级程序设计》整理(二)- - -正则与函数篇</a></h2>
         
 
         <div class="post-meta">
@@ -1195,24 +1195,13 @@
 
       
         
-          <p>JS对象<br>一、属性类型</p>
-<ol>
-<li><p>数据属性</p>
-<ul>
-<li><p>[[Configurable]]<br>表示能否通过delete删除属性从而重新定义属性，能否修改属性的特性，能否把属性修改为访问器属性。直接在对象上定义的属性，默认值为true。</p>
-</li>
-<li><p>[[Enumerable]]<br>表示能否通过<code>for-in</code>循环返回属性。直接在对象上定义的属性，默认值为true。</p>
-</li>
-<li><p>[[Writable]]<br>表示能否修改属性的值。直接在对象上定义的属性，默认为true。</p>
-</li>
-<li><p>[[Value]]<br>包含这个属性的数据值；读取属性值的时候，从这个位置读取；写入属性值的时候，把值保存在这里。默认为undefined。</p>
-</li>
-</ul>
-</li>
-</ol>
+          <p>《高级程序设计》整理(二)- - -正则与函数篇</p>
+<hr>
+<p>###一、正则（RegExp）<br> &nbsp; &nbsp; - - -| let pattern = / patern / ( i | g | m )    i:忽略大小写  g:全局匹配  m:多行匹配<br> &nbsp; &nbsp; &nbsp; &nbsp; （元字符需要转义—-&gt; ‘ ( { \ ^ $ | ) ? * + . ] } ‘ ）</p>
+<p> &nbsp; &nbsp;  - - -|   RegExp的实例属性：<code>global</code>、<code>ignoreCase</code>、<code>multiline</code> 表示是否设置了该标志</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/20/2018-3-20-《高级程序设计》整理-三-JS对象-1/#more" rel="contents">
+            <a class="btn" href="/2018/03/20/2018-3-20-《高级程序设计》整理-二-正则与函数篇/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

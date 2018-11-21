@@ -5,6 +5,7 @@ function DrawCanvas(ctx, config) {
     col: 4,
     row: 4,
     ctx,
+    score: 0,
     color: {
       "2": "#eee4da",
       "4": "#ede0c8", //#776e65
@@ -28,8 +29,7 @@ function DrawCanvas(ctx, config) {
 }
 
 DrawCanvas.prototype._init = function(ctx) {
-  console.log(this, "game init...")
-  const { col, row,panel } = this
+  const { col, row, panel } = this
 
   //生成空面板
   for (let i = 1; i <= row; i++) {
@@ -43,7 +43,12 @@ DrawCanvas.prototype._init = function(ctx) {
   //添加监听
   this._addlistener(ctx)
 }
-
+DrawCanvas.prototype.restart = function(ctx) {
+  this.score = 0
+  this.panel = []
+  this.oldPanel = []
+  this._init(ctx)
+}
 DrawCanvas.prototype._drawRoundRect = function(
   ctx,
   x,
@@ -70,48 +75,48 @@ DrawCanvas.prototype._drawRoundRect = function(
 }
 
 DrawCanvas.prototype._random = function() {
-    let isAvailable = false
-    const {panel, row, col, oldPanel } = this
-    if(oldPanel.join() === panel.join()) {//较之前无变化
-        return false
+  let isAvailable = false
+  const { panel, row, col, oldPanel } = this
+  if (oldPanel.join() === panel.join()) {
+    //较之前无变化
+    return false
+  }
+  outer: for (let i = 0; i < row; i++) {
+    for (let j = 0; j < col; j++) {
+      if (panel[i][j] === "0") {
+        isAvailable = true
+        break outer
+      }
     }
-    outer:
-    for(let i=0;i<row;i++) {
-        for(let j=0;j<col;j++) {
-            if(panel[i][j] ==="0") {
-                isAvailable = true
-                break outer
-            }
-        }
+  }
+  if (isAvailable) {
+    while (1) {
+      var _row = Math.floor(Math.random() * this.row)
+      var _col = Math.floor(Math.random() * this.col)
+      if (this.panel[_row][_col] === "0") {
+        //判断生成的随机数位置为0才随机生成2或4
+        this.panel[_row][_col] = Math.random() > 0.9 ? "4" : "2"
+        break
+      }
     }
-    if(isAvailable) {
-        while (1) {
-          var _row = Math.floor(Math.random() * this.row)
-          var _col = Math.floor(Math.random() * this.col)
-          if (this.panel[_row][_col] === "0") {
-            //判断生成的随机数位置为0才随机生成2或4
-            this.panel[_row][_col] = Math.random() > 0.9 ? "4" : "2"
-            break
-          }
-        }
-    }else{
-        alert("游戏结束咯！")
-    }
+  } else {
+    alert("游戏结束咯！")
+  }
 }
 
 DrawCanvas.prototype._updatePanel = function(ctx) {
   const { col, row } = this
   let score = 0
-  if(this)
   this._random() //添加随机块
+  document.querySelector(".score").innerHTML = this.score
 
   // 清除画板
   ctx.clearRect(150, 50, 500, 500)
 
   // 绘制大面板
   ctx.fillStyle = "#FFF"
-  ctx.fillRect(0, 0, 800, 600)
-  this._drawRoundRect(ctx, 150, 50, 500, 500, 5)
+  ctx.fillRect(0, 0, 500, 500)
+  this._drawRoundRect(ctx, 0, 0, 500, 500, 5)
   ctx.fillStyle = "#bbada0"
   ctx.strokeStyle = "#bbada0"
   ctx.stroke()
@@ -121,8 +126,8 @@ DrawCanvas.prototype._updatePanel = function(ctx) {
       score = this.panel[i - 1][j - 1]
       this._drawRoundRect(
         ctx,
-        150 + 20 * j + 100 * (j - 1),
-        50 + 20 * i + 100 * (i - 1),
+        20 * j + 100 * (j - 1),
+        20 * i + 100 * (i - 1),
         100,
         100,
         5
@@ -138,8 +143,8 @@ DrawCanvas.prototype._updatePanel = function(ctx) {
         this._addScore(
           ctx,
           score,
-          200 + 20 * j + 100 * (j - 1),
-          100 + 20 * i + 100 * (i - 1)
+          50 + 20 * j + 100 * (j - 1),
+          50 + 20 * i + 100 * (i - 1)
         )
       }
     }
@@ -147,7 +152,7 @@ DrawCanvas.prototype._updatePanel = function(ctx) {
 }
 DrawCanvas.prototype._addScore = function(ctx, score, x, y) {
   const color = score > 4 ? "#f9f6f2" : "#776e65"
-  const fonter = score > 100 ? "800 40px Arial":"800 56px Arial"
+  const fonter = score > 100 ? "800 40px Arial" : "800 56px Arial"
   ctx.font = fonter
   ctx.textAlign = "center"
   ctx.textBaseline = "middle"
@@ -168,7 +173,7 @@ DrawCanvas.prototype._addlistener = function(ctx) {
     65: "3", // A
     82: "4" // Reset
   }
-  document.addEventListener("keydown", function(event) {
+  function _listen(event) {
     const modifiers =
       event.altKey || event.ctrlKey || event.metaKey || event.shiftKey
     const pos = keyboard[event.which]
@@ -200,7 +205,8 @@ DrawCanvas.prototype._addlistener = function(ctx) {
       default:
         break
     }
-  })
+  }
+  document.onkeydown = _listen
 }
 DrawCanvas.prototype.moveUp = function() {
   const { row, col, panel } = this
@@ -259,8 +265,9 @@ DrawCanvas.prototype._combineArr = function(arr, len) {
     newArrLen = arr.length
   for (let i = 0; i < newArrLen; i++) {
     if (arr[i] === arr[i + 1]) {
+      this.score += 2 * arr[i]
       newArr.push(2 * arr[i] + "")
-      i += 2
+      i += 1
     } else {
       newArr.push(arr[i])
     }

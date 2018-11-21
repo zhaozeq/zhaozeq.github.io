@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://sunjiaying.com/"/>
-  <updated>2018-11-20T15:30:38.762Z</updated>
+  <updated>2018-11-17T10:47:08.071Z</updated>
   <id>http://sunjiaying.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>node fs系统</title>
+    <link href="http://sunjiaying.com/2018/11/16/node%20fs%E7%B3%BB%E7%BB%9F/"/>
+    <id>http://sunjiaying.com/2018/11/16/node fs系统/</id>
+    <published>2018-11-16T02:07:00.000Z</published>
+    <updated>2018-11-17T10:47:08.071Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt; 引入fs模块 &lt;code&gt;const fs = require(&amp;quot;fs&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&quot;1-fs-access-检测-path-指定的文件或目录的用户权限&quot;&gt;&lt;a href=&quot;#1-fs-access-检测-path-指定的文件或目录的用户权限&quot; class=&quot;headerlink&quot; title=&quot;1. fs.access  检测 path 指定的文件或目录的用户权限&quot;&gt;&lt;/a&gt;1. fs.access  检测 path 指定的文件或目录的用户权限&lt;/h2&gt;&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//- path&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//- mode 默认fs.constants.F_OK / ~R_OK / ~W_OK&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// (文件存在？/可读？/可写？) &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;fs.stat(path, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;err, stats&lt;/span&gt;) &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (err) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(err)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;&quot;文件：&quot;&lt;/span&gt; + stats.isFile())&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;&quot;目录：&quot;&lt;/span&gt; + stats.isDirectory())&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="node" scheme="http://sunjiaying.com/categories/node/"/>
+    
+    
+      <category term="node" scheme="http://sunjiaying.com/tags/node/"/>
+    
+      <category term="fs" scheme="http://sunjiaying.com/tags/fs/"/>
+    
+  </entry>
   
   <entry>
     <title>canvas 基础以及2048游戏实践</title>
@@ -38,29 +61,6 @@
       <category term="canvas" scheme="http://sunjiaying.com/tags/canvas/"/>
     
       <category term="html5" scheme="http://sunjiaying.com/tags/html5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>node fs系统</title>
-    <link href="http://sunjiaying.com/2018/11/16/node%20fs%E7%B3%BB%E7%BB%9F/"/>
-    <id>http://sunjiaying.com/2018/11/16/node fs系统/</id>
-    <published>2018-11-16T02:07:00.000Z</published>
-    <updated>2018-11-17T10:47:08.071Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt; 引入fs模块 &lt;code&gt;const fs = require(&amp;quot;fs&amp;quot;)&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&quot;1-fs-access-检测-path-指定的文件或目录的用户权限&quot;&gt;&lt;a href=&quot;#1-fs-access-检测-path-指定的文件或目录的用户权限&quot; class=&quot;headerlink&quot; title=&quot;1. fs.access  检测 path 指定的文件或目录的用户权限&quot;&gt;&lt;/a&gt;1. fs.access  检测 path 指定的文件或目录的用户权限&lt;/h2&gt;&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//- path&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;//- mode 默认fs.constants.F_OK / ~R_OK / ~W_OK&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// (文件存在？/可读？/可写？) &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;fs.stat(path, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;err, stats&lt;/span&gt;) &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; (err) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(err)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;&quot;文件：&quot;&lt;/span&gt; + stats.isFile())&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;.log(&lt;span class=&quot;string&quot;&gt;&quot;目录：&quot;&lt;/span&gt; + stats.isDirectory())&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;)&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="node" scheme="http://sunjiaying.com/categories/node/"/>
-    
-    
-      <category term="node" scheme="http://sunjiaying.com/tags/node/"/>
-    
-      <category term="fs" scheme="http://sunjiaying.com/tags/fs/"/>
     
   </entry>
   
@@ -160,6 +160,31 @@
   </entry>
   
   <entry>
+    <title>《高级程序设计》整理(二)- - -正则与函数篇</title>
+    <link href="http://sunjiaying.com/2018/03/20/2018-3-20-%E3%80%8A%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E3%80%8B%E6%95%B4%E7%90%86-%E4%BA%8C-%E6%AD%A3%E5%88%99%E4%B8%8E%E5%87%BD%E6%95%B0%E7%AF%87/"/>
+    <id>http://sunjiaying.com/2018/03/20/2018-3-20-《高级程序设计》整理-二-正则与函数篇/</id>
+    <published>2018-03-20T02:07:00.000Z</published>
+    <updated>2018-11-17T10:40:20.205Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;《高级程序设计》整理(二)- - -正则与函数篇&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;###一、正则（RegExp）&lt;br&gt; &amp;nbsp; &amp;nbsp; - - -| let pattern = / patern / ( i | g | m )    i:忽略大小写  g:全局匹配  m:多行匹配&lt;br&gt; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; （元字符需要转义—-&amp;gt; ‘ ( { \ ^ $ | ) ? * + . ] } ‘ ）&lt;/p&gt;
+&lt;p&gt; &amp;nbsp; &amp;nbsp;  - - -|   RegExp的实例属性：&lt;code&gt;global&lt;/code&gt;、&lt;code&gt;ignoreCase&lt;/code&gt;、&lt;code&gt;multiline&lt;/code&gt; 表示是否设置了该标志&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="javascript" scheme="http://sunjiaying.com/categories/javascript/"/>
+    
+    
+      <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
+    
+      <category term="RegExp" scheme="http://sunjiaying.com/tags/RegExp/"/>
+    
+  </entry>
+  
+  <entry>
     <title>《高级程序设计》整理(三)- - -JS对象</title>
     <link href="http://sunjiaying.com/2018/03/20/2018-3-20-%E3%80%8A%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E3%80%8B%E6%95%B4%E7%90%86-%E4%B8%89-JS%E5%AF%B9%E8%B1%A1-1/"/>
     <id>http://sunjiaying.com/2018/03/20/2018-3-20-《高级程序设计》整理-三-JS对象-1/</id>
@@ -190,31 +215,6 @@
     
     
       <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《高级程序设计》整理(二)- - -正则与函数篇</title>
-    <link href="http://sunjiaying.com/2018/03/20/2018-3-20-%E3%80%8A%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E3%80%8B%E6%95%B4%E7%90%86-%E4%BA%8C-%E6%AD%A3%E5%88%99%E4%B8%8E%E5%87%BD%E6%95%B0%E7%AF%87/"/>
-    <id>http://sunjiaying.com/2018/03/20/2018-3-20-《高级程序设计》整理-二-正则与函数篇/</id>
-    <published>2018-03-20T02:07:00.000Z</published>
-    <updated>2018-11-17T10:40:20.205Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;《高级程序设计》整理(二)- - -正则与函数篇&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;###一、正则（RegExp）&lt;br&gt; &amp;nbsp; &amp;nbsp; - - -| let pattern = / patern / ( i | g | m )    i:忽略大小写  g:全局匹配  m:多行匹配&lt;br&gt; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; （元字符需要转义—-&amp;gt; ‘ ( { \ ^ $ | ) ? * + . ] } ‘ ）&lt;/p&gt;
-&lt;p&gt; &amp;nbsp; &amp;nbsp;  - - -|   RegExp的实例属性：&lt;code&gt;global&lt;/code&gt;、&lt;code&gt;ignoreCase&lt;/code&gt;、&lt;code&gt;multiline&lt;/code&gt; 表示是否设置了该标志&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="javascript" scheme="http://sunjiaying.com/categories/javascript/"/>
-    
-    
-      <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
-    
-      <category term="RegExp" scheme="http://sunjiaying.com/tags/RegExp/"/>
     
   </entry>
   
@@ -254,37 +254,6 @@
   </entry>
   
   <entry>
-    <title>Webpack配置由简至全</title>
-    <link href="http://sunjiaying.com/2018/02/12/2018-2-12-Webpack%E9%85%8D%E7%BD%AE%E7%94%B1%E7%AE%80%E8%87%B3%E5%85%A8%EF%BC%88%E4%B8%80%EF%BC%89/"/>
-    <id>http://sunjiaying.com/2018/02/12/2018-2-12-Webpack配置由简至全（一）/</id>
-    <published>2018-02-12T02:07:00.000Z</published>
-    <updated>2018-10-14T12:37:34.582Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;###一、基本安装&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;第一步&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span
-        
-      
-    
-    </summary>
-    
-      <category term="node" scheme="http://sunjiaying.com/categories/node/"/>
-    
-    
-      <category term="node" scheme="http://sunjiaying.com/tags/node/"/>
-    
-      <category term="webpack" scheme="http://sunjiaying.com/tags/webpack/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Webpack3配置由简至全（二）</title>
     <link href="http://sunjiaying.com/2018/02/12/2018-2-14-Webpack%E9%85%8D%E7%BD%AE%E7%94%B1%E7%AE%80%E8%87%B3%E5%85%A8%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
     <id>http://sunjiaying.com/2018/02/12/2018-2-14-Webpack配置由简至全（二）/</id>
@@ -317,6 +286,37 @@
   </entry>
   
   <entry>
+    <title>Webpack配置由简至全</title>
+    <link href="http://sunjiaying.com/2018/02/12/2018-2-12-Webpack%E9%85%8D%E7%BD%AE%E7%94%B1%E7%AE%80%E8%87%B3%E5%85%A8%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+    <id>http://sunjiaying.com/2018/02/12/2018-2-12-Webpack配置由简至全（一）/</id>
+    <published>2018-02-12T02:07:00.000Z</published>
+    <updated>2018-10-14T12:37:34.582Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;###一、基本安装&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;第一步&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span
+        
+      
+    
+    </summary>
+    
+      <category term="node" scheme="http://sunjiaying.com/categories/node/"/>
+    
+    
+      <category term="node" scheme="http://sunjiaying.com/tags/node/"/>
+    
+      <category term="webpack" scheme="http://sunjiaying.com/tags/webpack/"/>
+    
+  </entry>
+  
+  <entry>
     <title>formatDate函数</title>
     <link href="http://sunjiaying.com/2017/12/12/Date()%20%E6%97%B6%E9%97%B4%E7%9A%84%E4%B8%80%E4%B8%AA%20format%20%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%87%BD%E6%95%B0/"/>
     <id>http://sunjiaying.com/2017/12/12/Date() 时间的一个 format 格式化函数/</id>
@@ -341,46 +341,6 @@
       <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
     
       <category term="Exp" scheme="http://sunjiaying.com/tags/Exp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Vue +Node +Mysql 从简至全（二）</title>
-    <link href="http://sunjiaying.com/2017/11/06/Vue%20+Node%20+Mysql%20%E4%BB%8E%E7%AE%80%E8%87%B3%E5%85%A8%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
-    <id>http://sunjiaying.com/2017/11/06/Vue +Node +Mysql 从简至全（二）/</id>
-    <published>2017-11-06T02:07:00.000Z</published>
-    <updated>2018-10-14T12:37:34.582Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;##简单的后端接口连接的实现&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;–这一部分是实现后端的接口，接下来会依次实现数据库操作和前后端数据交互过程。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;后端：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;&lt;code&gt;npm install express mysql
-        
-      
-    
-    </summary>
-    
-      <category term="vue" scheme="http://sunjiaying.com/categories/vue/"/>
-    
-    
-      <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
-    
-      <category term="vue" scheme="http://sunjiaying.com/tags/vue/"/>
-    
-      <category term="node" scheme="http://sunjiaying.com/tags/node/"/>
-    
-      <category term="Mysql" scheme="http://sunjiaying.com/tags/Mysql/"/>
-    
-      <category term="html" scheme="http://sunjiaying.com/tags/html/"/>
     
   </entry>
   
@@ -445,11 +405,51 @@
     
       <category term="vue" scheme="http://sunjiaying.com/tags/vue/"/>
     
+      <category term="html" scheme="http://sunjiaying.com/tags/html/"/>
+    
       <category term="node" scheme="http://sunjiaying.com/tags/node/"/>
     
       <category term="Mysql" scheme="http://sunjiaying.com/tags/Mysql/"/>
     
+  </entry>
+  
+  <entry>
+    <title>Vue +Node +Mysql 从简至全（二）</title>
+    <link href="http://sunjiaying.com/2017/11/06/Vue%20+Node%20+Mysql%20%E4%BB%8E%E7%AE%80%E8%87%B3%E5%85%A8%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
+    <id>http://sunjiaying.com/2017/11/06/Vue +Node +Mysql 从简至全（二）/</id>
+    <published>2017-11-06T02:07:00.000Z</published>
+    <updated>2018-10-14T12:37:34.582Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;##简单的后端接口连接的实现&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;–这一部分是实现后端的接口，接下来会依次实现数据库操作和前后端数据交互过程。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;后端：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;npm install express mysql
+        
+      
+    
+    </summary>
+    
+      <category term="vue" scheme="http://sunjiaying.com/categories/vue/"/>
+    
+    
+      <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
+    
+      <category term="vue" scheme="http://sunjiaying.com/tags/vue/"/>
+    
       <category term="html" scheme="http://sunjiaying.com/tags/html/"/>
+    
+      <category term="node" scheme="http://sunjiaying.com/tags/node/"/>
+    
+      <category term="Mysql" scheme="http://sunjiaying.com/tags/Mysql/"/>
     
   </entry>
   
@@ -484,9 +484,9 @@
     
       <category term="javascript" scheme="http://sunjiaying.com/tags/javascript/"/>
     
-      <category term="html" scheme="http://sunjiaying.com/tags/html/"/>
-    
       <category term="css" scheme="http://sunjiaying.com/tags/css/"/>
+    
+      <category term="html" scheme="http://sunjiaying.com/tags/html/"/>
     
   </entry>
   

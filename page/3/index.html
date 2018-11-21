@@ -255,7 +255,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sunjiaying.com/2017/11/06/SVG路径描边动画效果的实现/">
+    <link itemprop="mainEntityOfPage" href="http://sunjiaying.com/2017/11/06/Vue +Node +Mysql 从简至全（一）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="赵泽清">
@@ -274,7 +274,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/06/SVG路径描边动画效果的实现/" itemprop="url">SVG路径描边动画效果</a></h2>
+                <a class="post-title-link" href="/2017/11/06/Vue +Node +Mysql 从简至全（一）/" itemprop="url">Vue +Node +Mysql 从简至全（一）</a></h2>
         
 
         <div class="post-meta">
@@ -321,8 +321,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/svg/" itemprop="url" rel="index">
-                    <span itemprop="name">svg</span>
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
                   </a>
                 </span>
 
@@ -360,40 +360,22 @@
       
         
           
-            <blockquote>
-<p>理解SVG坐标系和变换：视窗,viewBox和preserveAspectRatio部分<br>参考自: <a href="http://www.w3cplus.com/html5/svg-coordinate-systems.html" target="_blank" rel="noopener">http://www.w3cplus.com/html5/svg-coordinate-systems.html</a> © w3cplus.com</p>
+            <p>##简单的后端接口连接的实现</p>
+<blockquote>
+<p>–这一部分是实现后端的接口，接下来会依次实现数据库操作和前后端数据交互过程。</p>
 </blockquote>
-<p>先来放一个自己写的效果：<br><img src="http://img.blog.csdn.net/20170909140356663?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY1NzE2MDI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p>是不是很酷！！！</p>
-<p>###一、先看下svg几个属性：</p>
-<p>####1.<code>stroke:none | currentColor | &lt;color&gt;</code>(描边颜色)<br>    none:        没有颜色<br>    <color>:     常规的颜色值。RGBA, HSBA都支持。<br>    currentColor:可以让路径绘制的文字直接继承父标签的color颜色值。<br><code>stroke-width 表示描边的粗细。</code></color></p>
-<p><code>stroke-linecap 表示描边端点表现方式。可用值有：butt, round, square, inherit.</code></p>
-<p><code>stroke-linejoin 表示描边转角的表现方式。可用值有：miter, round, bevel, inherit.</code></p>
-<p><code>stroke-miterlimit 表示描边相交（锐角）的表现方式。默认大小是4.</code> </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">stroke-dasharray 表示虚线描边。可选值为：none, &lt;dasharray&gt;, inherit. </span><br><span class="line"></span><br><span class="line">none表示不是虚线；</span><br><span class="line">&lt;dasharray&gt;为一个逗号或空格分隔的数值列表。表示各个虚线段的长度。可以是固定的长度值，也可以是百分比值；</span><br><span class="line">inherit表继承。</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stroke-dashoffset 表示虚线的起始偏移。可选值为：&lt;percentage&gt;, &lt;length&gt;, inherit. 百分比值，长度值，继承。</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stroke-opacity 表示描边透明度。默认是1.</span><br></pre></td></tr></table></figure>
-<p>&nbsp;</p>
-<p>####2.SVG坐标系和变换：viewport,viewBox和preserveAspectRatio</p>
-<ul>
-<li><p>viewport：<br>你可以在最外层<svg>元素上使用width和height属性声明视窗尺寸<br/>视窗的初始坐标原点(0,0)在视窗的左上角，<code>X</code>轴正向指向右，<code>Y</code>轴正向指向下，初始坐标系中的一个单位等于视窗中的一个”像素”。</svg></p>
+<p>后端：</p>
+<ol>
+<li><p><code>npm install express mysql -S</code></p>
 </li>
-<li><p>viewBox：这个可以声明自己的用户坐标系。<br>viewBox属性接收四个参数值，包括：<code>&lt;min-x&gt;</code>, <code>&lt;min-y&gt;</code>, <code>width</code> 和 <code>height</code>。<br><code>&lt;min-x&gt;</code> 和 <code>&lt;min-y&gt;</code> 值决定viewBox的左上角，<code>width</code>和<code>height</code>决定视窗的宽高。这里要注意视窗的宽高不一定和父<code>&lt;svg&gt;</code>元素的宽高一样。</p>
+<li><p>编写后端入口文件（app.js）：</p>
+<p><img src="http://img.blog.csdn.net/20171011104140855?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY1NzE2MDI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="入口文件"></p>
 </li>
-<li><p>preserveAspectRatio：<br>当视窗的宽高比和用户坐标宽高比不同时就会使得svg发生形变，而preserveAspectRatio属性就是强制统一缩放比来保持图形的宽高比。<br><code>preserveAspectRatio = defer? &lt;align&gt; &lt;meetOrSlice&gt;?</code><br>– defer声明是可选的，并且只有当你在<image>上添加preserveAspectRatio才被用到。在svg中显然没啥用。<br>– align参数声明是否强制统一放缩，如果是，对齐方法会在viewBox的宽高比不符合viewport的宽高比的情况下生效。<br>  如果align值设为none，图形不再保持宽高比而会缩放来适应视窗。<br>– meetOrSlice也是可选的，默认值为meet。这个属性声明整个viewBox在视窗中是否可见。如果是，它和align参数通过一个或多个空格分隔。<br>&nbsp;<br>####3.SVG—&gt;text标签<br>#####有x,y,dx,dy,rotate,textLength,lengthAdjust  这些属性</image></p>
+<li><p>编写路由文件：<br><img src="http://img.blog.csdn.net/20171011104511699?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY1NzE2MDI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="路由文件"></p>
 </li>
-<li>x,y表示文本的横纵坐标。  </li>
-<li>dx,dy表示移动的横纵坐标。 </li>
-<li>rotate表示旋转的度数。</li>
-<li>text-anchor：设置文本排列属性 start|middle|end|inherit<br>&nbsp;</li>
-</ul>
-<p>###二、动画要点：stroke-dasharray和stroke-dashoffset以及CSS3</p>
-<p>stroke-dasharray: 虚线的疏密程度</p>
-<p>stroke-dashoffset: 偏移</p>
-<p>@keyframes stroke {<br>  100% {<br>    stroke-dashoffset: -400; } } </p>
-<p>设置好stroke-dasharray，通过改变stroke-dashoffset来实现动画，思路很简单，就看你的想象力了。</p>
-<p>六、路径的长度<br>如果想知道路径，或线条的准确长度。可能需要借助JavaScript，类似下面的代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var path = document.querySelector(&apos;path&apos;);</span><br><span class="line">var length = path.getTotalLength();</span><br></pre></td></tr></table></figure>
+<li><p><code>node app.js</code> 这个时候最简单的后台接口就启动了，可以<a href="http://localhost:3000/test访问到该接口" target="_blank" rel="noopener">http://localhost:3000/test访问到该接口</a></p>
+</li>
+</ol>
 
           
         
@@ -442,7 +424,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sunjiaying.com/2017/11/06/Vue +Node +Mysql 从简至全（一）/">
+    <link itemprop="mainEntityOfPage" href="http://sunjiaying.com/2017/11/06/Vue +Node +Mysql 从简至全（二）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="赵泽清">
@@ -461,7 +443,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/06/Vue +Node +Mysql 从简至全（一）/" itemprop="url">Vue +Node +Mysql 从简至全（一）</a></h2>
+                <a class="post-title-link" href="/2017/11/06/Vue +Node +Mysql 从简至全（二）/" itemprop="url">Vue +Node +Mysql 从简至全（二）</a></h2>
         
 
         <div class="post-meta">
