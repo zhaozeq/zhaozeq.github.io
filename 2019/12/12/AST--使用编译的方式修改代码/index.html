@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vue,node,react,ast,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Z_S" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="最近有一个面板搭建的需求，环境为 react，而现有面板组件为 vue。就有了现在这个转换需求~AST(抽象语法树)：顾名思义，它把代码拆解成了树的形式。接下来我会以代码增删改查的形式带大家初步了解”代码编辑”！   查：先看再用！(为什么加后缀，因为觉得内容不够丰满) 增：无中生有！(为什么加后缀，因为觉得内容不够丰满) 删：罢黜百家！(为什么加后缀，因为觉得内容不够丰满) 改：偷天换日！(为什">
+<meta name="keywords" content="vue,node,react,ast">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AST--使用编译的方式修改代码">
+<meta property="og:url" content="./2019/12/12/AST--使用编译的方式修改代码/index.html">
+<meta property="og:site_name" content="Z_S">
+<meta property="og:description" content="最近有一个面板搭建的需求，环境为 react，而现有面板组件为 vue。就有了现在这个转换需求~AST(抽象语法树)：顾名思义，它把代码拆解成了树的形式。接下来我会以代码增删改查的形式带大家初步了解”代码编辑”！   查：先看再用！(为什么加后缀，因为觉得内容不够丰满) 增：无中生有！(为什么加后缀，因为觉得内容不够丰满) 删：罢黜百家！(为什么加后缀，因为觉得内容不够丰满) 改：偷天换日！(为什">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="/images/ast_code.jpg">
+<meta property="og:updated_time" content="2019-12-13T13:01:35.045Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AST--使用编译的方式修改代码">
+<meta name="twitter:description" content="最近有一个面板搭建的需求，环境为 react，而现有面板组件为 vue。就有了现在这个转换需求~AST(抽象语法树)：顾名思义，它把代码拆解成了树的形式。接下来我会以代码增删改查的形式带大家初步了解”代码编辑”！   查：先看再用！(为什么加后缀，因为觉得内容不够丰满) 增：无中生有！(为什么加后缀，因为觉得内容不够丰满) 删：罢黜百家！(为什么加后缀，因为觉得内容不够丰满) 改：偷天换日！(为什">
+<meta name="twitter:image" content="/images/ast_code.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="./2019/12/12/AST--使用编译的方式修改代码/">
+
+
+
+
+
+  <title>AST--使用编译的方式修改代码 | Z_S</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Z_S</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">赵泽清 -- 一个追逐太阳的程序猿</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-概况">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            概况
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于我">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于我
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="./2019/12/12/AST--使用编译的方式修改代码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵泽清">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Z_S">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">AST--使用编译的方式修改代码</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-12T10:07:00+08:00">
+                2019-12-12
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-12-13T21:01:35+08:00">
+                2019-12-13
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node/" itemprop="url" rel="index">
+                    <span itemprop="name">node</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近有一个面板搭建的需求，环境为 react，而现有面板组件为 vue。<br>就有了现在这个转换需求~<br>AST(抽象语法树)：顾名思义，它把代码拆解成了树的形式。<br>接下来我会以代码增删改查的形式带大家初步了解”代码编辑”！</p>
+<blockquote>
+<ul>
+<li>查：先看再用！(为什么加后缀，因为觉得内容不够丰满)</li>
+<li>增：无中生有！(为什么加后缀，因为觉得内容不够丰满)</li>
+<li>删：罢黜百家！(为什么加后缀，因为觉得内容不够丰满)</li>
+<li>改：偷天换日！(为什么加后缀，因为觉得内容不够丰满)</li>
+<li>如果你正有 vue-to-react 需求，那么这是我想说的</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<h2 id="一、查：先看再用"><a href="#一、查：先看再用" class="headerlink" title="一、查：先看再用"></a>一、查：先看再用</h2><p>我保证要是没有它，你会很痛苦 <a href="https://astexplorer.net/" target="_blank" rel="noopener">ast explorer</a></p>
+<p>我们以 js 代码为例：</p>
+<ol>
+<li>打开必需品：ast explorer</li>
+<li>选择 JavaScript 和 babylon7</li>
+<li>输入<code>const a = 1 + 1</code></li>
+<li>右边就会有代码树</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">A[const a = 1 + 1]</span><br><span class="line">A --&gt; |kind|B[const]</span><br><span class="line">A --&gt; |declarations|C[a = 1 + 1]</span><br><span class="line">C --&gt;|Identifier| D[a]</span><br><span class="line">C --&gt;|BinaryExpression| E[1 + 1]</span><br><span class="line">E --&gt;|left| F[1]</span><br><span class="line">E --&gt;|operator| G[+]</span><br><span class="line">E --&gt;|right| H[1]</span><br></pre></td></tr></table></figure>
+<p><img src="/images/ast_code.jpg" alt="ast_code"><br>也就是拆解到拆不了为止，我们需要的其实就是它的 type 以及值而已，type 就是定义这个数据是什么类型的东西，分了很多类，我们可以在 <a href="https://babeljs.io/docs/en/babel-types" target="_blank" rel="noopener">@babel/types</a> 找到相应的 type。<br>path.skip() 执行之后，就不会在对叶节点进行遍历<br>path.stop() 执行之后，就会去下次遍历</p>
+<h2 id="二、增：无中生有！"><a href="#二、增：无中生有！" class="headerlink" title="二、增：无中生有！"></a>二、增：无中生有！</h2><blockquote>
+<p>现在咋们就来把 <code>const a = 1 + 1</code> 生成出来！为了让新手也能一起动手操练起来，咱们就从新建项目开始。</p>
+</blockquote>
+<ol>
+<li>首先我们要创建项目文件夹</li>
+<li>快速创建 package.json<code>$ npm init -yes</code></li>
+<li>下载依赖 : <code>npm install @babel/parser @babel/types @babel/generator @babel/traverse</code></li>
+</ol>
+<ul>
+<li>@babel/parser =&gt; 字符串代码解析成语法树</li>
+<li>@babel/types =&gt; 用来生成和检测数据类型</li>
+<li>@babel/generator =&gt; 语法树转成代码字符串</li>
+<li>@babel/traverse =&gt; 这次没用到 用来访问语法树，可以在里面进行节点删改</li>
+</ul>
+<ol start="4">
+<li>项目下创建 index.js</li>
+<li>写入:</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> parse = <span class="built_in">require</span>(<span class="string">'@babel/parser'</span>).parse;</span><br><span class="line"><span class="keyword">const</span> t = <span class="built_in">require</span>(<span class="string">'@babel/types'</span>);</span><br><span class="line"><span class="keyword">const</span> generate = <span class="built_in">require</span>(<span class="string">'@babel/generator'</span>).default;</span><br><span class="line"><span class="comment">// const traverse = require('@babel/traverse').default</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> code = <span class="string">''</span>;</span><br><span class="line"><span class="keyword">const</span> ast = parse(code);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 便于理解我一步步拆解，这个其实就是拆解代码的逆过程</span></span><br><span class="line"><span class="comment"> * 刚接触的话可以根据ast explore中生成的语法树中的type,</span></span><br><span class="line"><span class="comment"> * 去到<span class="doctag">@babel</span>/type中查找相应type,会有相应的方法和入参说明</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1.生成数字 1</span></span><br><span class="line"><span class="keyword">const</span> number = t.numericLiteral(<span class="number">1</span>);</span><br><span class="line"><span class="comment">// 2.生成二元表达式 1 + 1</span></span><br><span class="line"><span class="keyword">const</span> exp = t.binaryExpression(<span class="string">'+'</span>, number, number);</span><br><span class="line"><span class="comment">// 3.生成变量 a</span></span><br><span class="line"><span class="keyword">const</span> varible = t.identifier(<span class="string">'a'</span>);</span><br><span class="line"><span class="comment">// 4.生成变量声明 a = 1 + 1</span></span><br><span class="line"><span class="keyword">const</span> declarations = t.variableDeclarator(varible, exp);</span><br><span class="line"><span class="comment">// 5.生成变量声明 const a = 1 + 1</span></span><br><span class="line"><span class="keyword">const</span> content = t.variableDeclaration(<span class="string">'const'</span>, [declarations]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将内容放入body中</span></span><br><span class="line">ast.program.body.push(content);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> output = generate(ast, &#123; <span class="attr">quotes</span>: <span class="string">'single'</span>, <span class="attr">retainLines</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"><span class="built_in">console</span>.log(output.code); <span class="comment">// const a = 1 + 1</span></span><br></pre></td></tr></table></figure>
+<h2 id="三、删改：为什么放一起，因为改其实就是先删后增"><a href="#三、删改：为什么放一起，因为改其实就是先删后增" class="headerlink" title="三、删改：为什么放一起，因为改其实就是先删后增"></a>三、删改：为什么放一起，因为改其实就是先删后增</h2><ol>
+<li>替换： <code>replaceWith()</code> <code>replaceWithSourceString()</code><br>我们把<code>const a = 1 + 1</code> 改为 <code>1 * 1</code>，这个时候<code>traverse</code>就用上了<br>咱们把之前生成的<code>ast</code>放进来</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">traverse(ast, &#123;</span><br><span class="line">  <span class="comment">// 使用相应type来快速访问节点，这里快速来到二元表达式节点，即 1 + 1</span></span><br><span class="line">  <span class="comment">// 并使用path.replaceWith() 将节点 1 + 1替换</span></span><br><span class="line">  BinaryExpression(path) &#123;</span><br><span class="line">    <span class="keyword">if</span> (path.node.operator === <span class="string">'+'</span>) &#123;</span><br><span class="line">      path.replaceWith(</span><br><span class="line">        t.binaryExpression(<span class="string">'*'</span>, path.node.left, path.node.right)</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>tips：对于简单的静态节点还可以直接使用<strong>path.replaceWithSourceString(‘a*b’)</strong>来达到目的!!!</p>
+</blockquote>
+<ol start="2">
+<li>插入操作： <code>pushContainer</code>、<code>unshiftContainer</code>、<code>insertBefore</code>、<code>insertAfter</code></li>
+</ol>
+<ul>
+<li>pushContainer：针对子节点为数组时，为数组 push 一个 node</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> code = <span class="string">`</span></span><br><span class="line"><span class="string">       const obj = &#123;</span></span><br><span class="line"><span class="string">           a: 'a',</span></span><br><span class="line"><span class="string">           b: 'b'</span></span><br><span class="line"><span class="string">       &#125;`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ast = parse(code);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> property = t.objectProperty(t.identifier(<span class="string">'c'</span>), t.stringLiteral(<span class="string">'c'</span>));</span><br><span class="line">traverse(ast, &#123;</span><br><span class="line">  ObjectExpression(path) &#123;</span><br><span class="line">    path.pushContainer(<span class="string">'properties'</span>, property);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>unshiftContainer： 与 pushContainer 对应 =》 unshift</li>
+<li>insertAfter 兄弟节点的插入操作</li>
+</ul>
+<ol start="3">
+<li>删除节点 path.remove()</li>
+</ol>
+<h2 id="四、vue-to-react"><a href="#四、vue-to-react" class="headerlink" title="四、vue-to-react"></a>四、vue-to-react</h2><p>vue 有 template、script、style 三部分<br>本人的方案：<br>style 根据 lang 生成 对应 style 文件在 react 文件直接引用<br>script 解析成使用@babel/parser 生成 ast，操作 ast<br>template 使用 vue-template-compiler 插件解析，生成 ast,根据 vue 语法树来生成 render 代码<br>npm 包地址 <a href="https://www.npmjs.com/package/vue-to-react-tool" target="_blank" rel="noopener">vue-to-react-tool</a><br>本人目前实现的是</p>
+<ul>
+<li style="list-style: none"><input type="checkbox" checked> 研究 vue 组件转 react<pre><code>目前已成功转换
+</code></pre></li>
+<li style="list-style: none"><input type="checkbox" checked> v-if、v-else-if、v-else</li>
+<li style="list-style: none"><input type="checkbox" checked> v-for</li>
+<li style="list-style: none"><input type="checkbox" checked> v-show</li>
+<li style="list-style: none"><input type="checkbox" checked> v-bind v-bind:attr.sync = xxx&gt; // 双向绑定的特殊情况   v-bind:attr=xxx  v-on:emiterName ==&gt; emiterName={(new) =&gt; this.setState({xxx:new})</li>
+<li style="list-style: none"><input type="checkbox" checked> v-model:与 v-bind:attr.sync 类似</li>
+<li style="list-style: none"><input type="checkbox" checked> v-on</li>
+<li style="list-style: none"><input type="checkbox" checked> v-text <span v-text="msg"></span> =》<span></span></li>
+<li style="list-style: none"><input type="checkbox" checked> v-html =&gt; dangerousHtml</li>
+<li style="list-style: none"><input type="checkbox" checked> class =&gt; className (考虑 class v-bind:class 同时存在的情况)</li>
+<li style="list-style: none"><input type="checkbox" checked> data() =&gt; this.state</li>
+<li style="list-style: none"><input type="checkbox" checked> Props =&gt; props</li>
+<li style="list-style: none"><input type="checkbox" checked>  =&gt; { expression }</li>
+<li style="list-style: none"><input type="checkbox" checked> 组件名转驼峰</li>
+<li style="list-style: none"><input type="checkbox" checked> created: ‘componentWillMount’,</li>
+<li style="list-style: none"><input type="checkbox" checked> mounted: ‘componentDidMount’,</li>
+<li style="list-style: none"><input type="checkbox" checked> updated: ‘componentDidUpdate’,</li>
+<li style="list-style: none"><input type="checkbox" checked> beforeDestroy: ‘componentWillUnmount’,</li>
+<li style="list-style: none"><input type="checkbox" checked> errorCaptured: ‘componentDidCatch’,</li>
+<li style="list-style: none"><input type="checkbox" checked> template =&gt;  render</li>
+<li style="list-style: none"><input type="checkbox" checked> style =&gt; index.(css | stylus | sass | less) (目前考虑)</li>
+<li style="list-style: none"><input type="checkbox" checked> 移除 ts type 功能</li>
+<li style="list-style: none"><input type="checkbox" checked> this.\$refs</li>
+<li style="list-style: none"><input type="checkbox" checked> V-for V-if v-show 同时存在的情况</li>
+</ul>
+<p>仍需要处理</p>
+<ul>
+<li style="list-style: none"><input type="checkbox"> 事件修饰符：</li>
+</ul>
+<ul>
+<li>.stop</li>
+<li>.prevent</li>
+<li>.capture</li>
+<li>.self</li>
+<li>.once</li>
+<li>.passive</li>
+</ul>
+<ul>
+<li style="list-style: none"><input type="checkbox"> v-on:attr = handle =&gt; v-on 暂不支持模板字符串型表达式</li>
+<li style="list-style: none"><input type="checkbox"> v-bind.sync=”doc” =&gt; 暂不支持用对象设置多个 props</li>
+<li style="list-style: none"><input type="checkbox"> watch</li>
+<li style="list-style: none"><input type="checkbox"> Vux / vue-router(目前需求是组件、模块的转换，无需，看后续需求在考虑)</li>
+<li style="list-style: none"><input type="checkbox"> 。。。</li>
+</ul>
+<p>目前是对我们的一个 vue 组件库进行转换，不过实际的代码情况会更加复杂，开发同学的编码习惯差别也很大，还需要针对各种情况详细处理。同时此方案也可以运用于小程序代码互转等场景中，所以我认为学写一下还是不错的，对代码编译的过程能更加深入了解</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="赵泽清 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="赵泽清 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+            <a href="/tags/node/" rel="tag"># node</a>
+          
+            <a href="/tags/react/" rel="tag"># react</a>
+          
+            <a href="/tags/ast/" rel="tag"># ast</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/10/使用proxy实现双向绑定/" rel="next" title="使用Proxy实现双向绑定">
+                <i class="fa fa-chevron-left"></i> 使用Proxy实现双向绑定
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="赵泽清">
+            
+              <p class="site-author-name" itemprop="name">赵泽清</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/qq_36571602" target="_blank" title="Blog">
+                      
+                        <i class="fa fa-fw fa-rss"></i>Blog</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zhaozeq" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhaozeq@foxmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、查：先看再用"><span class="nav-number">1.</span> <span class="nav-text">一、查：先看再用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、增：无中生有！"><span class="nav-number">2.</span> <span class="nav-text">二、增：无中生有！</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、删改：为什么放一起，因为改其实就是先删后增"><span class="nav-number">3.</span> <span class="nav-text">三、删改：为什么放一起，因为改其实就是先删后增</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、vue-to-react"><span class="nav-number">4.</span> <span class="nav-text">四、vue-to-react</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">赵泽清</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="/css/gitment.css">
+        <script src="/lib/gitment/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: '1576116420000', 
+            owner: 'zhaozeq',
+            repo: 'zhaozeq.github.io',
+            
+            lang: "zh-CN" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '340da55620308337b86a249d541a937c978db4dd',
+            
+                client_id: 'bd7144cfd2b00a4da63f'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

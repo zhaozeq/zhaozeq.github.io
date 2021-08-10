@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="赵泽清, 博客, web, javascript, html">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Z_S" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="赵泽清的博客">
+<meta name="keywords" content="赵泽清, 博客, web, javascript, html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Z_S">
+<meta property="og:url" content="./page/4/index.html">
+<meta property="og:site_name" content="Z_S">
+<meta property="og:description" content="赵泽清的博客">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Z_S">
+<meta name="twitter:description" content="赵泽清的博客">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="./page/4/">
+
+
+
+
+
+  <title>Z_S</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Z_S</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">赵泽清 -- 一个追逐太阳的程序猿</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-概况">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            概况
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于我">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于我
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="./2017/11/06/SVG路径描边动画效果的实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵泽清">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Z_S">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/06/SVG路径描边动画效果的实现/" itemprop="url">SVG路径描边动画效果</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-06T10:07:00+08:00">
+                2017-11-06
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T17:13:38+08:00">
+                2019-01-20
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/svg/" itemprop="url" rel="index">
+                    <span itemprop="name">svg</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>理解SVG坐标系和变换：视窗,viewBox和preserveAspectRatio部分<br>参考自: <a href="http://www.w3cplus.com/html5/svg-coordinate-systems.html" target="_blank" rel="noopener">http://www.w3cplus.com/html5/svg-coordinate-systems.html</a> © w3cplus.com</p>
+</blockquote>
+<p>先来放一个自己写的效果：<br><img src="http://img.blog.csdn.net/20170909140356663?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzY1NzE2MDI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>是不是很酷！！！</p>
+<p>###一、先看下svg几个属性：</p>
+<p>####1.<code>stroke:none | currentColor | &lt;color&gt;</code>(描边颜色)<br>    none:        没有颜色<br>    <color>:     常规的颜色值。RGBA, HSBA都支持。<br>    currentColor:可以让路径绘制的文字直接继承父标签的color颜色值。<br><code>stroke-width 表示描边的粗细。</code></color></p>
+<p><code>stroke-linecap 表示描边端点表现方式。可用值有：butt, round, square, inherit.</code></p>
+<p><code>stroke-linejoin 表示描边转角的表现方式。可用值有：miter, round, bevel, inherit.</code></p>
+<p><code>stroke-miterlimit 表示描边相交（锐角）的表现方式。默认大小是4.</code> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">stroke-dasharray 表示虚线描边。可选值为：none, &lt;dasharray&gt;, inherit. </span><br><span class="line"></span><br><span class="line">none表示不是虚线；</span><br><span class="line">&lt;dasharray&gt;为一个逗号或空格分隔的数值列表。表示各个虚线段的长度。可以是固定的长度值，也可以是百分比值；</span><br><span class="line">inherit表继承。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stroke-dashoffset 表示虚线的起始偏移。可选值为：&lt;percentage&gt;, &lt;length&gt;, inherit. 百分比值，长度值，继承。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stroke-opacity 表示描边透明度。默认是1.</span><br></pre></td></tr></table></figure>
+<p>&nbsp;</p>
+<p>####2.SVG坐标系和变换：viewport,viewBox和preserveAspectRatio</p>
+<ul>
+<li><p>viewport：<br>你可以在最外层<svg>元素上使用width和height属性声明视窗尺寸<br/>视窗的初始坐标原点(0,0)在视窗的左上角，<code>X</code>轴正向指向右，<code>Y</code>轴正向指向下，初始坐标系中的一个单位等于视窗中的一个”像素”。</svg></p>
+</li>
+<li><p>viewBox：这个可以声明自己的用户坐标系。<br>viewBox属性接收四个参数值，包括：<code>&lt;min-x&gt;</code>, <code>&lt;min-y&gt;</code>, <code>width</code> 和 <code>height</code>。<br><code>&lt;min-x&gt;</code> 和 <code>&lt;min-y&gt;</code> 值决定viewBox的左上角，<code>width</code>和<code>height</code>决定视窗的宽高。这里要注意视窗的宽高不一定和父<code>&lt;svg&gt;</code>元素的宽高一样。</p>
+</li>
+<li><p>preserveAspectRatio：<br>当视窗的宽高比和用户坐标宽高比不同时就会使得svg发生形变，而preserveAspectRatio属性就是强制统一缩放比来保持图形的宽高比。<br><code>preserveAspectRatio = defer? &lt;align&gt; &lt;meetOrSlice&gt;?</code><br>– defer声明是可选的，并且只有当你在<image>上添加preserveAspectRatio才被用到。在svg中显然没啥用。<br>– align参数声明是否强制统一放缩，如果是，对齐方法会在viewBox的宽高比不符合viewport的宽高比的情况下生效。<br>  如果align值设为none，图形不再保持宽高比而会缩放来适应视窗。<br>– meetOrSlice也是可选的，默认值为meet。这个属性声明整个viewBox在视窗中是否可见。如果是，它和align参数通过一个或多个空格分隔。<br>&nbsp;<br>####3.SVG—&gt;text标签<br>#####有x,y,dx,dy,rotate,textLength,lengthAdjust  这些属性</image></p>
+</li>
+<li>x,y表示文本的横纵坐标。  </li>
+<li>dx,dy表示移动的横纵坐标。 </li>
+<li>rotate表示旋转的度数。</li>
+<li>text-anchor：设置文本排列属性 start|middle|end|inherit<br>&nbsp;</li>
+</ul>
+<p>###二、动画要点：stroke-dasharray和stroke-dashoffset以及CSS3</p>
+<p>stroke-dasharray: 虚线的疏密程度</p>
+<p>stroke-dashoffset: 偏移</p>
+<p>@keyframes stroke {<br>  100% {<br>    stroke-dashoffset: -400; } } </p>
+<p>设置好stroke-dasharray，通过改变stroke-dashoffset来实现动画，思路很简单，就看你的想象力了。</p>
+<p>六、路径的长度<br>如果想知道路径，或线条的准确长度。可能需要借助JavaScript，类似下面的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var path = document.querySelector(&apos;path&apos;);</span><br><span class="line">var length = path.getTotalLength();</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="./2017/10/07/fullPage代码从基层往上爬（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵泽清">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Z_S">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/07/fullPage代码从基层往上爬（一）/" itemprop="url">fullPage代码从基层往上爬（一）</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-07T10:07:00+08:00">
+                2017-10-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T17:13:38+08:00">
+                2019-01-20
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/jQuery/" itemprop="url" rel="index">
+                    <span itemprop="name">jQuery</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>自己打算通过fullPage.js来好好巩固滚轮事件、兼容性实现、jquery、函数封装等等….<br>这一部分先完成fullPage的基础功能，接下来就会进行封装、优雅降级、添加功能等…</p>
+<ul>
+<li><strong>html代码结构</strong></li>
+<li><strong>css布局</strong></li>
+<li><strong>jquery实现基础功能</strong></li>
+</ul>
+<hr>
+<h3 id="html代码结构"><a href="#html代码结构" class="headerlink" title="html代码结构"></a>html代码结构</h3><p>最简单的结构，就不做详细说明了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;section-group&quot;&gt;</span><br><span class="line">  &lt;section class=&quot;area-01&quot; data-title=&quot;标题一&quot;&gt;&lt;h2&gt;标题一&lt;/h2&gt;&lt;/section&gt;</span><br><span class="line">  &lt;section class=&quot;area-02&quot; data-title=&quot;标题二&quot;&gt;&lt;h2&gt;标题二&lt;/h2&gt;&lt;/section&gt;</span><br><span class="line">  &lt;section class=&quot;area-03&quot; data-title=&quot;标题三&quot;&gt;&lt;h2&gt;标题三&lt;/h2&gt;&lt;/section&gt;</span><br><span class="line">  &lt;section class=&quot;area-04&quot; data-title=&quot;标题四&quot;&gt;&lt;h2&gt;标题四&lt;/h2&gt;&lt;/section&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>&nbsp;</p>
+<p>###css布局<br>布局也简单,挑重点贴<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">	.section-group&#123;</span><br><span class="line">	  width:100%;height:100%;position:relative;</span><br><span class="line">	  -webkit-transition:1s cubic-bezier(.74,0,.2,1);</span><br><span class="line">	  transition:1s cubic-bezier(.74,0,.2,1);</span><br><span class="line">	&#125;</span><br><span class="line">	.section-group &gt;section&#123;</span><br><span class="line">	  width:100%;height:100%;overflow:hidden;</span><br><span class="line">	&#125;</span><br><span class="line">/*右边的ul条**/</span><br><span class="line">.pagination &#123;</span><br><span class="line">		position: absolute;</span><br><span class="line">		top: 50%;</span><br><span class="line">		transform: translateY(-25%);</span><br><span class="line">		right: 50px;</span><br><span class="line">		z-index: 999;</span><br><span class="line">	&#125;</span><br><span class="line">	.pagination &gt;li&#123;</span><br><span class="line">	  width:14px;height:14px;background:rgba(0,0,0,.6);margin:16px 0; </span><br><span class="line">	  border-radius:50%;cursor:pointer;position:relative;</span><br><span class="line">	  list-style:none;</span><br><span class="line">	&#125;</span><br><span class="line">	.pagination &gt;li &gt;span&#123;</span><br><span class="line">		line-height:26px;background:rgba(0,0,0,.6);border-radius:13px;</span><br><span class="line">		white-space:nowrap;font-size:12px;color:#fff;opacity:0;</span><br><span class="line">		-webkit-transition:.6s;transition:.6s;</span><br><span class="line">		-webkit-transform:translateX(20px);transform:translateX(20px);</span><br><span class="line">	&#125;</span><br><span class="line">	.pagination &gt;li:hover &gt;span,.pagination &gt;li.active &gt;span&#123;</span><br><span class="line">	  opacity:1;-webkit-transform:translateX(0);transform:translateX(0);&#125;</span><br></pre></td></tr></table></figure></p>
+<p>&nbsp;</p>
+<p>###jquery实现基础功能<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">/** 这里还只支持IE8+ */</span><br><span class="line">$(function()&#123;</span><br><span class="line">	var group = $(&apos;.section-group&apos;);</span><br><span class="line">	var sections = group.find(&apos;section&apos;);</span><br><span class="line">	var sectionLength = sections.length;</span><br><span class="line">	var index = 0,translateY;onMove=false;</span><br><span class="line">	</span><br><span class="line">	//侧边</span><br><span class="line">	var pagination = function()&#123;</span><br><span class="line">		var lis = [&apos;&lt;ul class=\&quot;pagination\&quot;&gt;&apos;];</span><br><span class="line">		for(var i = 0;i&lt;sectionLength;i++)&#123;</span><br><span class="line">			title = sections.eq(i).data(&apos;title&apos;);//data-title</span><br><span class="line">			lis.push(&apos;&lt;li&gt;&lt;span&gt;&apos;+ (title?title:&apos;&apos;) +&apos;&lt;/span&gt;&lt;/li&gt;&apos;);</span><br><span class="line">		&#125;</span><br><span class="line">		lis.push(&apos;&lt;/ul&gt;&apos;);</span><br><span class="line">		return lis.join(&apos;&apos;);</span><br><span class="line">	&#125;</span><br><span class="line">	$(&quot;body&quot;).append(pagination());</span><br><span class="line">	$(&quot;ul.pagination&gt;li&quot;).eq(0).addClass(&apos;active&apos;);//默认第一个li选中</span><br><span class="line">	$(&quot;ul.pagination&gt;li&quot;).click(function()&#123;      //li点击事件编写</span><br><span class="line">		if(onMove)&#123;return;&#125; </span><br><span class="line">		var _this = $(this);</span><br><span class="line">		_this.addClass(&apos;active&apos;);</span><br><span class="line">		_this.siblings().removeClass(&apos;active&apos;);</span><br><span class="line">		index = _this.index();</span><br><span class="line">		translateY = index*100;</span><br><span class="line">		onMove = true;</span><br><span class="line">		group.css(&#123;</span><br><span class="line">		&apos;-webkit-transform&apos;:&apos;translateY(-&apos;+ translateY +&apos;%)&apos;,</span><br><span class="line">        &apos;transform&apos;:&apos;translateY(-&apos;+ translateY +&apos;%)&apos;</span><br><span class="line">		&#125;);</span><br><span class="line">		</span><br><span class="line">		setTimeout(function () &#123;//为了防止滚轮时间不断被触发</span><br><span class="line">		 onMove = false;</span><br><span class="line">		&#125;, 500);</span><br><span class="line">	&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	// jquery 兼容的滚轮事件</span><br><span class="line">	$(document).on(&quot;mousewheel DOMMouseScroll&quot;, function (e) &#123;	</span><br><span class="line">		if(onMove)&#123;return;&#125;	</span><br><span class="line">		var delta = (e.originalEvent.wheelDelta &amp;&amp; (e.originalEvent.wheelDelta &gt; 0 ? 1 : -1)) ||  // chrome &amp; ie</span><br><span class="line">					(e.originalEvent.detail &amp;&amp; (e.originalEvent.detail &gt; 0 ? -1 : 1));              // firefox</span><br><span class="line">		if (delta &gt; 0) &#123;</span><br><span class="line">			if(index&lt;=0)&#123;</span><br><span class="line">				return;</span><br><span class="line">			&#125;</span><br><span class="line">			else&#123;index--;&#125;</span><br><span class="line">			$(&quot;ul.pagination&gt;li&quot;).eq(index).click();</span><br><span class="line">		&#125; else if (delta &lt; 0) &#123;</span><br><span class="line">			if(index&gt;sectionLength-2)&#123;</span><br><span class="line">				return;</span><br><span class="line">			&#125;</span><br><span class="line">			else&#123;index++;&#125;</span><br><span class="line">			</span><br><span class="line">			$(&quot;ul.pagination&gt;li&quot;).eq(index).click();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line">	</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="./2017/09/06/VueAvoid mutating a prop directly since the value will be overwritten ...警告解决方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵泽清">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Z_S">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/06/VueAvoid mutating a prop directly since the value will be overwritten ...警告解决方法/" itemprop="url">组建通信的双向绑定问题</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-06T11:04:38+08:00">
+                2017-09-06
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T17:13:38+08:00">
+                2019-01-20
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="这个问题的本质还是组建通信的双向绑定问题"><a href="#这个问题的本质还是组建通信的双向绑定问题" class="headerlink" title="这个问题的本质还是组建通信的双向绑定问题"></a>这个问题的本质还是组建通信的双向绑定问题</h3><p>####在<a href="https://cn.vuejs.org/v2/guide/components.html#sync-%E4%BF%AE%E9%A5%B0%E7%AC%A6" target="_blank" rel="noopener">vue2.0文档</a>中有这么一段话：</p>
+<blockquote>
+<p>&nbsp;&nbsp; 在一些情况下，我们可能会需要对一个 prop 进行『双向绑定』。事实上，这正是 Vue 1.x 中的 .sync修饰符所提供的功能。当一个子组件改变了一个 prop 的值时，这个变化也会同步到父组件中所绑定的值。这很方便，但也会导致问题，因为它破坏了『单向数据流』的假设。由于子组件改变 prop 的代码和普通的状态改动代码毫无区别，当光看子组件的代码时，你完全不知道它何时悄悄地改变了父组件的状态。这在 debug 复杂结构的应用时会带来很高的维护成本。<br>上面所说的正是我们在 2.0 中移除 .sync 的理由。但是在 2.0 发布之后的实际应用中，我们发现 .sync 还是有其适用之处，比如在开发可复用的组件库时。我们需要做的只是让子组件改变父组件状态的代码更容易被区分。<br>&nbsp;&nbsp;从 2.3.0 起我们重新引入了 .sync 修饰符，但是这次它只是作为一个编译时的语法糖存在。它会被扩展为一个自动更新父组件属性的 v-on 侦听器。</p>
+</blockquote>
+<h3 id="1-sync方法"><a href="#1-sync方法" class="headerlink" title="1..sync方法"></a>1.<code>.sync</code>方法</h3><p>也就是说，如果你用的vue版本是2.3.0+，那么你可以放心使用<code>.sync</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;comp :foo.sync=&quot;bar&quot;&gt;&lt;/comp&gt;</span><br><span class="line"></span><br><span class="line">会被扩展为：</span><br><span class="line">&lt;comp :foo=&quot;bar&quot; @update:foo=&quot;val =&gt; bar = val&quot;&gt;&lt;/comp&gt;</span><br><span class="line"></span><br><span class="line">当子组件需要更新 foo 的值时，它需要显式地触发一个更新事件：</span><br><span class="line">this.$emit(&apos;update:foo&apos;, newValue)</span><br></pre></td></tr></table></figure></p>
+<p>这就是props传入和emit传出的过程</p>
+<p>##</p>
+<p>###2.对象特性<br>使用对象的引用特性完成的双向绑定<br>因此我们可以传入对象，然后在子组件中修改对象属性的值那么父组件中该值也会发生变化</p>
+<p>##</p>
+<p>###3.vuex<br>当我们的项目比较复杂时就很有必要用到vuex了<br><a href="https://vuex.vuejs.org/zh-cn/" target="_blank" rel="noopener">vuex文档</a><br>这里简单的理一下顺序<br>vuex中有mapAction和mapGettters两个方法</p>
+<p>|=》通过mapAction把函数传递出去</p>
+<p>|=》在actions中 利用内置commit=》mutations</p>
+<p>|=》在mutations引入getters（这个类似store的计算属性） 定义state状态，然后通过mutations来改变state，最后导出state,mutations,getters…发现自己讲不太清楚哈哈~还是看文档吧 慢慢悟好好学~</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import &#123;CLOSE, IS_SHOW ,REG_SHOW,ABOUT_SHOW,SHOW&#125; from &quot;./types&quot;; </span><br><span class="line">import getters from &apos;./getters&apos;</span><br><span class="line">	const state = &#123;</span><br><span class="line">	  close:false,</span><br><span class="line">	  state:0,</span><br><span class="line">	  isShow:false</span><br><span class="line">	&#125;;</span><br><span class="line">	const mutations = &#123;</span><br><span class="line">	  [IS_SHOW](state)&#123;</span><br><span class="line">	    state.state = 1;</span><br><span class="line">	    state.isShow = !state.isShow;</span><br><span class="line">	  &#125;</span><br><span class="line">	  export default &#123;</span><br><span class="line">	  state,</span><br><span class="line">	  mutations,</span><br><span class="line">	  getters</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>[TOC]</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="./2017/03/06/3.jQuery拓展方法extend();/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵泽清">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Z_S">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/06/3.jQuery拓展方法extend();/" itemprop="url">jQuery 拓展方法</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-06T14:04:58+08:00">
+                2017-03-06
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T17:13:38+08:00">
+                2019-01-20
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>####<strong>1.当只写一个对象自变量的时候，JQ中扩展插件的形式</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">$.extend(&#123;     <span class="comment">//扩展工具方法</span></span><br><span class="line">	fun1 : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		...</span><br><span class="line">	&#125;,</span><br><span class="line">	fun2 : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		...</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//调用:  $.fun1()</span></span><br><span class="line"><span class="comment">/*那么为什么可以这么调用呢？</span></span><br><span class="line"><span class="comment">	$.extend() 它的this是$,因此this.fun1()==$.fun1();	</span></span><br><span class="line"><span class="comment">**/</span> </span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line"></span><br><span class="line">$.fn.extend(&#123;     <span class="comment">//扩展JQ实例方法</span></span><br><span class="line">	fun1 : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		...</span><br><span class="line">	&#125;,</span><br><span class="line">	fun2 : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		...</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//调用:  $().fun1() </span></span><br><span class="line"><span class="comment">/*那么为什么可以这么调用呢？</span></span><br><span class="line"><span class="comment">	$.fn.extend() 它的this是$.fn,因此this.fun1()==$().fun1();	</span></span><br><span class="line"><span class="comment">**/</span></span><br></pre></td></tr></table></figure></p>
+<p>&nbsp;</p>
+<p>####<strong>2.当写多个对象自变量的时候 , 后面的对象都是扩展到第一个对象身上</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;&#125;;</span><br><span class="line">$.extend( a , &#123; <span class="attr">name</span> : <span class="string">'hello'</span> &#125; , &#123; <span class="attr">age</span> : <span class="number">30</span> &#125;,... );</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log( a );<span class="comment">//a=&#123;name:'hello', age : 30,...&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>&nbsp;</p>
+<p>####<strong>3.还可以做  浅拷贝 和 深拷贝</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">var a = &#123;&#125;;</span><br><span class="line">var b = &#123;  name : &apos;张三&apos; &#125; ;</span><br><span class="line">$.extend( a , b );</span><br><span class="line">a.name = &apos;hi&apos;;</span><br><span class="line">alert( b.name);//张三  这就是</span><br><span class="line"></span><br><span class="line">var a = &#123;&#125;;</span><br><span class="line">var b = &#123;  name : &#123; age : 30 &#125; &#125;;</span><br><span class="line">a.name.age = 20;</span><br><span class="line">alert( b.name.age );//20  此时就会受到影响</span><br><span class="line"></span><br><span class="line">//而深拷贝只需要在前面加个true 如下：</span><br><span class="line">$.extend( true , a , b ); //此时继承是不会受到影响的！</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">JQ中 : 拷贝继承 : 构造函数的原型</span><br><span class="line"></span><br><span class="line">JS : 类式继承 / 原型继承</span><br><span class="line"></span><br><span class="line">new 构造函数   /  &#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>####<strong>4.extend()中的属性和方法汇总</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">jQuery.extend(&#123;</span><br><span class="line">	</span><br><span class="line">	expando  :  生成唯一JQ字符串(内部)</span><br><span class="line">	noConflict()  :  防止冲突</span><br><span class="line">	isReady  :  DOM是否加载完(内部)</span><br><span class="line">	readyWait  :  等待多少文件的计数器(内部)</span><br><span class="line">	holdReady()  :  推迟DOM触发</span><br><span class="line">	ready()  :  准备DOM触发</span><br><span class="line">	isFunction()  :  是否为函数</span><br><span class="line">	isArray()  :  是否为数组</span><br><span class="line">	isWindow()  :  是否为window</span><br><span class="line">	isNumeric()  :  是否为数字 </span><br><span class="line">	type()  :  判断数据类型</span><br><span class="line">	isPlainObject()  :  是否为对象自变量</span><br><span class="line">	isEmptyObject()  :  是否为空的对象</span><br><span class="line">	error()  :  抛出异常</span><br><span class="line">	parseHTML()  :  解析节点</span><br><span class="line">	parseJSON()  :  解析JSON</span><br><span class="line">	parseXML()  :  解析XML</span><br><span class="line">	noop()  :  空函数</span><br><span class="line">	globalEval()  :  全局解析JS</span><br><span class="line">	camelCase()  :  转驼峰(内部)</span><br><span class="line">	nodeName()  :  是否为指定节点名(内部)</span><br><span class="line">	each()  :  遍历集合</span><br><span class="line">	trim()  :  去前后空格</span><br><span class="line">	makeArray()  :  类数组转真数组</span><br><span class="line">	inArray()  :  数组版indexOf</span><br><span class="line">	merge()  :  合并数组</span><br><span class="line">	grep()  :  过滤新数组</span><br><span class="line">	map()  :  映射新数组</span><br><span class="line">	guid  :  唯一标识符(内部)</span><br><span class="line">	proxy()  :  改this指向</span><br><span class="line">	access()  :  多功能值操作(内部)</span><br><span class="line">	now()  :  当前时间</span><br><span class="line">	swap()  :  CSS交换(内部)</span><br><span class="line">	</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="./2017/03/06/2.理解merge和pushStack可以更好的了解jQuery源码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵泽清">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Z_S">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/06/2.理解merge和pushStack可以更好的了解jQuery源码/" itemprop="url">理解merge和pushStack可以更好的了解jQuery源码</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-06T11:04:38+08:00">
+                2017-03-06
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T17:13:38+08:00">
+                2019-01-20
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;我就想看看自己JS学到什么程度然后让自己对jquery方法有更深的印象就“作死着”去看了看jquery源码，毕竟都说其编码结构很NB…<br>&nbsp;&nbsp;&nbsp;&nbsp;目前还只看到前面一部分，基本是在<em>jQuery</em>构造方法下 定义了一些变量和方法。<br>&nbsp;&nbsp;&nbsp;&nbsp;然后发现 <code>merge()</code> 和 <code>pushStack()</code> 出现多次,然后就去看了这两个方法，相信对大家也会很有用的。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/06/2.理解merge和pushStack可以更好的了解jQuery源码/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </p></div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="./2017/03/06/1.jQuery()和$()的由来/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵泽清">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Z_S">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/06/1.jQuery()和$()的由来/" itemprop="url">jQuery由来</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-06T10:04:08+08:00">
+                2017-03-06
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T17:13:38+08:00">
+                2019-01-20
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">jQuery = <span class="function"><span class="keyword">function</span> <span class="title">jQuery</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">	alert(a);</span><br><span class="line">&#125;</span><br><span class="line">$=<span class="built_in">window</span>.jQuery = jQuery;</span><br><span class="line"></span><br><span class="line">$(a);</span><br><span class="line">jQuery(a);</span><br></pre></td></tr></table></figure>
+<p>嗯 好像是这么回事 哈哈~~</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="赵泽清">
+            
+              <p class="site-author-name" itemprop="name">赵泽清</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/qq_36571602" target="_blank" title="Blog">
+                      
+                        <i class="fa fa-fw fa-rss"></i>Blog</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zhaozeq" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhaozeq@foxmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">赵泽清</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="/css/gitment.css">
+        <script src="/lib/gitment/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

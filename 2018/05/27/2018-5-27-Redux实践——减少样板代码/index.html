@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="react,redux,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Z_S" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="在编写 Redux 代码时，可能最令人感到厌烦的是必须写一大堆样板代码。在编写同步 action 时还能忍受，但在编写异步 action 时，大量的样板代码不仅使代码量陡增，而且难以维护。接下来我们就来探究如何使用高阶函数（High-order Function）和中间件（middleware）减少样板代码。">
+<meta name="keywords" content="react,redux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redux实践——减少样板代码">
+<meta property="og:url" content="./2018/05/27/2018-5-27-Redux实践——减少样板代码/index.html">
+<meta property="og:site_name" content="Z_S">
+<meta property="og:description" content="在编写 Redux 代码时，可能最令人感到厌烦的是必须写一大堆样板代码。在编写同步 action 时还能忍受，但在编写异步 action 时，大量的样板代码不仅使代码量陡增，而且难以维护。接下来我们就来探究如何使用高阶函数（High-order Function）和中间件（middleware）减少样板代码。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-16T12:14:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redux实践——减少样板代码">
+<meta name="twitter:description" content="在编写 Redux 代码时，可能最令人感到厌烦的是必须写一大堆样板代码。在编写同步 action 时还能忍受，但在编写异步 action 时，大量的样板代码不仅使代码量陡增，而且难以维护。接下来我们就来探究如何使用高阶函数（High-order Function）和中间件（middleware）减少样板代码。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="./2018/05/27/2018-5-27-Redux实践——减少样板代码/">
+
+
+
+
+
+  <title>Redux实践——减少样板代码 | Z_S</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Z_S</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">赵泽清 -- 一个追逐太阳的程序猿</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-概况">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            概况
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于我">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于我
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="./2018/05/27/2018-5-27-Redux实践——减少样板代码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵泽清">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Z_S">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Redux实践——减少样板代码</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-27T10:07:00+08:00">
+                2018-05-27
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-16T20:14:10+08:00">
+                2019-04-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/react/" itemprop="url" rel="index">
+                    <span itemprop="name">react</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/react/redux/" itemprop="url" rel="index">
+                    <span itemprop="name">redux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在编写 Redux 代码时，可能最令人感到厌烦的是必须写一大堆样板代码。在编写同步 action 时还能忍受，但在编写异步 action 时，大量的样板代码不仅使代码量陡增，而且难以维护。接下来我们就来探究如何使用<code>高阶函数（High-order Function）</code>和<code>中间件（middleware）</code>减少样板代码。</p>
+<a id="more"></a>
+<h2 id="同步-action"><a href="#同步-action" class="headerlink" title="同步 action"></a>同步 action</h2><p>以一个 todo 应用为例，具有新增、编辑、删除功能。完整代码如下：</p>
+<p><code>actions/index.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> ADD_TODO = <span class="string">'ADD_TODO'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> EDIT_TODO = <span class="string">'EDIT_TODO'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> DELETE_TODO = <span class="string">'DELETE_TODO'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> addTodo = <span class="function"><span class="params">text</span> =&gt;</span> (&#123;</span><br><span class="line">  type: ADD_TODO,</span><br><span class="line">  text</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> EditTodo = <span class="function">(<span class="params">id, text</span>) =&gt;</span> (&#123;</span><br><span class="line">  type: EDIT_TODO,</span><br><span class="line">  text</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> DeleteTodo = <span class="function"><span class="params">id</span> =&gt;</span> (&#123;</span><br><span class="line">  type: DELETE_TODO,</span><br><span class="line">  id</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>这样大量的样板代码是否令人厌烦？我们来写一个高阶函数，来生成这些 action：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createAction</span>(<span class="params">type, ...argNames</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> action = &#123; type &#125;</span><br><span class="line">    argNames.forEach(<span class="function">(<span class="params">argName, index</span>) =&gt;</span> &#123;</span><br><span class="line">      action[argName] = args[index]</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> action</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> ADD_TODO = <span class="string">'ADD_TODO'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> EDIT_TODO = <span class="string">'EDIT_TODO'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> DELETE_TODO = <span class="string">'DELETE_TODO'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> addTodo = createAction(ADD_TODO, <span class="string">'text'</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> editTodo = createAction(EDIT_TODO, <span class="string">'id'</span>, <span class="string">'text'</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> deleteToto = createAction(DELETE_TODO, <span class="string">'id'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在组件中使用</span></span><br><span class="line"><span class="comment">// components/App.js</span></span><br><span class="line">dispatch(addTodo(<span class="string">'someText'</span>))</span><br></pre></td></tr></table></figure>
+<p>经过<code>createAction</code>这个高阶函数封装之后，编写同步 action 只需要一行，清晰明了。</p>
+<p>因为 action type 在 action 和 reducer 中都需要引用，所以可以新建一个<code>actionTypes.js</code>，将 type 常量放置其中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">├── redux</span><br><span class="line">│   ├── actions</span><br><span class="line">│       ├── index.js</span><br><span class="line">│   ├── reducers</span><br><span class="line">│       ├── index.js</span><br><span class="line">│   ├── actionTypes.js // 放置action type常量</span><br></pre></td></tr></table></figure>
+<p><code>actionTypes.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> ADD_TODO = <span class="string">'ADD_TODO'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> EDIT_TODO = <span class="string">'EDIT_TODO'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> DELETE_TODO = <span class="string">'DELETE_TODO'</span></span><br></pre></td></tr></table></figure>
+<p>在<code>actions/index.js</code>中引入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> actionTypes <span class="keyword">from</span> <span class="string">'../actionTypes'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> addTodo = createAction(actionTypes.ADD_TODO, <span class="string">'text'</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> editTodo = createAction(actionTypes.EDIT_TODO, <span class="string">'id'</span>, <span class="string">'text'</span>)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> deleteToto = createAction(actionTypes.DELETE_TODO, <span class="string">'id'</span>)</span><br></pre></td></tr></table></figure>
+<p>再来看 Reducer：</p>
+<p><code>reducers/index.js</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> actionTypes <span class="keyword">from</span> <span class="string">'../actionTypes'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">todos</span>(<span class="params">state = [], action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> actionTypes.ADD_TODO:</span><br><span class="line">      <span class="comment">// 只是个例子，暂时不处理id的问题</span></span><br><span class="line">      <span class="keyword">const</span> text = action.text.trim()</span><br><span class="line">      <span class="keyword">return</span> [...state, text]</span><br><span class="line">    <span class="keyword">case</span> actionTypes.EDIT_TODO:</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">case</span> actionType.DELETE_TODO:</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> state</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>满屏的<code>switch...case...</code>让人眼花，让我们来写一个生成 reducer 的函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createReducer</span>(<span class="params">initState, handlers</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">reducer</span>(<span class="params">state = initState, action</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (handlers.hasOwnProperty(action.type)) &#123;</span><br><span class="line">      <span class="keyword">return</span> handlers[action.type](state, action)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> state</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> todos = createReducer([], &#123;</span><br><span class="line">  [actionTypes.ADD_TODO](state, action) &#123;</span><br><span class="line">    <span class="keyword">const</span> text = action.text.trim()</span><br><span class="line">    <span class="keyword">return</span> [...state, text]</span><br><span class="line">  &#125;,</span><br><span class="line">  [actionTypes.EDIT_TODO](state, action) &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;,</span><br><span class="line">  [actionTypes.DELETE_TODO](state, action) &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> rootReducer = combineReducer(&#123;</span><br><span class="line">  todos</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>假如<code>todos</code>中有复杂的数据处理，我们甚至能将其再次抽取出来：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addTodos</span>(<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> newTodos = state.map(<span class="function"><span class="params">todo</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 复杂的数据处理</span></span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> newTodos</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> todos = createReducer([], &#123;</span><br><span class="line">  [actionTypes.ADD_TODO]: addTodos</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>这样结构就会非常清晰，遵循<code>让每个函数只做一件事情</code>原则，当需求变更或者 bug 定位时，不会牵一发而动全身。</p>
+<h2 id="异步-action"><a href="#异步-action" class="headerlink" title="异步 action"></a>异步 action</h2><p>此处使用的异步中间件为<code>redux-thunk</code>，这是最基础的一个异步中间件。也许今后会用到<code>redux-saga</code>等更加强大的中间件，其实原理是一样的，也是使用高阶函数进行一步一步的封装。</p>
+<p>我们来写一个最基本的异步 action：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// actionTypes.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> SOME_START = <span class="string">'SOME_START'</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> SOME_SUCCESS = <span class="string">'SOME_SUCCESS'</span>；</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> SOME_FAILED = <span class="string">'SOME_FAILED'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//actions/index.js</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> actionTypes <span class="keyword">from</span> <span class="string">'../actionTypes'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> someAction = <span class="function"><span class="params">params</span> =&gt;</span> dispatch =&gt; &#123;</span><br><span class="line">  dispatch(&#123; <span class="attr">type</span>: actionTypes.SOME_START &#125;);</span><br><span class="line"></span><br><span class="line">  axios(&#123;</span><br><span class="line">    <span class="comment">// ...一些参数</span></span><br><span class="line">  &#125;)</span><br><span class="line">    .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> data = response.data.data;</span><br><span class="line">      dispatch(&#123; <span class="attr">type</span>: actionTypes.SOME_SUCCESS, data &#125;);</span><br><span class="line">  &#125;)</span><br><span class="line">    .catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> errorMsg = <span class="string">'someText'</span>;</span><br><span class="line">      dispatch(&#123; <span class="attr">type</span>: actionTypes.SOME_FAILED, errorMsg &#125;);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以看到，一个最简单的异步 action，需要编写的代码量就在 30 行左右。然而在实际项目中，我们还会有大量的业务逻辑操作，如错误提示、数据处理等等。一个界面动辄十来个几十个接口，大量的样板代码令人厌烦。那么我们怎么处理这些样板代码呢？答案是<code>中间件（middleware）</code>。</p>
+<p>我们所使用的<code>redux-thunk</code>就是一个中间件。以下是它的源码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">thunkMiddleware</span>(<span class="params">&#123; dispatch, getState &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">next</span> =&gt;</span> action =&gt;</span><br><span class="line">    <span class="keyword">typeof</span> action === <span class="string">'function'</span> ? action(dispatch, getState) : next(action)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>仅仅 6 行，就能使我们编写异步 action，但这是远远不够的，接下来我们来编写自己的中间件。</p>
+<p>我们可以看到，一个异步 action 涉及到 3 个同步 action 和一个 AJAX 请求，那么我们把它提取出来：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> someAction = <span class="function"><span class="params">params</span> =&gt;</span> (&#123;</span><br><span class="line">  types: [</span><br><span class="line">    actionTypes.SOME_START,</span><br><span class="line">    actionTypes.SOME_SUCCESS,</span><br><span class="line">    actionTypes.SOME_FAILED</span><br><span class="line">  ],</span><br><span class="line">  axiosAPI: <span class="function"><span class="params">()</span> =&gt;</span></span><br><span class="line">    axios(&#123;</span><br><span class="line">      <span class="comment">//一些参数</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>解释这个 action 的中间件可以是下面这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (&#123; dispatch, getState &#125;) =&gt; <span class="function"><span class="params">next</span> =&gt;</span> action =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; types, axiosAPI &#125; = action</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 不存在types属性，则交由下个中间件处理</span></span><br><span class="line">  <span class="keyword">if</span> (!types) &#123;</span><br><span class="line">    <span class="keyword">return</span> next(action)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 验证types是否正确的数组</span></span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    !<span class="built_in">Array</span>.isArray(types) ||</span><br><span class="line">    types.length !== <span class="number">3</span> ||</span><br><span class="line">    !types.every(<span class="function"><span class="params">type</span> =&gt;</span> <span class="keyword">typeof</span> type === <span class="string">'string'</span>)</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Expected types to be an array of three string types.'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> axiosAPI !== <span class="string">'function'</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Expected axiosAPI to be a function.'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [startType, successType, failureType] = types</span><br><span class="line">  dispatch(&#123; <span class="attr">type</span>: startType &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> axiosAPI()</span><br><span class="line">    .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> data = response.data.data</span><br><span class="line">      dispatch(&#123; <span class="attr">type</span>: successType, data &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">      dispatch(&#123; <span class="attr">type</span>: failureType, <span class="attr">errorMsg</span>: <span class="string">'sometext'</span> &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当然，这个中间件并不能满足我们的实际需求。在实际项目中，一个异步请求往往伴随着消息提示，回调函数等等，如请求成功时弹出提示、关闭弹窗等等。就目前的项目而言，可以提炼出这些需求：</p>
+<ul>
+<li>函数回调（如关闭弹窗，发起另外的请求等）</li>
+<li>消息提示（包括成功、错误提示）</li>
+<li>不同的 errorCode 有不同的提示</li>
+<li>后台返回数据的处理</li>
+</ul>
+<p>我们再对上面的 action 进行扩展：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; message &#125; <span class="keyword">from</span> <span class="string">'antd'</span>; <span class="comment">// 引入atnd消息弹框组件</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> messageCallback = &#123;</span><br><span class="line">  success: <span class="function"><span class="params">msg</span> =&gt;</span> message.success(msg),</span><br><span class="line">  failed: <span class="function"><span class="params">msg</span> =&gt;</span> message.failed(msg),</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> someAction = <span class="function">(<span class="params">params</span>) =&gt;</span> (&#123;</span><br><span class="line">  types: [actionTypes.SOME_START, actionTypes.SOME_SUCCESS, actionTypes.SOME_FAILED],</span><br><span class="line">  axiosAPI: <span class="function"><span class="params">()</span> =&gt;</span> axios(&#123;</span><br><span class="line">    <span class="comment">//一些参数</span></span><br><span class="line">  &#125;),</span><br><span class="line">  callback: &#123;</span><br><span class="line">    <span class="comment">// 消息提示</span></span><br><span class="line">    messageSuccess: <span class="function">(<span class="params">msg = <span class="string">'请求成功！'</span></span>) =&gt;</span> messageCallback.success(msg),</span><br><span class="line">    messageFailed: <span class="function">(<span class="params">msg = <span class="string">'请求失败！'</span></span>) =&gt;</span> messageCallback.failed(msg),</span><br><span class="line">    <span class="comment">// 对应错误码处理</span></span><br><span class="line">    errorList: [&#123;</span><br><span class="line">      errorCode: <span class="number">1010</span>,</span><br><span class="line">      errorMsg: <span class="string">'登录状态失效'</span>,</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      errorCode: <span class="number">202</span>,</span><br><span class="line">      errorMsg: <span class="string">'信息重复'</span>,</span><br><span class="line">    &#125;],</span><br><span class="line">    <span class="comment">// 对后台返回数据处理</span></span><br><span class="line">    handleData: <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 函数回调</span></span><br><span class="line">    callbackFunc: <span class="function">(<span class="params">dispatch, data</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 一些回调方法，如发起另外的action，data处理等</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>继续扩展我们的中间件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (&#123; dispatch, getState &#125;) =&gt; <span class="function"><span class="params">next</span> =&gt;</span> action =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; types, axiosAPI, callback = &#123;&#125; &#125; = action</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 不存在types属性，则交由下个中间件处理</span></span><br><span class="line">  <span class="keyword">if</span> (!types) &#123;</span><br><span class="line">    <span class="keyword">return</span> next(action)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 验证types是否正确的数组</span></span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    !<span class="built_in">Array</span>.isArray(types) ||</span><br><span class="line">    types.length !== <span class="number">3</span> ||</span><br><span class="line">    !types.every(<span class="function"><span class="params">type</span> =&gt;</span> <span class="keyword">typeof</span> type === <span class="string">'string'</span>)</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Expected types to be an array of three string types.'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> axiosAPI !== <span class="string">'function'</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Expected axiosAPI to be a function.'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> callback !== <span class="string">'object'</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Expected callback to be an object.'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [startType, successType, failureType] = types</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 因为callback和它的属性都为可选项，所以添加默认值</span></span><br><span class="line">  <span class="keyword">const</span> &#123;</span><br><span class="line">    messageSuccess = <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;,</span><br><span class="line">    messageFailed = <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;,</span><br><span class="line">    callbackFunc = <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;,</span><br><span class="line">    errorList = [],</span><br><span class="line">    handleData = <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;</span><br><span class="line">  &#125; = callback</span><br><span class="line"></span><br><span class="line">  dispatch(&#123; <span class="attr">type</span>: startType &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> axiosAPI()</span><br><span class="line">    .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; ErrCode, ErrMsg, data &#125; = response.data</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 从errorList筛选出和后台返回的ErrCode对应的值</span></span><br><span class="line">      <span class="keyword">const</span> error = errorList.filter(<span class="function"><span class="params">item</span> =&gt;</span> item.errorCode === ErrCode)[<span class="number">0</span>]</span><br><span class="line">      <span class="keyword">let</span> errorMsg = <span class="string">''</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (error) &#123;</span><br><span class="line">        errorMsg = error.errorMsg</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 根据后台返回的错误码进行处理</span></span><br><span class="line">      <span class="keyword">if</span> (ErrCode !== <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (error) &#123;</span><br><span class="line">          dispatch(&#123; <span class="attr">type</span>: failureType, errorMsg &#125;)</span><br><span class="line">          <span class="keyword">return</span> errorMsg &amp;&amp; <span class="keyword">typeof</span> errorMsg === <span class="string">'string'</span></span><br><span class="line">            ? messageFailed(errorMsg)</span><br><span class="line">            : <span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        dispatch(&#123; <span class="attr">type</span>: failureType, <span class="attr">errorMsg</span>: ErrMsg || <span class="string">'failed'</span> &#125;)</span><br><span class="line">        <span class="keyword">return</span> messageFailed()</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (ErrCode === <span class="number">200</span>) &#123;</span><br><span class="line">        dispatch(&#123;</span><br><span class="line">          type: successType,</span><br><span class="line">          data: handleData(data) || data</span><br><span class="line">        &#125;)</span><br><span class="line">        callbackFunc(dispatch, data)</span><br><span class="line">        <span class="keyword">return</span> messageSuccess()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(error)</span><br><span class="line">      dispatch(&#123; <span class="attr">type</span>: failureType, <span class="attr">errorMsg</span>: <span class="string">'sometext'</span> &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>大功告成！这样我们就可以编写比较清晰的异步请求 action。</p>
+<p>最后处理 reducer：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> actionTypes <span class="keyword">from</span> <span class="string">'../actionTypes'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用之前封装的createReducer</span></span><br><span class="line"><span class="keyword">const</span> initState = &#123;</span><br><span class="line">  isRequesting: <span class="literal">false</span>,</span><br><span class="line">  data: [],</span><br><span class="line">  errorMsg: <span class="string">''</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> someReducer = createReducer(initState, &#123;</span><br><span class="line">  [actionTypes.SOME_START](state, action) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; ...state, <span class="attr">isRequesting</span>: <span class="literal">true</span> &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  [actionTypes.SOME_SUCCESS](state, action) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; ...state, <span class="attr">data</span>: action.data, <span class="attr">isRequesting</span>: <span class="literal">false</span> &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  [actionTypes.SOME_FAILED](state, action) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; ...state, <span class="attr">errorMsg</span>: action.errMsg, <span class="attr">isRequesting</span>: <span class="literal">false</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>在编写 reducer 时我们会发现，异步请求的 reducer 往往具有相同的逻辑，即三种处理条件，我们试试将这些逻辑复用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> createAsyncReducer = <span class="function">(<span class="params">initState, types</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    !<span class="built_in">Array</span>.isArray(types) ||</span><br><span class="line">    types.length !== <span class="number">3</span> ||</span><br><span class="line">    !types.every(<span class="function"><span class="params">type</span> =&gt;</span> <span class="keyword">typeof</span> type === <span class="string">'string'</span>)</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Expected types to be an array of three string types.'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [SOME_START, SOME_SUCCESS, SOME_FAILED] = types</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> createReducer(initState, &#123;</span><br><span class="line">    [SOME_START](state, action) &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, <span class="attr">isRequesting</span>: <span class="literal">true</span> &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    [SOME_SUCCESS](state, action) &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, <span class="attr">data</span>: action.data, <span class="attr">isRequesting</span>: <span class="literal">false</span> &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    [SOME_FAILED](state, action) &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, <span class="attr">errorMsg</span>: action.errMsg, <span class="attr">isRequesting</span>: <span class="literal">false</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将其中的条件处理抽取出来，作为<code>createHandler</code>函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> createHandler = <span class="function"><span class="params">types</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    !<span class="built_in">Array</span>.isArray(types) ||</span><br><span class="line">    types.length !== <span class="number">3</span> ||</span><br><span class="line">    !types.every(<span class="function"><span class="params">type</span> =&gt;</span> <span class="keyword">typeof</span> type === <span class="string">'string'</span>)</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Expected types to be an array of three string types.'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [SOME_START, SOME_SUCCESS, SOME_FAILED] = types</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    [SOME_START](state, action) &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, <span class="attr">isRequesting</span>: <span class="literal">true</span> &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    [SOME_SUCCESS](state, action) &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, <span class="attr">data</span>: action.data, <span class="attr">isRequesting</span>: <span class="literal">false</span> &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    [SOME_FAILED](state, action) &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123; ...state, <span class="attr">errorMsg</span>: action.errMsg, <span class="attr">isRequesting</span>: <span class="literal">false</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// options为另外的reducer处理逻辑</span></span><br><span class="line"><span class="keyword">const</span> createAsyncReducer = <span class="function">(<span class="params">initState, types, options = &#123;&#125;</span>) =&gt;</span></span><br><span class="line">  createReducer(initState, &#123;</span><br><span class="line">    ...createHandler(types),</span><br><span class="line">    ...options</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+<p>完成这些工具函数之后，编写异步请求的 reducer 只需要像下面这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 异步请求的reducer</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> actionTypes <span class="keyword">from</span> <span class="string">'../actionTypes'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> initState = &#123;</span><br><span class="line">  isRequesting: <span class="literal">false</span>,</span><br><span class="line">  data: [],</span><br><span class="line">  errorMsg: <span class="string">''</span>,</span><br><span class="line">  otherValue: <span class="string">''</span> <span class="comment">// options要处理的数据</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> options = &#123;</span><br><span class="line">  [actionTypes.OTHER_ACTION]: <span class="function">(<span class="params">state, action</span>) =&gt;</span> (&#123;</span><br><span class="line">    ...state,</span><br><span class="line">    otherValue: action.value</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> types = [</span><br><span class="line">  actionTypes.SOME_START,</span><br><span class="line">  actionTypes.SOME_SUCCESS,</span><br><span class="line">  actionTypes.SOME_FAILED</span><br><span class="line">]</span><br><span class="line"><span class="keyword">const</span> someRequestReducer = createAsyncReducer(initState, types, options)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在action/index.js里添加处理option的action</span></span><br><span class="line"><span class="keyword">const</span> otherAction = createAction(action.OTHER_ACTION, <span class="string">'value'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="以-axios-为基础再次扩展中间件"><a href="#以-axios-为基础再次扩展中间件" class="headerlink" title="以 axios 为基础再次扩展中间件"></a>以 axios 为基础再次扩展中间件</h2><p>如果使用 axios 来调用 AJAX，我们可以直接把 axios 写在中间件里，在编写异步 action 的时候添加 axios 的参数。</p>
+<p>值得注意的是，在一个组件中调用 dispatch 时，我们往往会需要其他 reducer 的数据来作为参数，但我们又不需要使用这些数据来渲染组件，使用<code>getState</code>可以解决这个问题。</p>
+<p>综合以上问题，再次扩展中间件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span> <span class="comment">// 引入axios库</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (&#123; dispatch, getState &#125;) =&gt; <span class="function"><span class="params">next</span> =&gt;</span> action =&gt; &#123;</span><br><span class="line">  <span class="comment">// params为axios参数</span></span><br><span class="line">  <span class="keyword">const</span> &#123; types, generateParams, callback = &#123;&#125; &#125; = action</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!types) &#123;</span><br><span class="line">    <span class="keyword">return</span> next(action)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    !<span class="built_in">Array</span>.isArray(types) ||</span><br><span class="line">    types.length !== <span class="number">3</span> ||</span><br><span class="line">    !types.every(<span class="function"><span class="params">type</span> =&gt;</span> <span class="keyword">typeof</span> type === <span class="string">'string'</span>)</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Expected types to be an array of three string types.'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> generateParams !== <span class="string">'function'</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Expected generateParams to be a function.'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> callback !== <span class="string">'object'</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Expected callback to be an object.'</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> [startType, successType, failureType] = types</span><br><span class="line">  <span class="keyword">const</span> &#123;</span><br><span class="line">    messageSuccess = <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;,</span><br><span class="line">    messageFailed = <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;,</span><br><span class="line">    callbackFunc = <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;,</span><br><span class="line">    errorList = [],</span><br><span class="line">    handleData = <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;</span><br><span class="line">  &#125; = callback</span><br><span class="line"></span><br><span class="line">  dispatch(&#123; <span class="attr">type</span>: startType &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 传入getState作为参数</span></span><br><span class="line">  <span class="keyword">return</span> axios(generateParams(getState))</span><br><span class="line">    .then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; ErrCode, ErrMsg, data &#125; = response.data</span><br><span class="line">      <span class="keyword">const</span> error = errorList.filter(<span class="function"><span class="params">item</span> =&gt;</span> item.errorCode === ErrCode)[<span class="number">0</span>]</span><br><span class="line">      <span class="keyword">let</span> errorMsg = <span class="string">''</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (error) &#123;</span><br><span class="line">        errorMsg = error.errorMsg</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (ErrCode !== <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (error) &#123;</span><br><span class="line">          dispatch(&#123; <span class="attr">type</span>: failureType, errorMsg &#125;)</span><br><span class="line">          <span class="keyword">return</span> errorMsg &amp;&amp; <span class="keyword">typeof</span> errorMsg === <span class="string">'string'</span></span><br><span class="line">            ? messageFailed(errorMsg)</span><br><span class="line">            : <span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        dispatch(&#123; <span class="attr">type</span>: failureType, <span class="attr">errorMsg</span>: ErrMsg || <span class="string">'failed'</span> &#125;)</span><br><span class="line">        <span class="keyword">return</span> messageFailed()</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (ErrCode === <span class="number">200</span>) &#123;</span><br><span class="line">        dispatch(&#123;</span><br><span class="line">          type: successType,</span><br><span class="line">          data: handleData(data) || data</span><br><span class="line">        &#125;)</span><br><span class="line">        callbackFunc(dispatch, data, getState)</span><br><span class="line">        <span class="keyword">return</span> messageSuccess()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(error)</span><br><span class="line">      dispatch(&#123; <span class="attr">type</span>: failureType, <span class="attr">errorMsg</span>: <span class="string">'sometext'</span> &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对应的 action：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; message &#125; <span class="keyword">from</span> <span class="string">'antd'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> messageCallback = &#123;</span><br><span class="line">  success: <span class="function"><span class="params">msg</span> =&gt;</span> message.success(msg),</span><br><span class="line">  failed: <span class="function"><span class="params">msg</span> =&gt;</span> message.failed(msg),</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> someAction = <span class="function">(<span class="params">params</span>) =&gt;</span> (&#123;</span><br><span class="line">  types: [actionTypes.SOME_START, actionTypes.SOME_SUCCESS, actionTypes.SOME_FAILED],</span><br><span class="line">  <span class="comment">// 需要使用其他reducer，则使用getState</span></span><br><span class="line">  generateParams: <span class="function">(<span class="params">getState</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 否则直接省略参数，返回对象</span></span><br><span class="line">  generateParams: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;)</span><br><span class="line">  callback: &#123;</span><br><span class="line">    messageSuccess: <span class="function">(<span class="params">msg = '请求成功！'</span>) =&gt;</span> messageCallback.success(msg),</span><br><span class="line">    messageFailed: <span class="function">(<span class="params">msg = '请求失败！'</span>) =&gt;</span> messageCallback.failed(msg),</span><br><span class="line">    errorList: [&#123;</span><br><span class="line">      errorCode: <span class="number">1010</span>,</span><br><span class="line">      errorMsg: <span class="string">'登录状态失效'</span>,</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      errorCode: <span class="number">202</span>,</span><br><span class="line">      errorMsg: <span class="string">'信息重复'</span>,</span><br><span class="line">    &#125;],</span><br><span class="line">    handleData: <span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    callbackFunc: <span class="function">(<span class="params">dispatch, data, getState</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 一些回调方法，如发起另外的action，data处理等</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>最后要说的是，因为不同的项目有不同的需求，可能上面的工具函数无法与你当前的需求完全匹配，但是思想是一致的。因为 redux 的设计原则导致它容易编写出大量类似的代码，这时你可以考虑像上面一样，封装自己的工具函数。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="赵泽清 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="赵泽清 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/react/" rel="tag"># react</a>
+          
+            <a href="/tags/redux/" rel="tag"># redux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/20/2018-3-20-《高级程序设计》整理-一-数据类型和数组篇/" rel="next" title="《高级程序设计》整理(一)- - -数据类型和数组篇">
+                <i class="fa fa-chevron-left"></i> 《高级程序设计》整理(一)- - -数据类型和数组篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/10/ES6/" rel="prev" title="ES6">
+                ES6 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="赵泽清">
+            
+              <p class="site-author-name" itemprop="name">赵泽清</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/qq_36571602" target="_blank" title="Blog">
+                      
+                        <i class="fa fa-fw fa-rss"></i>Blog</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zhaozeq" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhaozeq@foxmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#同步-action"><span class="nav-number">1.</span> <span class="nav-text">同步 action</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步-action"><span class="nav-number">2.</span> <span class="nav-text">异步 action</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以-axios-为基础再次扩展中间件"><span class="nav-number">3.</span> <span class="nav-text">以 axios 为基础再次扩展中间件</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">赵泽清</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="/css/gitment.css">
+        <script src="/lib/gitment/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: '1527386820000', 
+            owner: 'zhaozeq',
+            repo: 'zhaozeq.github.io',
+            
+            lang: "zh-CN" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '340da55620308337b86a249d541a937c978db4dd',
+            
+                client_id: 'bd7144cfd2b00a4da63f'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

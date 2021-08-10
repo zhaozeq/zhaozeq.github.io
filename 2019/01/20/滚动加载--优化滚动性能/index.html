@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="javascript,addEventListener,mouseWheel,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Z_S" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="亲爱的儿子，我还没有追到你娘，提前祝你新年快乐！爸爸明年会努力的~">
+<meta name="keywords" content="javascript,addEventListener,mouseWheel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="滚动加载--优化滚动性能">
+<meta property="og:url" content="./2019/01/20/滚动加载--优化滚动性能/index.html">
+<meta property="og:site_name" content="Z_S">
+<meta property="og:description" content="亲爱的儿子，我还没有追到你娘，提前祝你新年快乐！爸爸明年会努力的~">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="/images/hello.jpg">
+<meta property="og:updated_time" content="2019-02-20T03:02:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="滚动加载--优化滚动性能">
+<meta name="twitter:description" content="亲爱的儿子，我还没有追到你娘，提前祝你新年快乐！爸爸明年会努力的~">
+<meta name="twitter:image" content="/images/hello.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="./2019/01/20/滚动加载--优化滚动性能/">
+
+
+
+
+
+  <title>滚动加载--优化滚动性能 | Z_S</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Z_S</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">赵泽清 -- 一个追逐太阳的程序猿</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-概况">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            概况
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于我">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于我
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="./2019/01/20/滚动加载--优化滚动性能/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵泽清">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Z_S">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">滚动加载--优化滚动性能</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-20T10:07:00+08:00">
+                2019-01-20
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-02-20T11:02:31+08:00">
+                2019-02-20
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>亲爱的儿子，我还没有追到你娘，提前祝你新年快乐！爸爸明年会努力的~</p>
+</blockquote>
+<p><img src="/images/hello.jpg" alt="hello~"></p>
+<a id="more"></a>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><ul>
+<li>最近有用<a href="https://github.com/aliyun-UED/aliyun-sdk-js" target="_blank" rel="noopener">阿里云 sdk</a> 中的<a href="https://help.aliyun.com/document_detail/29007.html" target="_blank" rel="noopener">日志服务</a>,在它的 api 里发现它并不支持分页查询，倒是有个 offset 指定日志起点,所以需要配合鼠标滚动做一个懒加载。</li>
+</ul>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
+<li>最容易想到的就是做一个底部检测，当用户滚动到底部时再请求下一部分内容，并将结果拼接到上一次结果之后。</li>
+<li>但很多情况下返回内容不只有字符，还有媒体文件，这个时候浏览器的下载通道很容易被占满。这个时候 我们实际需要的其实是用户看得到的内容去做加载就可以，用户看不到的可以先用墓碑（占位符）。这么做可以大大减少流量浪费~</li>
+<li>理清思路后大致实现不难，不过滚动是个高频发事件，这在一些极端 case 下容易引起卡顿，需要进行优化，这也是本文重点。</li>
+</ol>
+<h2 id="优化滚动"><a href="#优化滚动" class="headerlink" title="优化滚动"></a>优化滚动</h2><ul>
+<li>常用两种优化方式</li>
+</ul>
+<ol>
+<li><code>Throttle</code>: 允许我们限制激活响应的数量。通过限制每秒回调的数量的方式来达到优化目的;</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// const fn = throttle(e =&gt; console.log(e, "123"), 300)</span></span><br><span class="line"><span class="comment">// const scroll = listen(document.body, "mousewheel", fn)</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">...props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [fn, threshhold = <span class="number">250</span>, scope] = props</span><br><span class="line">  <span class="keyword">let</span> last</span><br><span class="line">  <span class="keyword">let</span> deferTimer</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> context = scope || <span class="keyword">this</span></span><br><span class="line">    <span class="keyword">const</span> now = +<span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line">    <span class="keyword">if</span> (last &amp;&amp; now &lt; last + threshhold) &#123;</span><br><span class="line">      clearTimeout(deferTimer)</span><br><span class="line">      deferTimer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 停止滚动延迟后触发</span></span><br><span class="line">        last = now</span><br><span class="line">        fn.apply(context, [event, ...props])</span><br><span class="line">      &#125;, threshhold)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      last = now</span><br><span class="line">      fn.apply(context, [event, ...props])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><code>Debounce</code>: 事件发生时，不会立即激活回调。而是等待一定的时间并检查相同的事件是否再次触发。如果是，我们重置定时器，并再次等待。如果在等待期间没有发生相同的事件，我们就立即激活回调。 =&gt; 使用于滚动结束后执行操作</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基本防抖</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">...props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [action, wait = <span class="number">200</span>] = props</span><br><span class="line">  <span class="keyword">let</span> last</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> ctx = <span class="keyword">this</span></span><br><span class="line">    clearTimeout(last)</span><br><span class="line">    last = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      action.apply(ctx, [event, ...props])</span><br><span class="line">    &#125;, wait)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>lodash 实现</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; isObject, isFn &#125; <span class="keyword">from</span> <span class="string">"./is"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 截流函数</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param &#123;function&#125; fn</span></span><br><span class="line"><span class="comment"> * @param &#123;number&#125; [wait=250]</span></span><br><span class="line"><span class="comment"> * @param &#123;object&#125; options</span></span><br><span class="line"><span class="comment"> * @returns</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, wait = <span class="number">250</span>, options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> leading = <span class="literal">true</span></span><br><span class="line">  <span class="keyword">let</span> trailing = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (isObject(options)) &#123;</span><br><span class="line">    leading = <span class="string">"leading"</span> <span class="keyword">in</span> options ? !!options.leading : leading</span><br><span class="line">    trailing = <span class="string">"trailing"</span> <span class="keyword">in</span> options ? !!options.trailing : trailing</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> debounce(func, wait, &#123;</span><br><span class="line">    leading,</span><br><span class="line">    trailing,</span><br><span class="line">    maxWait: wait</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 防抖函数</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param &#123;function&#125; func</span></span><br><span class="line"><span class="comment"> * @param &#123;*&#125; wait</span></span><br><span class="line"><span class="comment"> * @param &#123;object&#125; options</span></span><br><span class="line"><span class="comment"> *    - leading:Boolean 开始时调用</span></span><br><span class="line"><span class="comment"> *    - trailing:Boolean 结束时调用</span></span><br><span class="line"><span class="comment"> *    - maxWait:Number 最大等待时间</span></span><br><span class="line"><span class="comment"> * @returns</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">func, wait, options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> lastArgs, lastThis, maxWait, result, timerId, lastCallTime</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> lastInvokeTime = <span class="number">0</span></span><br><span class="line">  <span class="keyword">let</span> leading = <span class="literal">false</span></span><br><span class="line">  <span class="keyword">let</span> maxing = <span class="literal">false</span></span><br><span class="line">  <span class="keyword">let</span> trailing = <span class="literal">true</span></span><br><span class="line">  <span class="keyword">const</span> isBrowser = <span class="keyword">typeof</span> <span class="built_in">window</span> == <span class="string">"object"</span> &amp;&amp; <span class="built_in">window</span> !== <span class="literal">null</span></span><br><span class="line">  <span class="keyword">const</span> useRAF =</span><br><span class="line">    !wait &amp;&amp;</span><br><span class="line">    wait !== <span class="number">0</span> &amp;&amp;</span><br><span class="line">    isBrowser &amp;&amp;</span><br><span class="line">    <span class="keyword">typeof</span> <span class="built_in">window</span>.requestAnimationFrame === <span class="string">"function"</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!isFn(func)) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Expected a function"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  wait = +wait || <span class="number">0</span></span><br><span class="line">  <span class="keyword">if</span> (isObject(options)) &#123;</span><br><span class="line">    leading = !!options.leading</span><br><span class="line">    maxing = <span class="string">"maxWait"</span> <span class="keyword">in</span> options</span><br><span class="line">    maxWait = maxing ? <span class="built_in">Math</span>.max(+options.maxWait || <span class="number">0</span>, wait) : maxWait</span><br><span class="line">    trailing = <span class="string">"trailing"</span> <span class="keyword">in</span> options ? !!options.trailing : trailing</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">invokeFunc</span>(<span class="params">time</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> args = lastArgs</span><br><span class="line">    <span class="keyword">const</span> thisArg = lastThis</span><br><span class="line"></span><br><span class="line">    lastArgs = lastThis = <span class="literal">undefined</span></span><br><span class="line">    lastInvokeTime = time</span><br><span class="line">    result = func.apply(thisArg, args)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">startTimer</span>(<span class="params">pendingFunc, wait</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (useRAF) &#123;</span><br><span class="line">      <span class="built_in">window</span>.cancelAnimationFrame(timerId)</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">window</span>.requestAnimationFrame(pendingFunc)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> setTimeout(pendingFunc, wait)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">cancelTimer</span>(<span class="params">id</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (useRAF) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">window</span>.cancelAnimationFrame(id)</span><br><span class="line">    &#125;</span><br><span class="line">    clearTimeout(id)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">leadingEdge</span>(<span class="params">time</span>) </span>&#123;</span><br><span class="line">    lastInvokeTime = time</span><br><span class="line">    timerId = startTimer(timerExpired, wait)</span><br><span class="line">    <span class="keyword">return</span> leading ? invokeFunc(time) : result</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">remainingWait</span>(<span class="params">time</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> timeSinceLastCall = time - lastCallTime</span><br><span class="line">    <span class="keyword">const</span> timeSinceLastInvoke = time - lastInvokeTime</span><br><span class="line">    <span class="keyword">const</span> timeWaiting = wait - timeSinceLastCall</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> maxing</span><br><span class="line">      ? <span class="built_in">Math</span>.min(timeWaiting, maxWait - timeSinceLastInvoke)</span><br><span class="line">      : timeWaiting</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">shouldInvoke</span>(<span class="params">time</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> timeSinceLastCall = time - lastCallTime</span><br><span class="line">    <span class="keyword">const</span> timeSinceLastInvoke = time - lastInvokeTime</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 第一次调用 || 上一次已经停止 || 系统时间倒退 || 已经达到max限制</span></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      lastCallTime === <span class="literal">undefined</span> ||</span><br><span class="line">      timeSinceLastCall &gt;= wait ||</span><br><span class="line">      timeSinceLastCall &lt; <span class="number">0</span> ||</span><br><span class="line">      (maxing &amp;&amp; timeSinceLastInvoke &gt;= maxWait)</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">timerExpired</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> time = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">if</span> (shouldInvoke(time)) &#123;</span><br><span class="line">      <span class="comment">// 在 trailing edge 且时间符合条件时，调用 trailingEdge函数，否则重启定时器</span></span><br><span class="line">      <span class="keyword">return</span> trailingEdge(time)</span><br><span class="line">    &#125;</span><br><span class="line">    timerId = startTimer(timerExpired, remainingWait(time))</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">trailingEdge</span>(<span class="params">time</span>) </span>&#123;</span><br><span class="line">    timerId = <span class="literal">undefined</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (trailing &amp;&amp; lastArgs) &#123;</span><br><span class="line">      <span class="keyword">return</span> invokeFunc(time)</span><br><span class="line">    &#125;</span><br><span class="line">    lastArgs = lastThis = <span class="literal">undefined</span></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">cancel</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (timerId !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">      cancelTimer(timerId)</span><br><span class="line">    &#125;</span><br><span class="line">    lastInvokeTime = <span class="number">0</span></span><br><span class="line">    lastArgs = lastCallTime = lastThis = timerId = <span class="literal">undefined</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">flush</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> timerId === <span class="literal">undefined</span> ? result : trailingEdge(<span class="built_in">Date</span>.now())</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">pending</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> timerId !== <span class="literal">undefined</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">debounced</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> time = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">const</span> isInvoking = shouldInvoke(time)</span><br><span class="line"></span><br><span class="line">    lastArgs = args</span><br><span class="line">    lastThis = <span class="keyword">this</span></span><br><span class="line">    lastCallTime = time</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isInvoking) &#123;</span><br><span class="line">      <span class="keyword">if</span> (timerId === <span class="literal">undefined</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> leadingEdge(lastCallTime)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (maxing) &#123;</span><br><span class="line">        timerId = startTimer(timerExpired, wait)</span><br><span class="line">        <span class="keyword">return</span> invokeFunc(lastCallTime)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (timerId === <span class="literal">undefined</span>) &#123;</span><br><span class="line">      timerId = startTimer(timerExpired, wait)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">  &#125;</span><br><span class="line">  debounced.cancel = cancel</span><br><span class="line">  debounced.flush = flush</span><br><span class="line">  debounced.pending = pending</span><br><span class="line">  <span class="keyword">return</span> debounced</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123; throttle, debounce &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="判断到达底部"><a href="#判断到达底部" class="headerlink" title="判断到达底部"></a>判断到达底部</h2><ul>
+<li>scrollHeight &lt;=&gt; scrollTop + offsetHeight<br>对于预加载可以适当加个预加载高度 这样提前加载会更加流畅</li>
+</ul>
+<h2 id="dom-回收"><a href="#dom-回收" class="headerlink" title="dom 回收"></a>dom 回收</h2><p>由于每一个节点都会增加一些额外的内存、布局、样式和绘制。进行 DOM 回收可以使 dom 保持在一个比较低的数量上，进而加快上面提到的这些处理过程。在 dom 移除页面一定高度后对节点进行 <code>move()</code> 操作。为了保证滚动条的正确比例和防止高度塌陷，需要显示的声明高度。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="赵泽清 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="赵泽清 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/addEventListener/" rel="tag"># addEventListener</a>
+          
+            <a href="/tags/mouseWheel/" rel="tag"># mouseWheel</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/04/文件上传之验证后缀与内容是否一致/" rel="next" title="文件上传之验证后缀与内容是否一致">
+                <i class="fa fa-chevron-left"></i> 文件上传之验证后缀与内容是否一致
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/12/dva源码解析 copy/" rel="prev" title="dva源码解析">
+                dva源码解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="赵泽清">
+            
+              <p class="site-author-name" itemprop="name">赵泽清</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/qq_36571602" target="_blank" title="Blog">
+                      
+                        <i class="fa fa-fw fa-rss"></i>Blog</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zhaozeq" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhaozeq@foxmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化滚动"><span class="nav-number">3.</span> <span class="nav-text">优化滚动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断到达底部"><span class="nav-number">4.</span> <span class="nav-text">判断到达底部</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dom-回收"><span class="nav-number">5.</span> <span class="nav-text">dom 回收</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">赵泽清</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="/css/gitment.css">
+        <script src="/lib/gitment/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: '1547950020000', 
+            owner: 'zhaozeq',
+            repo: 'zhaozeq.github.io',
+            
+            lang: "zh-CN" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '340da55620308337b86a249d541a937c978db4dd',
+            
+                client_id: 'bd7144cfd2b00a4da63f'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

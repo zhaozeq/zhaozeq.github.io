@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="阿里面试,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Z_S" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="React相关 React中的props和state的用法： props:(只读性) 单项数据流且不可改变 只有通过父组件重新渲染的方式才可以把新的props传入组件中。   state:(可变) 组件内部数据状态 需要通过this.setState()方法来修改state。 调用this.setState方法时，组件进行重新渲染。   setState(updater, callback)： (">
+<meta name="keywords" content="阿里面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端面试题总结">
+<meta property="og:url" content="./2018/09/02/前端面试题总结/index.html">
+<meta property="og:site_name" content="Z_S">
+<meta property="og:description" content="React相关 React中的props和state的用法： props:(只读性) 单项数据流且不可改变 只有通过父组件重新渲染的方式才可以把新的props传入组件中。   state:(可变) 组件内部数据状态 需要通过this.setState()方法来修改state。 调用this.setState方法时，组件进行重新渲染。   setState(updater, callback)： (">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-20T09:13:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端面试题总结">
+<meta name="twitter:description" content="React相关 React中的props和state的用法： props:(只读性) 单项数据流且不可改变 只有通过父组件重新渲染的方式才可以把新的props传入组件中。   state:(可变) 组件内部数据状态 需要通过this.setState()方法来修改state。 调用this.setState方法时，组件进行重新渲染。   setState(updater, callback)： (">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="./2018/09/02/前端面试题总结/">
+
+
+
+
+
+  <title>前端面试题总结 | Z_S</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Z_S</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">赵泽清 -- 一个追逐太阳的程序猿</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-主页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            主页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-概况">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            概况
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于我">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于我
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="./2018/09/02/前端面试题总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="赵泽清">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Z_S">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">前端面试题总结</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-02T00:00:00+08:00">
+                2018-09-02
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-20T17:13:38+08:00">
+                2019-01-20
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="React相关"><a href="#React相关" class="headerlink" title="React相关"></a>React相关</h3><ol>
+<li>React中的props和state的用法：<ul>
+<li>props:(只读性)<ul>
+<li>单项数据流且不可改变</li>
+<li>只有通过父组件重新渲染的方式才可以把新的props传入组件中。</li>
+</ul>
+</li>
+<li>state:(可变)<ul>
+<li>组件内部数据状态</li>
+<li>需要通过this.setState()方法来修改state。</li>
+<li>调用this.setState方法时，组件进行重新渲染。</li>
+</ul>
+</li>
+<li><code>setState(updater, callback)</code>：<ul>
+<li>(prevState, props) =&gt; stateChange</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<a id="more"></a>
+<pre><code>&lt;br/&gt;
+</code></pre><ol start="2">
+<li>react-router的实现原理 <ul>
+<li>有hashStory/browserStory/memoryHistory</li>
+<li>browserStory：</li>
+<li>简单的说就是由各种<code>forward/back</code>或者<code>&lt;Link to={}/&gt;</code>等会去改变history库的state存入<code>sessionStorage</code>中，history.pushState触发地址栏更新(url),有listen监听地址栏变化后由<code>&lt;Router/&gt;</code>去匹配component -&gt;<code>render</code>出来。</li>
+<li><ul>
+<li>路由传参 ： =&gt; params(变量匹配路由<code>:id</code>), query(地址栏显示), state(加密)<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>React Router 3 -&gt; React Router 4的区别<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+</li>
+<li>Redux与VueX<ol>
+<li>Redux<ul>
+<li>1）redux是一个泛用的状态管理框架</li>
+<li>2）解决组件与组件状态管理的问题</li>
+<li>3）redux是flux中的一个实现，不是所有的项目都适合redux</li>
+<li>4)redux的流程:<ul>
+<li>view——&gt;action——&gt;store——&gt;reducer（返回）——&gt;store——view</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Vuex<ul>
+<li>多个组件调用一个状态，将原来组建与组件之间的状态传递改成组件与仓库之间的传递</li>
+<li>state：存放多个组件共享的状态（数据）</li>
+<li>mutations：存放更改state里状态的方法，用于变更状态，是唯一一个更改状态的属性</li>
+<li>getters：将state中某个状态进行过滤，然后获取新的状态，类似于vue中的computed</li>
+<li>actions：用于调用事件动作，并传递给mutation</li>
+<li>modules：主要用来拆分state<ul>
+<li>Comnent-&gt;(dispatch)Action-&gt;（commit-&gt;Mutations-&gt;（mutate）State-&gt;（render）Component<br><br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="JS相关问题"><a href="#JS相关问题" class="headerlink" title="JS相关问题"></a>JS相关问题</h3><h4 id="1-js的垃圾回收机制：-标记清除、引用计数）"><a href="#1-js的垃圾回收机制：-标记清除、引用计数）" class="headerlink" title="1. js的垃圾回收机制：(标记清除、引用计数）"></a>1. js的垃圾回收机制：(标记清除、引用计数）</h4><ul>
+<li>标记清除：当变量进入执行环境是，就标记这个变量为“进入环境”。从逻辑上讲，永远不能释放进入环境的变量所占用的内存，因为只要执行流进入相应的环境，就可能会用到他们。当变量离开环境时，则将其标记为“离开环境”。</li>
+<li><p>引用计数：被引用+1 包含对这个值引用的变量又取得了另外一个值-1 状态0为可回收 （无法回收相互引用）</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var objA = new Object()</span><br><span class="line">var objB = new Object()</span><br><span class="line"></span><br><span class="line">objA.someOtherObject = objB</span><br><span class="line">objB.anotherObject = objA</span><br></pre></td></tr></table></figure>
+<p> <br></p>
+</li>
+</ul>
+<h4 id="2-引起内存泄漏的常见操作"><a href="#2-引起内存泄漏的常见操作" class="headerlink" title="2. 引起内存泄漏的常见操作"></a>2. 引起内存泄漏的常见操作</h4><ul>
+<li><p>1) 意外的全局变量引起的内存泄露</p>
+</li>
+<li><p>2）闭包引起的内存泄露</p>
+</li>
+<li><p>3）没有清理的DOM元素引用</p>
+</li>
+<li><p>4）被遗忘的定时器或者回调</p>
+</li>
+<li><p>5）子元素存在引起的内存泄露</p>
+</li>
+<li>避免内存泄漏<ul>
+<li>1）减少不必要的全局变量，或者生命周期较长的对象，及时对无用的数据进行垃圾回收；</li>
+<li>2）注意程序逻辑，避免“死循环”之类的 ；</li>
+<li>3）避免创建过多的对象  原则：不用了的东西要及时归还。<br><br></li>
+</ul>
+</li>
+</ul>
+<h4 id="3-经常遇到的解决js兼容性问题列举至少三个"><a href="#3-经常遇到的解决js兼容性问题列举至少三个" class="headerlink" title="3. 经常遇到的解决js兼容性问题列举至少三个"></a>3. 经常遇到的解决js兼容性问题列举至少三个</h4><ul>
+<li>1.设置监听事件 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function addEvent(obj, type, fn) &#123;</span><br><span class="line">        if (obj.addEventListener) &#123;</span><br><span class="line">            obj.addEventListener(type, fn, false); //非IE</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            obj.attachEvent(&apos;on&apos; + type, fn); //ie,这里已经加上on，传参的时候注意不要重复加了</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>2.js阻止事件传播，这里使用click事件为例 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">document.onclick = function(e) &#123;</span><br><span class="line">        var e = e || window.event;</span><br><span class="line">        if (e.stopPropagation) &#123;</span><br><span class="line">            e.stopPropagation(); //W3C标准</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            e.cancelBubble = true; //IE....</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>3.js阻止默认事件</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">document.onclick=function(e)&#123;</span><br><span class="line">   var e=e||window.event;</span><br><span class="line">   if (e.preventDefault) &#123;</span><br><span class="line">     e.preventDefault();//W3C标准</span><br><span class="line">   &#125;else&#123;</span><br><span class="line">     e.returnValue=&apos;false&apos;;//IE..</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>4.鼠标滚轮事件</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//火狐中的滚轮事件</span><br><span class="line">document.addEventListener(&quot;DOMMouseScroll&quot;,function(event)&#123;</span><br><span class="line">    alert(event.detail);//若前滚的话为 -3，后滚的话为 3</span><br><span class="line">&#125;,false)</span><br><span class="line">//非火狐中的滚轮事件</span><br><span class="line">document.onmousewheel=function(event)&#123;</span><br><span class="line">    alert(event.detail);//前滚：120，后滚：-120</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<pre><code>&lt;br/&gt;
+</code></pre><h4 id="4-数组方法"><a href="#4-数组方法" class="headerlink" title="4. 数组方法"></a>4. 数组方法</h4><ul>
+<li>栈、队列 =&gt; <code>push()</code> 和 <code>pop()</code> / <code>push()</code>和<code>shift()</code> +  <code>unshift()</code>和<code>pop()</code></li>
+<li>排序 =》<code>sort()</code> 和 <code>reverse()</code> 两个方法</li>
+<li>操作方法 <ul>
+<li><ul>
+<li><code>concat</code>() 组成新数组 </li>
+</ul>
+</li>
+<li><ul>
+<li><code>slice</code>(start ,end) 截取数组但不改变原数组 对应字符串方法 subString() </li>
+</ul>
+</li>
+<li><ul>
+<li><code>splice</code>(start, length, another) 数组中最常用的方法 可完成数组删除、插入、替换操作</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>迭代方法 <ul>
+<li><ul>
+<li>arr.<code>every</code>(function(item,index,array) 对每一项都返回true才返回true </li>
+</ul>
+</li>
+<li><ul>
+<li>arr.<code>some</code>(function(item,index,array) 当某项符合时返回true </li>
+</ul>
+</li>
+<li><ul>
+<li><code>hasOwnProperty</code>(propertyName) 检测指定属性是否在当前对象实例中（不包括原型实例） </li>
+</ul>
+</li>
+<li><ul>
+<li>arr.<code>filter</code>(function(item,index,array) 返回符合条件的集合 </li>
+</ul>
+</li>
+<li><ul>
+<li>arr.<code>forEach</code>(function(item,index,array) 对每一项进行操作 无返回 （无法终止循环除非抛出异常） </li>
+</ul>
+</li>
+<li><ul>
+<li>arr.<code>map</code>(function(item,index,array) 返回给定条件的数组</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>归并方法（<code>reduce</code>/<code>reduceRight</code>）<br><br><h4 id="4-伪数组转数组方法"><a href="#4-伪数组转数组方法" class="headerlink" title="4. 伪数组转数组方法"></a>4. 伪数组转数组方法</h4></li>
+<li><code>[].slice.call(arrayLike)</code></li>
+<li><code>Array.from(arrayLike)</code></li>
+<li>扩展符对有遍历器接口的也可以转成数组<br><br><br>###其他</li>
+</ul>
+<ol>
+<li><p>git 经常用到的命令，至少五个，并且要说出每个命令是干什么的。<br>（git add .）（git commit -m “”）（git push origin **）（git clone）（git branch）（git checkout）</p>
+</li>
+<li><p>cookie和session的区别</p>
+<ul>
+<li><p>cookie被意外禁用：</p>
+<ul>
+<li><p>可以通过url的重写来解决，最简单的方式就是在url的末端加上；注意是分号而不是问号，问号就是请求参数了，然后分号后面加上jsessionid=xxx，这样就相当于模仿cookie发送请求头请求给服务器，这个是最原始的方法，而且实际中也不会这样做，我们可以在用户访问之后通过response对象返回给用户一个url链接，然后在链接里跟上这个jsessionid的值即可，那么现在问题来了，这个jsessionid的值如何获取？</p>
+</li>
+<li><p>servlet里面通过请求对象requst对象.getsession.getid()获取到，当然这仅仅只能获取jseesionid的值，而使用Response.encodeURL则可以直接得到路径+jsessionid的全部url路径，不需要自己手动拼接字符串了。然后将这个url返回给客户端，用户通过一个链接点击一样可以解决cookie禁用，但session的数据依旧可以共享的问题。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>事件代理，哪些事件没有冒泡？</p>
+<pre><code>load、unload、blur、focus、mouseleave、mouseleave
+</code></pre></li>
+<li><p>如何监听一个对象的值变化</p>
+<ul>
+<li>Object.defineProperty(obj, prop, descriptor)</li>
+</ul>
+</li>
+<li><p>给一个场景 包含 搜索框 按钮  数据展示  分页  表单  你如何整理组件</p>
+</li>
+<li><p>某个用户反馈网站访问变慢，怎么去定位问题?</p>
+<ol>
+<li>看看自己这卡不卡</li>
+<li>看调试哪项数据加载比较慢</li>
+<li>看看服务器的负载情况，可以去查看下服务器硬件（网络带宽、CPU、内存）的消耗状况</li>
+<li>后台有无错误日志打印</li>
+<li>数据库过于庞大 -》拆表 拆库</li>
+</ol>
+</li>
+<li><p>fetch和axios</p>
+<ul>
+<li><p>fetch:</p>
+<ul>
+<li>符合关注分离，没有将输入、输出和用事件来跟踪的状态混杂在一个对象里</li>
+<li>更好更方便的写法</li>
+<li>更加底层，提供的API丰富（request, response）</li>
+<li>脱离了XHR，是ES规范里新的实现方式</li>
+<li>1）fetchtch只对网络请求报错，对400，500都当做成功的请求，需要封装去处理</li>
+<li>2）fetch默认不会带cookie，需要添加配置项</li>
+<li>3）fetch不支持abort，不支持超时控制，使用setTimeout及Promise.reject的实现的超时控制并不能阻止请求过程继续在后台运行，造成了量的浪费</li>
+<li>4）fetch没有办法原生监测请求的进度，而XHR可以</li>
+</ul>
+</li>
+<li><p>axois</p>
+<ul>
+<li>从浏览器中创建 XMLHttpRequest</li>
+<li>从 node.js 发出 http 请求</li>
+<li>支持 Promise API</li>
+<li>拦截请求和响应</li>
+<li>转换请求和响应数据</li>
+<li>取消请求</li>
+<li>自动转换JSON数据</li>
+<li>客户端支持防止CSRF/XSRF</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="赵泽清 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="赵泽清 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/阿里面试/" rel="tag"># 阿里面试</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/10/ES6/" rel="next" title="ES6">
+                <i class="fa fa-chevron-left"></i> ES6
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/16/node fs系统/" rel="prev" title="node fs系统">
+                node fs系统 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="赵泽清">
+            
+              <p class="site-author-name" itemprop="name">赵泽清</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/qq_36571602" target="_blank" title="Blog">
+                      
+                        <i class="fa fa-fw fa-rss"></i>Blog</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zhaozeq" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zhaozeq@foxmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#React相关"><span class="nav-number">1.</span> <span class="nav-text">React相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JS相关问题"><span class="nav-number">2.</span> <span class="nav-text">JS相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-js的垃圾回收机制：-标记清除、引用计数）"><span class="nav-number">2.1.</span> <span class="nav-text">1. js的垃圾回收机制：(标记清除、引用计数）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-引起内存泄漏的常见操作"><span class="nav-number">2.2.</span> <span class="nav-text">2. 引起内存泄漏的常见操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-经常遇到的解决js兼容性问题列举至少三个"><span class="nav-number">2.3.</span> <span class="nav-text">3. 经常遇到的解决js兼容性问题列举至少三个</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-数组方法"><span class="nav-number">2.4.</span> <span class="nav-text">4. 数组方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-伪数组转数组方法"><span class="nav-number">2.5.</span> <span class="nav-text">4. 伪数组转数组方法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">赵泽清</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="/css/gitment.css">
+        <script src="/lib/gitment/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+      <style>
+        a.gitment-editor-footer-tip { display: none; }
+        .gitment-container.gitment-footer-container { display: none; }
+      </style>
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: '1535817600000', 
+            owner: 'zhaozeq',
+            repo: 'zhaozeq.github.io',
+            
+            lang: "zh-CN" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: '340da55620308337b86a249d541a937c978db4dd',
+            
+                client_id: 'bd7144cfd2b00a4da63f'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
