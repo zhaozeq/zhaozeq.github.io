@@ -84,14 +84,14 @@
 <meta name="description" content="在上传前验证，开发者们往往喜欢通过后缀或者File.type()去判断一个文件类型来决定是否符合上传要求。但这显然是不可靠的，当被别有用心的人利用后，就可能在服务器被执行。今天就来解决如何在前端验证文件内容跟后缀是否一致。">
 <meta name="keywords" content="javascript,file upload">
 <meta property="og:type" content="article">
-<meta property="og:title" content="文件上传之验证后缀与内容是否一致">
+<meta property="og:title" content="文件上传-验证后缀与内容是否一致">
 <meta property="og:url" content="./2019/01/04/文件上传之验证后缀与内容是否一致/index.html">
 <meta property="og:site_name" content="Z_S">
 <meta property="og:description" content="在上传前验证，开发者们往往喜欢通过后缀或者File.type()去判断一个文件类型来决定是否符合上传要求。但这显然是不可靠的，当被别有用心的人利用后，就可能在服务器被执行。今天就来解决如何在前端验证文件内容跟后缀是否一致。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-10T02:11:11.917Z">
+<meta property="og:updated_time" content="2021-08-11T07:44:17.235Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="文件上传之验证后缀与内容是否一致">
+<meta name="twitter:title" content="文件上传-验证后缀与内容是否一致">
 <meta name="twitter:description" content="在上传前验证，开发者们往往喜欢通过后缀或者File.type()去判断一个文件类型来决定是否符合上传要求。但这显然是不可靠的，当被别有用心的人利用后，就可能在服务器被执行。今天就来解决如何在前端验证文件内容跟后缀是否一致。">
 
 
@@ -128,7 +128,7 @@
 
 
 
-  <title>文件上传之验证后缀与内容是否一致 | Z_S</title>
+  <title>文件上传-验证后缀与内容是否一致 | Z_S</title>
   
 
 
@@ -304,7 +304,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">文件上传之验证后缀与内容是否一致</h2>
+          <h2 class="post-title" itemprop="name headline">文件上传-验证后缀与内容是否一致</h2>
         
 
         <div class="post-meta">
@@ -332,8 +332,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-01-10T10:11:11+08:00">
-                2020-01-10
+              <time title="更新于" itemprop="dateModified" datetime="2021-08-11T15:44:17+08:00">
+                2021-08-11
               </time>
             
           </span>
@@ -394,7 +394,7 @@
 <a id="more"></a>
 <h2 id="1-Magic-number"><a href="#1-Magic-number" class="headerlink" title="1. Magic number"></a>1. Magic number</h2><p>既然要解析文件内容那这个 Magic Number 就很关键 =&gt; Magic number：即幻数，它可以用来标记文件或者协议的格式，很多文件都有幻数标志来表明该文件的格式。<br>以下是常见的文件头：<br>| 文件类型 | 文件头(16 进制) |<br>| ————————– | —————————- |<br>| JPEG (jpg) | FFD8FF |<br>| JPEG (jpg) | FFD8FF |<br>| PNG (png) | 89504E47 |<br>| GIF (gif) | 47494638 |<br>| TIFF (tif) | 49492A00 |<br>| Windows Bitmap (bmp) | 424D |<br>| CAD (dwg) | 41433130 |<br>| Adobe Photoshop (psd) | 38425053 |<br>| Rich Text Format (rtf) | 7B5C727466 |<br>| XML (xml) | 3C3F786D6C |<br>| HTML (html) | 68746D6C3E |<br>| Adobe Acrobat (pdf) | 255044462D312E |<br>| Email (eml) | 44656C69766572792D646174653A |<br>| Outlook Express (dbx) | CFAD12FEC5FD746F |<br>| Outlook (pst) | 2142444E |<br>| MS Word/Excel (xls.or.doc) | D0CF11E0 |<br>| MS Access (mdb) | 5374616E64617264204A |<br>| WordPerfect (wpd) | FF575043 |<br>| Postscript (eps.or.ps) | 252150532D41646F6265 |<br>| Quicken (qdf) | AC9EBD8F |<br>| Windows Password (pwl) | E3828596 |<br>| ZIP Archive (zip) | 504B0304 |<br>| RAR Archive (rar) | 52617221 |<br>| Wave (wav) | 57415645 |<br>| AVI (avi) | 41564920 |<br>| Real Audio (ram) | 2E7261FD |<br>| Real Media (rm) | 2E524D46 |<br>| MPEG (mpg) | 000001BA |<br>| MPEG (mpg) | 000001B3 |<br>| Quicktime (mov) | 6D6F6F76 |<br>| Windows Media (asf) | 3026B2758E66CF11 |<br>| MIDI (mid) | 4D546864 |</p>
 <h2 id="2-解析文件"><a href="#2-解析文件" class="headerlink" title="2. 解析文件"></a>2. 解析文件</h2><p>通常上传文件我们都会获取<code>File</code>形式的文件；<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader/FileReader" target="_blank" rel="noopener">FileReader 文档</a></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 使用FileReader以ArrayBuffer的形式读取数据</span></span><br><span class="line"><span class="comment">// 2. 使用Uint8Array换取文件头，看截取前面几位就看具体需要了</span></span><br><span class="line"><span class="keyword">const</span> reader = <span class="keyword">new</span> FileReader();</span><br><span class="line">reader.onload = <span class="function"><span class="params">evt</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> result = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(evt.target.result.slice(<span class="number">0</span>, <span class="number">6</span>));</span><br><span class="line">  <span class="comment">// 将截取的result和magic number比较</span></span><br><span class="line">&#125;;</span><br><span class="line">reader.readAsArrayBuffer(file);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 使用FileReader以ArrayBuffer的形式读取数据</span></span><br><span class="line"><span class="comment">// 2. 使用Uint8Array换取文件头，看截取前面几位就看具体需要了</span></span><br><span class="line"><span class="keyword">const</span> reader = <span class="keyword">new</span> FileReader()</span><br><span class="line">reader.onload = <span class="function">(<span class="params">evt</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> result = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(evt.target.result.slice(<span class="number">0</span>, <span class="number">6</span>))</span><br><span class="line">  <span class="comment">// 将截取的result和magic number比较</span></span><br><span class="line">&#125;</span><br><span class="line">reader.readAsArrayBuffer(file)</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -565,7 +565,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -576,7 +576,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
