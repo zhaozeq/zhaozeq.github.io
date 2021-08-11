@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>jQuery由来</title>
+    <url>/2017/03/06/1.jQuery()%E5%92%8C$()%E7%9A%84%E7%94%B1%E6%9D%A5/</url>
+    <content><![CDATA[<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">jQuery = <span class="function"><span class="keyword">function</span> <span class="title">jQuery</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">	alert(a);</span><br><span class="line">&#125;</span><br><span class="line">$=<span class="built_in">window</span>.jQuery = jQuery;</span><br><span class="line"></span><br><span class="line">$(a);</span><br><span class="line">jQuery(a);</span><br></pre></td></tr></table></figure>
+<p>嗯 好像是这么回事 哈哈~~</p>
+]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>jQuery</tag>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>理解merge和pushStack可以更好的了解jQuery源码</title>
     <url>/2017/03/06/2.%E7%90%86%E8%A7%A3merge%E5%92%8CpushStack%E5%8F%AF%E4%BB%A5%E6%9B%B4%E5%A5%BD%E7%9A%84%E4%BA%86%E8%A7%A3jQuery%E6%BA%90%E7%A0%81/</url>
     <content><![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;我就想看看自己JS学到什么程度然后让自己对jquery方法有更深的印象就“作死着”去看了看jquery源码，毕竟都说其编码结构很NB…<br>&nbsp;&nbsp;&nbsp;&nbsp;目前还只看到前面一部分，基本是在<em>jQuery</em>构造方法下 定义了一些变量和方法。<br>&nbsp;&nbsp;&nbsp;&nbsp;然后发现 <code>merge()</code> 和 <code>pushStack()</code> 出现多次,然后就去看了这两个方法，相信对大家也会很有用的。<br><a id="more"></a></p>
@@ -17,17 +31,30 @@
       </tags>
   </entry>
   <entry>
-    <title>jQuery由来</title>
-    <url>/2017/03/06/1.jQuery()%E5%92%8C$()%E7%9A%84%E7%94%B1%E6%9D%A5/</url>
-    <content><![CDATA[<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">jQuery = <span class="function"><span class="keyword">function</span> <span class="title">jQuery</span>(<span class="params">a</span>)</span>&#123;</span><br><span class="line">	alert(a);</span><br><span class="line">&#125;</span><br><span class="line">$=<span class="built_in">window</span>.jQuery = jQuery;</span><br><span class="line"></span><br><span class="line">$(a);</span><br><span class="line">jQuery(a);</span><br></pre></td></tr></table></figure>
-<p>嗯 好像是这么回事 哈哈~~</p>
+    <title>组建通信的双向绑定问题</title>
+    <url>/2017/09/06/VueAvoid%20mutating%20a%20prop%20directly%20since%20the%20value%20will%20be%20overwritten%20...%E8%AD%A6%E5%91%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h3 id="这个问题的本质还是组建通信的双向绑定问题"><a href="#这个问题的本质还是组建通信的双向绑定问题" class="headerlink" title="这个问题的本质还是组建通信的双向绑定问题"></a>这个问题的本质还是组建通信的双向绑定问题</h3><p>####在<a href="https://cn.vuejs.org/v2/guide/components.html#sync-%E4%BF%AE%E9%A5%B0%E7%AC%A6" target="_blank" rel="noopener">vue2.0文档</a>中有这么一段话：</p>
+<blockquote>
+<p>&nbsp;&nbsp; 在一些情况下，我们可能会需要对一个 prop 进行『双向绑定』。事实上，这正是 Vue 1.x 中的 .sync修饰符所提供的功能。当一个子组件改变了一个 prop 的值时，这个变化也会同步到父组件中所绑定的值。这很方便，但也会导致问题，因为它破坏了『单向数据流』的假设。由于子组件改变 prop 的代码和普通的状态改动代码毫无区别，当光看子组件的代码时，你完全不知道它何时悄悄地改变了父组件的状态。这在 debug 复杂结构的应用时会带来很高的维护成本。<br>上面所说的正是我们在 2.0 中移除 .sync 的理由。但是在 2.0 发布之后的实际应用中，我们发现 .sync 还是有其适用之处，比如在开发可复用的组件库时。我们需要做的只是让子组件改变父组件状态的代码更容易被区分。<br>&nbsp;&nbsp;从 2.3.0 起我们重新引入了 .sync 修饰符，但是这次它只是作为一个编译时的语法糖存在。它会被扩展为一个自动更新父组件属性的 v-on 侦听器。</p>
+</blockquote>
+<h3 id="1-sync方法"><a href="#1-sync方法" class="headerlink" title="1..sync方法"></a>1.<code>.sync</code>方法</h3><p>也就是说，如果你用的vue版本是2.3.0+，那么你可以放心使用<code>.sync</code><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;comp :foo.sync=&quot;bar&quot;&gt;&lt;/comp&gt;</span><br><span class="line"></span><br><span class="line">会被扩展为：</span><br><span class="line">&lt;comp :foo=&quot;bar&quot; @update:foo=&quot;val =&gt; bar = val&quot;&gt;&lt;/comp&gt;</span><br><span class="line"></span><br><span class="line">当子组件需要更新 foo 的值时，它需要显式地触发一个更新事件：</span><br><span class="line">this.$emit(&apos;update:foo&apos;, newValue)</span><br></pre></td></tr></table></figure></p>
+<p>这就是props传入和emit传出的过程</p>
+<p>##</p>
+<p>###2.对象特性<br>使用对象的引用特性完成的双向绑定<br>因此我们可以传入对象，然后在子组件中修改对象属性的值那么父组件中该值也会发生变化</p>
+<p>##</p>
+<p>###3.vuex<br>当我们的项目比较复杂时就很有必要用到vuex了<br><a href="https://vuex.vuejs.org/zh-cn/" target="_blank" rel="noopener">vuex文档</a><br>这里简单的理一下顺序<br>vuex中有mapAction和mapGettters两个方法</p>
+<p>|=》通过mapAction把函数传递出去</p>
+<p>|=》在actions中 利用内置commit=》mutations</p>
+<p>|=》在mutations引入getters（这个类似store的计算属性） 定义state状态，然后通过mutations来改变state，最后导出state,mutations,getters…发现自己讲不太清楚哈哈~还是看文档吧 慢慢悟好好学~</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &#123;CLOSE, IS_SHOW ,REG_SHOW,ABOUT_SHOW,SHOW&#125; from &quot;./types&quot;; </span><br><span class="line">import getters from &apos;./getters&apos;</span><br><span class="line">	const state = &#123;</span><br><span class="line">	  close:false,</span><br><span class="line">	  state:0,</span><br><span class="line">	  isShow:false</span><br><span class="line">	&#125;;</span><br><span class="line">	const mutations = &#123;</span><br><span class="line">	  [IS_SHOW](state)&#123;</span><br><span class="line">	    state.state = 1;</span><br><span class="line">	    state.isShow = !state.isShow;</span><br><span class="line">	  &#125;</span><br><span class="line">	  export default &#123;</span><br><span class="line">	  state,</span><br><span class="line">	  mutations,</span><br><span class="line">	  getters</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>[TOC]</p>
 ]]></content>
       <categories>
-        <category>javascript</category>
+        <category>vue</category>
       </categories>
       <tags>
-        <tag>jQuery</tag>
         <tag>javascript</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -80,33 +107,6 @@
       </tags>
   </entry>
   <entry>
-    <title>组建通信的双向绑定问题</title>
-    <url>/2017/09/06/VueAvoid%20mutating%20a%20prop%20directly%20since%20the%20value%20will%20be%20overwritten%20...%E8%AD%A6%E5%91%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<h3 id="这个问题的本质还是组建通信的双向绑定问题"><a href="#这个问题的本质还是组建通信的双向绑定问题" class="headerlink" title="这个问题的本质还是组建通信的双向绑定问题"></a>这个问题的本质还是组建通信的双向绑定问题</h3><p>####在<a href="https://cn.vuejs.org/v2/guide/components.html#sync-%E4%BF%AE%E9%A5%B0%E7%AC%A6" target="_blank" rel="noopener">vue2.0文档</a>中有这么一段话：</p>
-<blockquote>
-<p>&nbsp;&nbsp; 在一些情况下，我们可能会需要对一个 prop 进行『双向绑定』。事实上，这正是 Vue 1.x 中的 .sync修饰符所提供的功能。当一个子组件改变了一个 prop 的值时，这个变化也会同步到父组件中所绑定的值。这很方便，但也会导致问题，因为它破坏了『单向数据流』的假设。由于子组件改变 prop 的代码和普通的状态改动代码毫无区别，当光看子组件的代码时，你完全不知道它何时悄悄地改变了父组件的状态。这在 debug 复杂结构的应用时会带来很高的维护成本。<br>上面所说的正是我们在 2.0 中移除 .sync 的理由。但是在 2.0 发布之后的实际应用中，我们发现 .sync 还是有其适用之处，比如在开发可复用的组件库时。我们需要做的只是让子组件改变父组件状态的代码更容易被区分。<br>&nbsp;&nbsp;从 2.3.0 起我们重新引入了 .sync 修饰符，但是这次它只是作为一个编译时的语法糖存在。它会被扩展为一个自动更新父组件属性的 v-on 侦听器。</p>
-</blockquote>
-<h3 id="1-sync方法"><a href="#1-sync方法" class="headerlink" title="1..sync方法"></a>1.<code>.sync</code>方法</h3><p>也就是说，如果你用的vue版本是2.3.0+，那么你可以放心使用<code>.sync</code><br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;comp :foo.sync=&quot;bar&quot;&gt;&lt;/comp&gt;</span><br><span class="line"></span><br><span class="line">会被扩展为：</span><br><span class="line">&lt;comp :foo=&quot;bar&quot; @update:foo=&quot;val =&gt; bar = val&quot;&gt;&lt;/comp&gt;</span><br><span class="line"></span><br><span class="line">当子组件需要更新 foo 的值时，它需要显式地触发一个更新事件：</span><br><span class="line">this.$emit(&apos;update:foo&apos;, newValue)</span><br></pre></td></tr></table></figure></p>
-<p>这就是props传入和emit传出的过程</p>
-<p>##</p>
-<p>###2.对象特性<br>使用对象的引用特性完成的双向绑定<br>因此我们可以传入对象，然后在子组件中修改对象属性的值那么父组件中该值也会发生变化</p>
-<p>##</p>
-<p>###3.vuex<br>当我们的项目比较复杂时就很有必要用到vuex了<br><a href="https://vuex.vuejs.org/zh-cn/" target="_blank" rel="noopener">vuex文档</a><br>这里简单的理一下顺序<br>vuex中有mapAction和mapGettters两个方法</p>
-<p>|=》通过mapAction把函数传递出去</p>
-<p>|=》在actions中 利用内置commit=》mutations</p>
-<p>|=》在mutations引入getters（这个类似store的计算属性） 定义state状态，然后通过mutations来改变state，最后导出state,mutations,getters…发现自己讲不太清楚哈哈~还是看文档吧 慢慢悟好好学~</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import &#123;CLOSE, IS_SHOW ,REG_SHOW,ABOUT_SHOW,SHOW&#125; from &quot;./types&quot;; </span><br><span class="line">import getters from &apos;./getters&apos;</span><br><span class="line">	const state = &#123;</span><br><span class="line">	  close:false,</span><br><span class="line">	  state:0,</span><br><span class="line">	  isShow:false</span><br><span class="line">	&#125;;</span><br><span class="line">	const mutations = &#123;</span><br><span class="line">	  [IS_SHOW](state)&#123;</span><br><span class="line">	    state.state = 1;</span><br><span class="line">	    state.isShow = !state.isShow;</span><br><span class="line">	  &#125;</span><br><span class="line">	  export default &#123;</span><br><span class="line">	  state,</span><br><span class="line">	  mutations,</span><br><span class="line">	  getters</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>[TOC]</p>
-]]></content>
-      <categories>
-        <category>vue</category>
-      </categories>
-      <tags>
-        <tag>javascript</tag>
-        <tag>vue</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Vue +Node +Mysql 从简至全（二）</title>
     <url>/2017/11/06/Vue%20+Node%20+Mysql%20%E4%BB%8E%E7%AE%80%E8%87%B3%E5%85%A8%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
     <content><![CDATA[<p>##简单的后端接口连接的实现</p>
@@ -135,18 +135,6 @@
         <tag>node</tag>
         <tag>Mysql</tag>
         <tag>html</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>formatDate函数</title>
-    <url>/2017/12/12/Date()%20%E6%97%B6%E9%97%B4%E7%9A%84%E4%B8%80%E4%B8%AA%20format%20%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">formatDate(date, fmt) &#123;</span><br><span class="line">	if (/(y+)/.test(fmt)) &#123;</span><br><span class="line">		fmt = fmt.replace(RegExp.$1, (date.getFullYear() + &apos;&apos;).substr(4 - RegExp.$1.length));</span><br><span class="line">	&#125;</span><br><span class="line">	let o = &#123;</span><br><span class="line">		&apos;M+&apos;: date.getMonth() + 1,</span><br><span class="line">		&apos;d+&apos;: date.getDate(),</span><br><span class="line">		&apos;h+&apos;: date.getHours(),</span><br><span class="line">		&apos;m+&apos;: date.getMinutes(),</span><br><span class="line">		&apos;s+&apos;: date.getSeconds()</span><br><span class="line">	&#125;;</span><br><span class="line">	for (let k in o) &#123;</span><br><span class="line">		if (new RegExp(`($&#123;k&#125;)`).test(fmt)) &#123;</span><br><span class="line">			let str = o[k] + &apos;&apos;;</span><br><span class="line">			fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : padLeftZero(str));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return fmt;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"> padLeftZero(str) &#123;</span><br><span class="line">	return (&apos;00&apos; + str).substr(str.length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>javascript</category>
-      </categories>
-      <tags>
-        <tag>javascript</tag>
-        <tag>Exp</tag>
       </tags>
   </entry>
   <entry>
@@ -223,236 +211,15 @@
       </tags>
   </entry>
   <entry>
-    <title>前端面试题总结</title>
-    <url>/2018/09/02/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<h3 id="React相关"><a href="#React相关" class="headerlink" title="React相关"></a>React相关</h3><ol>
-<li>React中的props和state的用法：<ul>
-<li>props:(只读性)<ul>
-<li>单项数据流且不可改变</li>
-<li>只有通过父组件重新渲染的方式才可以把新的props传入组件中。</li>
-</ul>
-</li>
-<li>state:(可变)<ul>
-<li>组件内部数据状态</li>
-<li>需要通过this.setState()方法来修改state。</li>
-<li>调用this.setState方法时，组件进行重新渲染。</li>
-</ul>
-</li>
-<li><code>setState(updater, callback)</code>：<ul>
-<li>(prevState, props) =&gt; stateChange</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<a id="more"></a>
-<pre><code>&lt;br/&gt;
-</code></pre><ol start="2">
-<li>react-router的实现原理 <ul>
-<li>有hashStory/browserStory/memoryHistory</li>
-<li>browserStory：</li>
-<li>简单的说就是由各种<code>forward/back</code>或者<code>&lt;Link to={}/&gt;</code>等会去改变history库的state存入<code>sessionStorage</code>中，history.pushState触发地址栏更新(url),有listen监听地址栏变化后由<code>&lt;Router/&gt;</code>去匹配component -&gt;<code>render</code>出来。</li>
-<li><ul>
-<li>路由传参 ： =&gt; params(变量匹配路由<code>:id</code>), query(地址栏显示), state(加密)<br><br></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>React Router 3 -&gt; React Router 4的区别<hr>
-<hr>
-<hr>
-<hr>
-<hr>
-<hr>
-<hr>
-</li>
-<li>Redux与VueX<ol>
-<li>Redux<ul>
-<li>1）redux是一个泛用的状态管理框架</li>
-<li>2）解决组件与组件状态管理的问题</li>
-<li>3）redux是flux中的一个实现，不是所有的项目都适合redux</li>
-<li>4)redux的流程:<ul>
-<li>view——&gt;action——&gt;store——&gt;reducer（返回）——&gt;store——view</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Vuex<ul>
-<li>多个组件调用一个状态，将原来组建与组件之间的状态传递改成组件与仓库之间的传递</li>
-<li>state：存放多个组件共享的状态（数据）</li>
-<li>mutations：存放更改state里状态的方法，用于变更状态，是唯一一个更改状态的属性</li>
-<li>getters：将state中某个状态进行过滤，然后获取新的状态，类似于vue中的computed</li>
-<li>actions：用于调用事件动作，并传递给mutation</li>
-<li>modules：主要用来拆分state<ul>
-<li>Comnent-&gt;(dispatch)Action-&gt;（commit-&gt;Mutations-&gt;（mutate）State-&gt;（render）Component<br><br><br></li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-</li>
-</ol>
-<h3 id="JS相关问题"><a href="#JS相关问题" class="headerlink" title="JS相关问题"></a>JS相关问题</h3><h4 id="1-js的垃圾回收机制：-标记清除、引用计数）"><a href="#1-js的垃圾回收机制：-标记清除、引用计数）" class="headerlink" title="1. js的垃圾回收机制：(标记清除、引用计数）"></a>1. js的垃圾回收机制：(标记清除、引用计数）</h4><ul>
-<li>标记清除：当变量进入执行环境是，就标记这个变量为“进入环境”。从逻辑上讲，永远不能释放进入环境的变量所占用的内存，因为只要执行流进入相应的环境，就可能会用到他们。当变量离开环境时，则将其标记为“离开环境”。</li>
-<li><p>引用计数：被引用+1 包含对这个值引用的变量又取得了另外一个值-1 状态0为可回收 （无法回收相互引用）</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var objA = new Object()</span><br><span class="line">var objB = new Object()</span><br><span class="line"></span><br><span class="line">objA.someOtherObject = objB</span><br><span class="line">objB.anotherObject = objA</span><br></pre></td></tr></table></figure>
-<p> <br></p>
-</li>
-</ul>
-<h4 id="2-引起内存泄漏的常见操作"><a href="#2-引起内存泄漏的常见操作" class="headerlink" title="2. 引起内存泄漏的常见操作"></a>2. 引起内存泄漏的常见操作</h4><ul>
-<li><p>1) 意外的全局变量引起的内存泄露</p>
-</li>
-<li><p>2）闭包引起的内存泄露</p>
-</li>
-<li><p>3）没有清理的DOM元素引用</p>
-</li>
-<li><p>4）被遗忘的定时器或者回调</p>
-</li>
-<li><p>5）子元素存在引起的内存泄露</p>
-</li>
-<li>避免内存泄漏<ul>
-<li>1）减少不必要的全局变量，或者生命周期较长的对象，及时对无用的数据进行垃圾回收；</li>
-<li>2）注意程序逻辑，避免“死循环”之类的 ；</li>
-<li>3）避免创建过多的对象  原则：不用了的东西要及时归还。<br><br></li>
-</ul>
-</li>
-</ul>
-<h4 id="3-经常遇到的解决js兼容性问题列举至少三个"><a href="#3-经常遇到的解决js兼容性问题列举至少三个" class="headerlink" title="3. 经常遇到的解决js兼容性问题列举至少三个"></a>3. 经常遇到的解决js兼容性问题列举至少三个</h4><ul>
-<li>1.设置监听事件 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function addEvent(obj, type, fn) &#123;</span><br><span class="line">        if (obj.addEventListener) &#123;</span><br><span class="line">            obj.addEventListener(type, fn, false); //非IE</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            obj.attachEvent(&apos;on&apos; + type, fn); //ie,这里已经加上on，传参的时候注意不要重复加了</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li>2.js阻止事件传播，这里使用click事件为例 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">document.onclick = function(e) &#123;</span><br><span class="line">        var e = e || window.event;</span><br><span class="line">        if (e.stopPropagation) &#123;</span><br><span class="line">            e.stopPropagation(); //W3C标准</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            e.cancelBubble = true; //IE....</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li><p>3.js阻止默认事件</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">document.onclick=function(e)&#123;</span><br><span class="line">   var e=e||window.event;</span><br><span class="line">   if (e.preventDefault) &#123;</span><br><span class="line">     e.preventDefault();//W3C标准</span><br><span class="line">   &#125;else&#123;</span><br><span class="line">     e.returnValue=&apos;false&apos;;//IE..</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>4.鼠标滚轮事件</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//火狐中的滚轮事件</span><br><span class="line">document.addEventListener(&quot;DOMMouseScroll&quot;,function(event)&#123;</span><br><span class="line">    alert(event.detail);//若前滚的话为 -3，后滚的话为 3</span><br><span class="line">&#125;,false)</span><br><span class="line">//非火狐中的滚轮事件</span><br><span class="line">document.onmousewheel=function(event)&#123;</span><br><span class="line">    alert(event.detail);//前滚：120，后滚：-120</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<pre><code>&lt;br/&gt;
-</code></pre><h4 id="4-数组方法"><a href="#4-数组方法" class="headerlink" title="4. 数组方法"></a>4. 数组方法</h4><ul>
-<li>栈、队列 =&gt; <code>push()</code> 和 <code>pop()</code> / <code>push()</code>和<code>shift()</code> +  <code>unshift()</code>和<code>pop()</code></li>
-<li>排序 =》<code>sort()</code> 和 <code>reverse()</code> 两个方法</li>
-<li>操作方法 <ul>
-<li><ul>
-<li><code>concat</code>() 组成新数组 </li>
-</ul>
-</li>
-<li><ul>
-<li><code>slice</code>(start ,end) 截取数组但不改变原数组 对应字符串方法 subString() </li>
-</ul>
-</li>
-<li><ul>
-<li><code>splice</code>(start, length, another) 数组中最常用的方法 可完成数组删除、插入、替换操作</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>迭代方法 <ul>
-<li><ul>
-<li>arr.<code>every</code>(function(item,index,array) 对每一项都返回true才返回true </li>
-</ul>
-</li>
-<li><ul>
-<li>arr.<code>some</code>(function(item,index,array) 当某项符合时返回true </li>
-</ul>
-</li>
-<li><ul>
-<li><code>hasOwnProperty</code>(propertyName) 检测指定属性是否在当前对象实例中（不包括原型实例） </li>
-</ul>
-</li>
-<li><ul>
-<li>arr.<code>filter</code>(function(item,index,array) 返回符合条件的集合 </li>
-</ul>
-</li>
-<li><ul>
-<li>arr.<code>forEach</code>(function(item,index,array) 对每一项进行操作 无返回 （无法终止循环除非抛出异常） </li>
-</ul>
-</li>
-<li><ul>
-<li>arr.<code>map</code>(function(item,index,array) 返回给定条件的数组</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>归并方法（<code>reduce</code>/<code>reduceRight</code>）<br><br><h4 id="4-伪数组转数组方法"><a href="#4-伪数组转数组方法" class="headerlink" title="4. 伪数组转数组方法"></a>4. 伪数组转数组方法</h4></li>
-<li><code>[].slice.call(arrayLike)</code></li>
-<li><code>Array.from(arrayLike)</code></li>
-<li>扩展符对有遍历器接口的也可以转成数组<br><br><br>###其他</li>
-</ul>
-<ol>
-<li><p>git 经常用到的命令，至少五个，并且要说出每个命令是干什么的。<br>（git add .）（git commit -m “”）（git push origin **）（git clone）（git branch）（git checkout）</p>
-</li>
-<li><p>cookie和session的区别</p>
-<ul>
-<li><p>cookie被意外禁用：</p>
-<ul>
-<li><p>可以通过url的重写来解决，最简单的方式就是在url的末端加上；注意是分号而不是问号，问号就是请求参数了，然后分号后面加上jsessionid=xxx，这样就相当于模仿cookie发送请求头请求给服务器，这个是最原始的方法，而且实际中也不会这样做，我们可以在用户访问之后通过response对象返回给用户一个url链接，然后在链接里跟上这个jsessionid的值即可，那么现在问题来了，这个jsessionid的值如何获取？</p>
-</li>
-<li><p>servlet里面通过请求对象requst对象.getsession.getid()获取到，当然这仅仅只能获取jseesionid的值，而使用Response.encodeURL则可以直接得到路径+jsessionid的全部url路径，不需要自己手动拼接字符串了。然后将这个url返回给客户端，用户通过一个链接点击一样可以解决cookie禁用，但session的数据依旧可以共享的问题。</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>事件代理，哪些事件没有冒泡？</p>
-<pre><code>load、unload、blur、focus、mouseleave、mouseleave
-</code></pre></li>
-<li><p>如何监听一个对象的值变化</p>
-<ul>
-<li>Object.defineProperty(obj, prop, descriptor)</li>
-</ul>
-</li>
-<li><p>给一个场景 包含 搜索框 按钮  数据展示  分页  表单  你如何整理组件</p>
-</li>
-<li><p>某个用户反馈网站访问变慢，怎么去定位问题?</p>
-<ol>
-<li>看看自己这卡不卡</li>
-<li>看调试哪项数据加载比较慢</li>
-<li>看看服务器的负载情况，可以去查看下服务器硬件（网络带宽、CPU、内存）的消耗状况</li>
-<li>后台有无错误日志打印</li>
-<li>数据库过于庞大 -》拆表 拆库</li>
-</ol>
-</li>
-<li><p>fetch和axios</p>
-<ul>
-<li><p>fetch:</p>
-<ul>
-<li>符合关注分离，没有将输入、输出和用事件来跟踪的状态混杂在一个对象里</li>
-<li>更好更方便的写法</li>
-<li>更加底层，提供的API丰富（request, response）</li>
-<li>脱离了XHR，是ES规范里新的实现方式</li>
-<li>1）fetchtch只对网络请求报错，对400，500都当做成功的请求，需要封装去处理</li>
-<li>2）fetch默认不会带cookie，需要添加配置项</li>
-<li>3）fetch不支持abort，不支持超时控制，使用setTimeout及Promise.reject的实现的超时控制并不能阻止请求过程继续在后台运行，造成了量的浪费</li>
-<li>4）fetch没有办法原生监测请求的进度，而XHR可以</li>
-</ul>
-</li>
-<li><p>axois</p>
-<ul>
-<li>从浏览器中创建 XMLHttpRequest</li>
-<li>从 node.js 发出 http 请求</li>
-<li>支持 Promise API</li>
-<li>拦截请求和响应</li>
-<li>转换请求和响应数据</li>
-<li>取消请求</li>
-<li>自动转换JSON数据</li>
-<li>客户端支持防止CSRF/XSRF</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-]]></content>
+    <title>formatDate函数</title>
+    <url>/2017/12/12/Date()%20%E6%97%B6%E9%97%B4%E7%9A%84%E4%B8%80%E4%B8%AA%20format%20%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">formatDate(date, fmt) &#123;</span><br><span class="line">	if (/(y+)/.test(fmt)) &#123;</span><br><span class="line">		fmt = fmt.replace(RegExp.$1, (date.getFullYear() + &apos;&apos;).substr(4 - RegExp.$1.length));</span><br><span class="line">	&#125;</span><br><span class="line">	let o = &#123;</span><br><span class="line">		&apos;M+&apos;: date.getMonth() + 1,</span><br><span class="line">		&apos;d+&apos;: date.getDate(),</span><br><span class="line">		&apos;h+&apos;: date.getHours(),</span><br><span class="line">		&apos;m+&apos;: date.getMinutes(),</span><br><span class="line">		&apos;s+&apos;: date.getSeconds()</span><br><span class="line">	&#125;;</span><br><span class="line">	for (let k in o) &#123;</span><br><span class="line">		if (new RegExp(`($&#123;k&#125;)`).test(fmt)) &#123;</span><br><span class="line">			let str = o[k] + &apos;&apos;;</span><br><span class="line">			fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : padLeftZero(str));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return fmt;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"> padLeftZero(str) &#123;</span><br><span class="line">	return (&apos;00&apos; + str).substr(str.length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>javascript</category>
       </categories>
       <tags>
-        <tag>阿里面试</tag>
+        <tag>javascript</tag>
+        <tag>Exp</tag>
       </tags>
   </entry>
   <entry>
@@ -1088,64 +855,6 @@ copyProperties(Mix.prototype, Reflect.getPrototypeOf(mixin)); // 拷贝原型属
       </tags>
   </entry>
   <entry>
-    <title>canvas 基础以及2048游戏实践</title>
-    <url>/2018/11/20/canvas%20%E5%9F%BA%E7%A1%80%E4%BB%A5%E5%8F%8A2048%E6%B8%B8%E6%88%8F%E5%AE%9E%E8%B7%B5/</url>
-    <content><![CDATA[<blockquote>
-<p>canvas（画布）：顾名思义用来画画的容器 ta 本领很大 可以实现 ps 上大部分功能</p>
-</blockquote>
-<p><img src="/images/2048.jpg" alt="2048游戏"></p>
-<a id="more"></a>
-<h2 id="1-点"><a href="#1-点" class="headerlink" title="1. 点"></a>1. 点</h2><p><code>context.moveTo(x,y)</code>。这句代码的意思是 移动画笔至(x,y)这个点（单位是 px）。这里是以 canvas 画布的左上角为笛卡尔坐标系的原点，且 y 轴的正方向向下，x 轴的正方向向右。</p>
-<h2 id="2-线"><a href="#2-线" class="headerlink" title="2. 线"></a>2. 线</h2><ul>
-<li><p>起点：<code>context.moveTo(x,y)</code>：同点</p>
-</li>
-<li><p>终点：<code>context.lineTo(x,y)</code>。这句的意思是从 上一笔的停止点 绘制到(x,y)这里。 这里我们只是定义了路径，而未真正开始绘制。折线继续 <code>lineTo</code> 就可以了。</p>
-</li>
-</ul>
-<h2 id="3-面"><a href="#3-面" class="headerlink" title="3. 面"></a>3. 面</h2><p>面其实就是把折线内容闭合就可以形成多边形了，因此只要在绘制后通过 <code>closePath()</code> 就可以将内容闭合了。下面是一个矩形的例子(里面包含了常用的一些属性)：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"zh"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>绘制矩形<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"canvas-warp"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">canvas</span></span></span><br><span class="line"><span class="tag">        <span class="attr">id</span>=<span class="string">"canvas"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">width</span>=<span class="string">"800"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">height</span>=<span class="string">"600"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">style</span>=<span class="string">"border: 1px solid #aaaaaa; display: block; margin: 50px auto;"</span></span></span><br><span class="line"><span class="tag">      &gt;</span></span><br><span class="line">        你的浏览器居然不支持Canvas</span><br><span class="line">      <span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">"canvas"</span>)</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> context = canvas.getContext(<span class="string">"2d"</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">// 添加渐变线 （与PS的渐变线是一样的）</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> grd = context.createLinearGradient(<span class="number">400</span>, <span class="number">50</span>, <span class="number">400</span>, <span class="number">550</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">// 径向渐变 （两圆之间的渐变）</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">// const grd = context.createRadialGradient(400, 300, 0, 400, 300, 250);</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">// 填充纹理 repeat-x | -y | no-repeat</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">// const pattern = context.createPattern(img,"repeat");</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">//添加颜色断点</span></span></span><br><span class="line"><span class="javascript">        grd.addColorStop(<span class="number">0</span>, <span class="string">"#94e6ff"</span>)</span></span><br><span class="line"><span class="javascript">        grd.addColorStop(<span class="number">0.5</span>, <span class="string">"white"</span>)</span></span><br><span class="line"><span class="javascript">        grd.addColorStop(<span class="number">1</span>, <span class="string">"#94e6ff"</span>)</span></span><br><span class="line"></span><br><span class="line">        context.beginPath()</span><br><span class="line">        context.moveTo(150, 50)</span><br><span class="line">        context.lineTo(650, 50)</span><br><span class="line">        context.lineTo(650, 550)</span><br><span class="line">        context.lineTo(150, 550)</span><br><span class="line"><span class="javascript">        context.closePath() <span class="comment">// 闭合路径</span></span></span><br><span class="line"><span class="javascript">        context.lineWidth = <span class="number">2</span> <span class="comment">// 设置线宽</span></span></span><br><span class="line"><span class="javascript">        context.strokeStyle = <span class="string">"black"</span> <span class="comment">// 设置线色</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        context.fillStyle = grd <span class="comment">// 选择油漆桶的颜色 当然也可以是具体的纯色</span></span></span><br><span class="line"><span class="javascript">        context.fill() <span class="comment">// 绘制路径方法</span></span></span><br><span class="line">        context.stroke()</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="4-圆弧"><a href="#4-圆弧" class="headerlink" title="4. 圆弧"></a>4. 圆弧</h2><ul>
-<li><p>标准圆弧：<code>arc()</code><br>参数：(x, y, radius, startAngle,endAngle,anticlockwise)<br>前面三个参数，分别是圆心坐标与圆半径。<br>startAngle、endAngle 是弧度值，不是角度值。<br>anticlockwise：是否逆时针绘制 默认 false(顺时针)</p>
-</li>
-<li><p>复杂圆弧：<code>arcTo()</code><br>参数：(x1,y1,x2,y2,radius)<br>两个切点家圆弧半径确定</p>
-</li>
-<li><p>二次贝塞尔曲线：<code>quadraticCurveTo()</code><br>参数：(cpx,cpy,x,y)<br>这里经常配合 <code>moveTo(x0, y0)</code>给出起始切点 cpx, cpy 作为控制点<br>x, y 为结束点<br>这里有一个 <a href="http://tinyurl.com/html5quadratic/" target="_blank" rel="noopener">在线转换器</a></p>
-</li>
-<li><p>三次贝塞尔曲线：<code>bezierCurveTo()</code><br><code>context.bezierCurveTo(cp1x,cp1y,cp2x,cp2y,x,y)</code><br>较二次曲线多了一个控制点,正常情况下二次已经足够了,三次能画出更加复杂的东西。<br><a href="http://tinyurl.com/html5bezier" target="_blank" rel="noopener">在线转换器</a></p>
-</li>
-</ul>
-<h2 id="5-变换"><a href="#5-变换" class="headerlink" title="5.变换"></a>5.变换</h2><ul>
-<li><p>平移变换 <code>translate(x,y)</code><br>例如我想将位于（0，0）的矩形平移至（100，100）点。那么我只要在绘制矩形之前加上 context.translate(100,100)</p>
-</li>
-<li><p>旋转变换 <code>rotate(deg)</code><br>需要注意的是，旋转是以坐标系的原点（0，0）为圆心进行的顺时针旋转。所以，在使用<code>rotate()</code>之前，需要配合使用<code>translate()</code>平移坐标系，确定旋转的圆心。</p>
-</li>
-<li><p>缩放变换 <code>scale(sx,sy)</code><br>注意：这个缩放是整体缩放 包括了<strong>位置</strong> 和 <strong>线宽</strong>, 所以我们最好是把左上角位置为(0, 0)，不设置线宽。或者自己封装。</p>
-</li>
-<li><p>矩阵变换 <code>transform(a,b,c,d,e,f)</code><br>以上变换都可以用矩阵变换去实现，<br>[a, c, e]<br>|b, d, f|<br>[0, 0, 1]<br>| 参数 | 含义 | 默认值 |<br>| :–: | :–: | :—:|<br>| a | 水平缩放 | 1<br>| b | 水平倾斜 | 0<br>| c | 垂直倾斜 | 0<br>| d | 垂直缩放 | 1<br>| e | 水平位移 | 0<br>| f | 垂直位移 | 0</p>
-<p>默认值带入后其实就是一个单位矩阵<br>可以经过简单的矩阵换算得出以下结论</p>
-<ol>
-<li>使用 context.transform (1,0,0,1,dx,dy)代替 context.translate(dx,dy)</li>
-<li>使用 context.transform(sx,0,0,sy,0,0)代替 context.scale(sx, sy)</li>
-<li>使用 context.transform(0,b,c,0,0,0)来实现倾斜效果(最实用)。</li>
-</ol>
-</li>
-<li><p><code>setTransform()</code> 是重置并开始变换，相当于做了一次<code>restore</code></p>
-</li>
-</ul>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
-<li>canvas 内容说多也不多，其他还有 font 相关、shadow 相关 以及 clip 相关等 API</li>
-<li>最后附上游戏链接 <a href="/2048game/2048.html">2048 游戏</a> (ps:最近比较忙 分值以及动效等会补上~ 个人觉得就 2048 而言操作 div 会更加简单哦)</li>
-</ul>
-]]></content>
-      <categories>
-        <category>html5/css3</category>
-      </categories>
-      <tags>
-        <tag>canvas</tag>
-        <tag>html5</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>node fs系统</title>
     <url>/2018/11/16/node%20fs%E7%B3%BB%E7%BB%9F/</url>
     <content><![CDATA[<p> 引入fs模块 <code>const fs = require(&quot;fs&quot;)</code></p>
@@ -1168,6 +877,239 @@ copyProperties(Mix.prototype, Reflect.getPrototypeOf(mixin)); // 拷贝原型属
       <tags>
         <tag>node</tag>
         <tag>fs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>前端面试题总结</title>
+    <url>/2018/09/02/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h3 id="React相关"><a href="#React相关" class="headerlink" title="React相关"></a>React相关</h3><ol>
+<li>React中的props和state的用法：<ul>
+<li>props:(只读性)<ul>
+<li>单项数据流且不可改变</li>
+<li>只有通过父组件重新渲染的方式才可以把新的props传入组件中。</li>
+</ul>
+</li>
+<li>state:(可变)<ul>
+<li>组件内部数据状态</li>
+<li>需要通过this.setState()方法来修改state。</li>
+<li>调用this.setState方法时，组件进行重新渲染。</li>
+</ul>
+</li>
+<li><code>setState(updater, callback)</code>：<ul>
+<li>(prevState, props) =&gt; stateChange</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<a id="more"></a>
+<pre><code>&lt;br/&gt;
+</code></pre><ol start="2">
+<li>react-router的实现原理 <ul>
+<li>有hashStory/browserStory/memoryHistory</li>
+<li>browserStory：</li>
+<li>简单的说就是由各种<code>forward/back</code>或者<code>&lt;Link to={}/&gt;</code>等会去改变history库的state存入<code>sessionStorage</code>中，history.pushState触发地址栏更新(url),有listen监听地址栏变化后由<code>&lt;Router/&gt;</code>去匹配component -&gt;<code>render</code>出来。</li>
+<li><ul>
+<li>路由传参 ： =&gt; params(变量匹配路由<code>:id</code>), query(地址栏显示), state(加密)<br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>React Router 3 -&gt; React Router 4的区别<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+</li>
+<li>Redux与VueX<ol>
+<li>Redux<ul>
+<li>1）redux是一个泛用的状态管理框架</li>
+<li>2）解决组件与组件状态管理的问题</li>
+<li>3）redux是flux中的一个实现，不是所有的项目都适合redux</li>
+<li>4)redux的流程:<ul>
+<li>view——&gt;action——&gt;store——&gt;reducer（返回）——&gt;store——view</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Vuex<ul>
+<li>多个组件调用一个状态，将原来组建与组件之间的状态传递改成组件与仓库之间的传递</li>
+<li>state：存放多个组件共享的状态（数据）</li>
+<li>mutations：存放更改state里状态的方法，用于变更状态，是唯一一个更改状态的属性</li>
+<li>getters：将state中某个状态进行过滤，然后获取新的状态，类似于vue中的computed</li>
+<li>actions：用于调用事件动作，并传递给mutation</li>
+<li>modules：主要用来拆分state<ul>
+<li>Comnent-&gt;(dispatch)Action-&gt;（commit-&gt;Mutations-&gt;（mutate）State-&gt;（render）Component<br><br><br></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="JS相关问题"><a href="#JS相关问题" class="headerlink" title="JS相关问题"></a>JS相关问题</h3><h4 id="1-js的垃圾回收机制：-标记清除、引用计数）"><a href="#1-js的垃圾回收机制：-标记清除、引用计数）" class="headerlink" title="1. js的垃圾回收机制：(标记清除、引用计数）"></a>1. js的垃圾回收机制：(标记清除、引用计数）</h4><ul>
+<li>标记清除：当变量进入执行环境是，就标记这个变量为“进入环境”。从逻辑上讲，永远不能释放进入环境的变量所占用的内存，因为只要执行流进入相应的环境，就可能会用到他们。当变量离开环境时，则将其标记为“离开环境”。</li>
+<li><p>引用计数：被引用+1 包含对这个值引用的变量又取得了另外一个值-1 状态0为可回收 （无法回收相互引用）</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var objA = new Object()</span><br><span class="line">var objB = new Object()</span><br><span class="line"></span><br><span class="line">objA.someOtherObject = objB</span><br><span class="line">objB.anotherObject = objA</span><br></pre></td></tr></table></figure>
+<p> <br></p>
+</li>
+</ul>
+<h4 id="2-引起内存泄漏的常见操作"><a href="#2-引起内存泄漏的常见操作" class="headerlink" title="2. 引起内存泄漏的常见操作"></a>2. 引起内存泄漏的常见操作</h4><ul>
+<li><p>1) 意外的全局变量引起的内存泄露</p>
+</li>
+<li><p>2）闭包引起的内存泄露</p>
+</li>
+<li><p>3）没有清理的DOM元素引用</p>
+</li>
+<li><p>4）被遗忘的定时器或者回调</p>
+</li>
+<li><p>5）子元素存在引起的内存泄露</p>
+</li>
+<li>避免内存泄漏<ul>
+<li>1）减少不必要的全局变量，或者生命周期较长的对象，及时对无用的数据进行垃圾回收；</li>
+<li>2）注意程序逻辑，避免“死循环”之类的 ；</li>
+<li>3）避免创建过多的对象  原则：不用了的东西要及时归还。<br><br></li>
+</ul>
+</li>
+</ul>
+<h4 id="3-经常遇到的解决js兼容性问题列举至少三个"><a href="#3-经常遇到的解决js兼容性问题列举至少三个" class="headerlink" title="3. 经常遇到的解决js兼容性问题列举至少三个"></a>3. 经常遇到的解决js兼容性问题列举至少三个</h4><ul>
+<li>1.设置监听事件 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function addEvent(obj, type, fn) &#123;</span><br><span class="line">        if (obj.addEventListener) &#123;</span><br><span class="line">            obj.addEventListener(type, fn, false); //非IE</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            obj.attachEvent(&apos;on&apos; + type, fn); //ie,这里已经加上on，传参的时候注意不要重复加了</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>2.js阻止事件传播，这里使用click事件为例 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">document.onclick = function(e) &#123;</span><br><span class="line">        var e = e || window.event;</span><br><span class="line">        if (e.stopPropagation) &#123;</span><br><span class="line">            e.stopPropagation(); //W3C标准</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            e.cancelBubble = true; //IE....</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>3.js阻止默认事件</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">document.onclick=function(e)&#123;</span><br><span class="line">   var e=e||window.event;</span><br><span class="line">   if (e.preventDefault) &#123;</span><br><span class="line">     e.preventDefault();//W3C标准</span><br><span class="line">   &#125;else&#123;</span><br><span class="line">     e.returnValue=&apos;false&apos;;//IE..</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>4.鼠标滚轮事件</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//火狐中的滚轮事件</span><br><span class="line">document.addEventListener(&quot;DOMMouseScroll&quot;,function(event)&#123;</span><br><span class="line">    alert(event.detail);//若前滚的话为 -3，后滚的话为 3</span><br><span class="line">&#125;,false)</span><br><span class="line">//非火狐中的滚轮事件</span><br><span class="line">document.onmousewheel=function(event)&#123;</span><br><span class="line">    alert(event.detail);//前滚：120，后滚：-120</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<pre><code>&lt;br/&gt;
+</code></pre><h4 id="4-数组方法"><a href="#4-数组方法" class="headerlink" title="4. 数组方法"></a>4. 数组方法</h4><ul>
+<li>栈、队列 =&gt; <code>push()</code> 和 <code>pop()</code> / <code>push()</code>和<code>shift()</code> +  <code>unshift()</code>和<code>pop()</code></li>
+<li>排序 =》<code>sort()</code> 和 <code>reverse()</code> 两个方法</li>
+<li>操作方法 <ul>
+<li><ul>
+<li><code>concat</code>() 组成新数组 </li>
+</ul>
+</li>
+<li><ul>
+<li><code>slice</code>(start ,end) 截取数组但不改变原数组 对应字符串方法 subString() </li>
+</ul>
+</li>
+<li><ul>
+<li><code>splice</code>(start, length, another) 数组中最常用的方法 可完成数组删除、插入、替换操作</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>迭代方法 <ul>
+<li><ul>
+<li>arr.<code>every</code>(function(item,index,array) 对每一项都返回true才返回true </li>
+</ul>
+</li>
+<li><ul>
+<li>arr.<code>some</code>(function(item,index,array) 当某项符合时返回true </li>
+</ul>
+</li>
+<li><ul>
+<li><code>hasOwnProperty</code>(propertyName) 检测指定属性是否在当前对象实例中（不包括原型实例） </li>
+</ul>
+</li>
+<li><ul>
+<li>arr.<code>filter</code>(function(item,index,array) 返回符合条件的集合 </li>
+</ul>
+</li>
+<li><ul>
+<li>arr.<code>forEach</code>(function(item,index,array) 对每一项进行操作 无返回 （无法终止循环除非抛出异常） </li>
+</ul>
+</li>
+<li><ul>
+<li>arr.<code>map</code>(function(item,index,array) 返回给定条件的数组</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>归并方法（<code>reduce</code>/<code>reduceRight</code>）<br><br><h4 id="4-伪数组转数组方法"><a href="#4-伪数组转数组方法" class="headerlink" title="4. 伪数组转数组方法"></a>4. 伪数组转数组方法</h4></li>
+<li><code>[].slice.call(arrayLike)</code></li>
+<li><code>Array.from(arrayLike)</code></li>
+<li>扩展符对有遍历器接口的也可以转成数组<br><br><br>###其他</li>
+</ul>
+<ol>
+<li><p>git 经常用到的命令，至少五个，并且要说出每个命令是干什么的。<br>（git add .）（git commit -m “”）（git push origin **）（git clone）（git branch）（git checkout）</p>
+</li>
+<li><p>cookie和session的区别</p>
+<ul>
+<li><p>cookie被意外禁用：</p>
+<ul>
+<li><p>可以通过url的重写来解决，最简单的方式就是在url的末端加上；注意是分号而不是问号，问号就是请求参数了，然后分号后面加上jsessionid=xxx，这样就相当于模仿cookie发送请求头请求给服务器，这个是最原始的方法，而且实际中也不会这样做，我们可以在用户访问之后通过response对象返回给用户一个url链接，然后在链接里跟上这个jsessionid的值即可，那么现在问题来了，这个jsessionid的值如何获取？</p>
+</li>
+<li><p>servlet里面通过请求对象requst对象.getsession.getid()获取到，当然这仅仅只能获取jseesionid的值，而使用Response.encodeURL则可以直接得到路径+jsessionid的全部url路径，不需要自己手动拼接字符串了。然后将这个url返回给客户端，用户通过一个链接点击一样可以解决cookie禁用，但session的数据依旧可以共享的问题。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>事件代理，哪些事件没有冒泡？</p>
+<pre><code>load、unload、blur、focus、mouseleave、mouseleave
+</code></pre></li>
+<li><p>如何监听一个对象的值变化</p>
+<ul>
+<li>Object.defineProperty(obj, prop, descriptor)</li>
+</ul>
+</li>
+<li><p>给一个场景 包含 搜索框 按钮  数据展示  分页  表单  你如何整理组件</p>
+</li>
+<li><p>某个用户反馈网站访问变慢，怎么去定位问题?</p>
+<ol>
+<li>看看自己这卡不卡</li>
+<li>看调试哪项数据加载比较慢</li>
+<li>看看服务器的负载情况，可以去查看下服务器硬件（网络带宽、CPU、内存）的消耗状况</li>
+<li>后台有无错误日志打印</li>
+<li>数据库过于庞大 -》拆表 拆库</li>
+</ol>
+</li>
+<li><p>fetch和axios</p>
+<ul>
+<li><p>fetch:</p>
+<ul>
+<li>符合关注分离，没有将输入、输出和用事件来跟踪的状态混杂在一个对象里</li>
+<li>更好更方便的写法</li>
+<li>更加底层，提供的API丰富（request, response）</li>
+<li>脱离了XHR，是ES规范里新的实现方式</li>
+<li>1）fetchtch只对网络请求报错，对400，500都当做成功的请求，需要封装去处理</li>
+<li>2）fetch默认不会带cookie，需要添加配置项</li>
+<li>3）fetch不支持abort，不支持超时控制，使用setTimeout及Promise.reject的实现的超时控制并不能阻止请求过程继续在后台运行，造成了量的浪费</li>
+<li>4）fetch没有办法原生监测请求的进度，而XHR可以</li>
+</ul>
+</li>
+<li><p>axois</p>
+<ul>
+<li>从浏览器中创建 XMLHttpRequest</li>
+<li>从 node.js 发出 http 请求</li>
+<li>支持 Promise API</li>
+<li>拦截请求和响应</li>
+<li>转换请求和响应数据</li>
+<li>取消请求</li>
+<li>自动转换JSON数据</li>
+<li>客户端支持防止CSRF/XSRF</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>阿里面试</tag>
       </tags>
   </entry>
   <entry>
@@ -1230,6 +1172,64 @@ copyProperties(Mix.prototype, Reflect.getPrototypeOf(mixin)); // 拷贝原型属
       <tags>
         <tag>node</tag>
         <tag>webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>canvas 基础以及2048游戏实践</title>
+    <url>/2018/11/20/canvas%20%E5%9F%BA%E7%A1%80%E4%BB%A5%E5%8F%8A2048%E6%B8%B8%E6%88%8F%E5%AE%9E%E8%B7%B5/</url>
+    <content><![CDATA[<blockquote>
+<p>canvas（画布）：顾名思义用来画画的容器 ta 本领很大 可以实现 ps 上大部分功能</p>
+</blockquote>
+<p><img src="/images/2048.jpg" alt="2048游戏"></p>
+<a id="more"></a>
+<h2 id="1-点"><a href="#1-点" class="headerlink" title="1. 点"></a>1. 点</h2><p><code>context.moveTo(x,y)</code>。这句代码的意思是 移动画笔至(x,y)这个点（单位是 px）。这里是以 canvas 画布的左上角为笛卡尔坐标系的原点，且 y 轴的正方向向下，x 轴的正方向向右。</p>
+<h2 id="2-线"><a href="#2-线" class="headerlink" title="2. 线"></a>2. 线</h2><ul>
+<li><p>起点：<code>context.moveTo(x,y)</code>：同点</p>
+</li>
+<li><p>终点：<code>context.lineTo(x,y)</code>。这句的意思是从 上一笔的停止点 绘制到(x,y)这里。 这里我们只是定义了路径，而未真正开始绘制。折线继续 <code>lineTo</code> 就可以了。</p>
+</li>
+</ul>
+<h2 id="3-面"><a href="#3-面" class="headerlink" title="3. 面"></a>3. 面</h2><p>面其实就是把折线内容闭合就可以形成多边形了，因此只要在绘制后通过 <code>closePath()</code> 就可以将内容闭合了。下面是一个矩形的例子(里面包含了常用的一些属性)：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"zh"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>绘制矩形<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"canvas-warp"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">canvas</span></span></span><br><span class="line"><span class="tag">        <span class="attr">id</span>=<span class="string">"canvas"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">width</span>=<span class="string">"800"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">height</span>=<span class="string">"600"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">style</span>=<span class="string">"border: 1px solid #aaaaaa; display: block; margin: 50px auto;"</span></span></span><br><span class="line"><span class="tag">      &gt;</span></span><br><span class="line">        你的浏览器居然不支持Canvas</span><br><span class="line">      <span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">"canvas"</span>)</span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> context = canvas.getContext(<span class="string">"2d"</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">// 添加渐变线 （与PS的渐变线是一样的）</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">const</span> grd = context.createLinearGradient(<span class="number">400</span>, <span class="number">50</span>, <span class="number">400</span>, <span class="number">550</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">// 径向渐变 （两圆之间的渐变）</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">// const grd = context.createRadialGradient(400, 300, 0, 400, 300, 250);</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">// 填充纹理 repeat-x | -y | no-repeat</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">// const pattern = context.createPattern(img,"repeat");</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">//添加颜色断点</span></span></span><br><span class="line"><span class="javascript">        grd.addColorStop(<span class="number">0</span>, <span class="string">"#94e6ff"</span>)</span></span><br><span class="line"><span class="javascript">        grd.addColorStop(<span class="number">0.5</span>, <span class="string">"white"</span>)</span></span><br><span class="line"><span class="javascript">        grd.addColorStop(<span class="number">1</span>, <span class="string">"#94e6ff"</span>)</span></span><br><span class="line"></span><br><span class="line">        context.beginPath()</span><br><span class="line">        context.moveTo(150, 50)</span><br><span class="line">        context.lineTo(650, 50)</span><br><span class="line">        context.lineTo(650, 550)</span><br><span class="line">        context.lineTo(150, 550)</span><br><span class="line"><span class="javascript">        context.closePath() <span class="comment">// 闭合路径</span></span></span><br><span class="line"><span class="javascript">        context.lineWidth = <span class="number">2</span> <span class="comment">// 设置线宽</span></span></span><br><span class="line"><span class="javascript">        context.strokeStyle = <span class="string">"black"</span> <span class="comment">// 设置线色</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">        context.fillStyle = grd <span class="comment">// 选择油漆桶的颜色 当然也可以是具体的纯色</span></span></span><br><span class="line"><span class="javascript">        context.fill() <span class="comment">// 绘制路径方法</span></span></span><br><span class="line">        context.stroke()</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-圆弧"><a href="#4-圆弧" class="headerlink" title="4. 圆弧"></a>4. 圆弧</h2><ul>
+<li><p>标准圆弧：<code>arc()</code><br>参数：(x, y, radius, startAngle,endAngle,anticlockwise)<br>前面三个参数，分别是圆心坐标与圆半径。<br>startAngle、endAngle 是弧度值，不是角度值。<br>anticlockwise：是否逆时针绘制 默认 false(顺时针)</p>
+</li>
+<li><p>复杂圆弧：<code>arcTo()</code><br>参数：(x1,y1,x2,y2,radius)<br>两个切点家圆弧半径确定</p>
+</li>
+<li><p>二次贝塞尔曲线：<code>quadraticCurveTo()</code><br>参数：(cpx,cpy,x,y)<br>这里经常配合 <code>moveTo(x0, y0)</code>给出起始切点 cpx, cpy 作为控制点<br>x, y 为结束点<br>这里有一个 <a href="http://tinyurl.com/html5quadratic/" target="_blank" rel="noopener">在线转换器</a></p>
+</li>
+<li><p>三次贝塞尔曲线：<code>bezierCurveTo()</code><br><code>context.bezierCurveTo(cp1x,cp1y,cp2x,cp2y,x,y)</code><br>较二次曲线多了一个控制点,正常情况下二次已经足够了,三次能画出更加复杂的东西。<br><a href="http://tinyurl.com/html5bezier" target="_blank" rel="noopener">在线转换器</a></p>
+</li>
+</ul>
+<h2 id="5-变换"><a href="#5-变换" class="headerlink" title="5.变换"></a>5.变换</h2><ul>
+<li><p>平移变换 <code>translate(x,y)</code><br>例如我想将位于（0，0）的矩形平移至（100，100）点。那么我只要在绘制矩形之前加上 context.translate(100,100)</p>
+</li>
+<li><p>旋转变换 <code>rotate(deg)</code><br>需要注意的是，旋转是以坐标系的原点（0，0）为圆心进行的顺时针旋转。所以，在使用<code>rotate()</code>之前，需要配合使用<code>translate()</code>平移坐标系，确定旋转的圆心。</p>
+</li>
+<li><p>缩放变换 <code>scale(sx,sy)</code><br>注意：这个缩放是整体缩放 包括了<strong>位置</strong> 和 <strong>线宽</strong>, 所以我们最好是把左上角位置为(0, 0)，不设置线宽。或者自己封装。</p>
+</li>
+<li><p>矩阵变换 <code>transform(a,b,c,d,e,f)</code><br>以上变换都可以用矩阵变换去实现，<br>[a, c, e]<br>|b, d, f|<br>[0, 0, 1]<br>| 参数 | 含义 | 默认值 |<br>| :–: | :–: | :—:|<br>| a | 水平缩放 | 1<br>| b | 水平倾斜 | 0<br>| c | 垂直倾斜 | 0<br>| d | 垂直缩放 | 1<br>| e | 水平位移 | 0<br>| f | 垂直位移 | 0</p>
+<p>默认值带入后其实就是一个单位矩阵<br>可以经过简单的矩阵换算得出以下结论</p>
+<ol>
+<li>使用 context.transform (1,0,0,1,dx,dy)代替 context.translate(dx,dy)</li>
+<li>使用 context.transform(sx,0,0,sy,0,0)代替 context.scale(sx, sy)</li>
+<li>使用 context.transform(0,b,c,0,0,0)来实现倾斜效果(最实用)。</li>
+</ol>
+</li>
+<li><p><code>setTransform()</code> 是重置并开始变换，相当于做了一次<code>restore</code></p>
+</li>
+</ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>canvas 内容说多也不多，其他还有 font 相关、shadow 相关 以及 clip 相关等 API</li>
+<li>最后附上游戏链接 <a href="/2048game/2048.html">2048 游戏</a> (ps:最近比较忙 分值以及动效等会补上~ 个人觉得就 2048 而言操作 div 会更加简单哦)</li>
+</ul>
+]]></content>
+      <categories>
+        <category>html5/css3</category>
+      </categories>
+      <tags>
+        <tag>canvas</tag>
+        <tag>html5</tag>
       </tags>
   </entry>
   <entry>
@@ -1364,58 +1364,6 @@ alert(sum); //15
       </tags>
   </entry>
   <entry>
-    <title>《高级程序设计》整理(二)- - -正则与函数篇</title>
-    <url>/2018/03/20/2018-3-20-%E3%80%8A%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E3%80%8B%E6%95%B4%E7%90%86-%E4%BA%8C-%E6%AD%A3%E5%88%99%E4%B8%8E%E5%87%BD%E6%95%B0%E7%AF%87/</url>
-    <content><![CDATA[<p>《高级程序设计》整理(二)- - -正则与函数篇</p>
-<hr>
-<p>###一、正则（RegExp）<br> &nbsp; &nbsp; - - -| let pattern = / patern / ( i | g | m )    i:忽略大小写  g:全局匹配  m:多行匹配<br> &nbsp; &nbsp; &nbsp; &nbsp; （元字符需要转义—-&gt; ‘ ( { \ ^ $ | ) ? * + . ] } ‘ ）</p>
-<p> &nbsp; &nbsp;  - - -|   RegExp的实例属性：<code>global</code>、<code>ignoreCase</code>、<code>multiline</code> 表示是否设置了该标志</p>
-<a id="more"></a>
-<p> &nbsp; &nbsp; - - -|  RegExp的实例方法：<br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;— <code>exec()</code>: 包含第一个匹配项信息的数组（[match[0],match[1],match[2]…]）；或者在没有匹配项的情况下返回null。返回的数组虽然是Array的实例，但包含两个额外的属性：index（匹配项的索引）和input（输入）。<br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;— <code>test()</code>:   /.*/.test(str) ==&gt;boolean  常用于if语句</p>
-<p> &nbsp; &nbsp; - - -|  RegExp的构造函数属性：<br>| 长属性名    | 短属性名    |  说明  |<br>|——–| :—–:| —- |<br>| input        | $_      |   最近一次要匹配的字符串。Opera未实现此属性    |<br>| lastMatch        | $&amp;      |   最近一次的匹配性。 Opera未实现此属性    |<br>| lastParen        | $+      |   最近一次匹配的捕获组。 Opera未实现此属性    |<br>|leftContext    |$<code>|input字符串中lastMatch之前的文本|
-|multiline    |$*|布尔值，是否所有表达式都使用多行模式。IE和Opera未实现此属性|
-|rightContext|$·|input字符串中lastMatch之后的文本|
-||\$1、\$2、\$3...|第一、第二、第三...匹配的捕获组 （</code>常用`）<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var text=&quot;this has been a short summer&quot;;</span><br><span class="line">var pattern=/(.)hort/g;</span><br><span class="line">/*</span><br><span class="line">*注意：Opera不支持input、lastMatch、lastParen和multiline属性</span><br><span class="line">*IE 不支持multiline属性</span><br><span class="line">*/</span><br><span class="line">if(pattern.test(text))</span><br><span class="line">&#123;</span><br><span class="line">    alert(RegExp.$_); // this has been a short summer</span><br><span class="line">    alert(RegExp.[&quot;$`&quot;]); //this has been a   </span><br><span class="line">    alert(RegExp.[&quot;$·&quot;]); //summer</span><br><span class="line">    alert(RegExp.[&quot;$&amp;&quot;]); //short    </span><br><span class="line">    alert(RegExp.[&quot;$+&quot;]); //s</span><br><span class="line">    alert(RegExp.[&quot;$*&quot;]); //false</span><br><span class="line">    alert(RegExp.[&quot;$1&quot;]); //s</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>###四、Function类型</p>
-<ol>
-<li>每个函数都是function类型的实例，*即函数是对象，而函数名是指针<br>- - -|  函数的两种定义方式：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> 1.function sum(num1, num2) &#123;//函数声明</span><br><span class="line">		return num1 + num2</span><br><span class="line">	&#125;</span><br><span class="line">2.var sum = function(num1, num2) &#123;//函数表达式</span><br><span class="line">		return num1 + num2</span><br><span class="line">	&#125;;</span><br><span class="line">*注意：用不含括号的函数名访问的是函数指针，而非调用函数</span><br><span class="line">		 即：var anotherSum = sum </span><br><span class="line">				 sum = null</span><br><span class="line">		         anotherSum(10,10)  //==&gt;20</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol start="2">
-<li>函数声明和函数表达式<br>- - -|  解析器会将函数声明提升，率先解析函数声明并生成引用;<br>- - -|  表达式则是按解析顺序自上而下执行。</li>
-</ol>
-<ol start="3">
-<li><p>函数内部属性（arguments, this）<br>- - -|  this：引用函数的执行环境</p>
-<p>- - -|  arguments：<strong>类数组</strong>对象，包含传入函数的所有参数。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - -  callee：<code>arguments.callee()</code>指向拥有该arguments对象的函数；常用于递归解耦<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - -  arguments[<code>Symbol.iterator</code>]()：返回一个新的Array迭代器对象，该对象包含参数中每个索引的值。  </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> /*将arguments转成数组对象的方法*/</span><br><span class="line">var args = Array.prototype.slice.call(arguments);</span><br><span class="line">var args = [].slice.call(arguments);</span><br><span class="line">const args = Array.from(arguments);// ES2015</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol start="4">
-<li><p>函数属性和方法<br>-  - 属性:length：函数希望接收的参数个数；prototype：保存所有实例方法<br>-  - 方法：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;–apply()和call():</p>
-<blockquote>
-<p>每个函数都包含两个非继承而来的方法：<code>apply()</code>和<code>call()</code>。这两个方法的用途都是在特定的作用域中调用函数，实际上等于函数体内<code>this</code>对象的值; 他们的第一参数都是作用域,<code>apply()</code>的第二参数为数组而<code>call()</code>则需将传递参数列举出来。<br>例子：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  function sum(num1, num2)&#123;</span><br><span class="line">      return num1 + num2;</span><br><span class="line">&#125;</span><br><span class="line">function callSum1(num1, num2)&#123;</span><br><span class="line">    return sum.apply(this, arguments);</span><br><span class="line">&#125;</span><br><span class="line">console.log(callSum1(10,10));//20</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p>扩充作用域-&gt;例子:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  window.color = &quot;red&quot;;</span><br><span class="line">var o = &#123; color: &quot;blue&quot; &#125;;</span><br><span class="line">function sayColor()&#123;</span><br><span class="line"> alert(this.color);</span><br><span class="line">&#125;</span><br><span class="line">sayColor(); //red</span><br><span class="line">sayColor.call(this); //red</span><br><span class="line">sayColor.call(window); //red</span><br><span class="line">sayColor.call(o); //blue</span><br></pre></td></tr></table></figure>
-</blockquote>
-<blockquote>
-<p><strong><code>bind()</code></strong>:<br>call() / apply() ,都是立马就调用了对应的函数，而 <code>bind()</code> 不会， <code>bind()</code> 会生成一个新的函数，bind() 函数的参数跟 call() 一致,可以随时调用。<br>例子：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">window.color = &quot;red&quot;;</span><br><span class="line">var o = &#123; color: &quot;blue&quot; &#125;;</span><br><span class="line">function sayColor()&#123;</span><br><span class="line"> alert(this.color);</span><br><span class="line">&#125;</span><br><span class="line">var objectSayColor = sayColor.bind(o);</span><br><span class="line">objectSayColor(); //blue</span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ol>
-]]></content>
-      <categories>
-        <category>javascript</category>
-      </categories>
-      <tags>
-        <tag>javascript</tag>
-        <tag>RegExp</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>《高级程序设计》整理(三)- - -JS对象</title>
     <url>/2018/03/20/2018-3-20-%E3%80%8A%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E3%80%8B%E6%95%B4%E7%90%86-%E4%B8%89-JS%E5%AF%B9%E8%B1%A1-1/</url>
     <content><![CDATA[<p>JS对象<br>一、属性类型</p>
@@ -1466,6 +1414,58 @@ alert(sum); //15
       </categories>
       <tags>
         <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>《高级程序设计》整理(二)- - -正则与函数篇</title>
+    <url>/2018/03/20/2018-3-20-%E3%80%8A%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E3%80%8B%E6%95%B4%E7%90%86-%E4%BA%8C-%E6%AD%A3%E5%88%99%E4%B8%8E%E5%87%BD%E6%95%B0%E7%AF%87/</url>
+    <content><![CDATA[<p>《高级程序设计》整理(二)- - -正则与函数篇</p>
+<hr>
+<p>###一、正则（RegExp）<br> &nbsp; &nbsp; - - -| let pattern = / patern / ( i | g | m )    i:忽略大小写  g:全局匹配  m:多行匹配<br> &nbsp; &nbsp; &nbsp; &nbsp; （元字符需要转义—-&gt; ‘ ( { \ ^ $ | ) ? * + . ] } ‘ ）</p>
+<p> &nbsp; &nbsp;  - - -|   RegExp的实例属性：<code>global</code>、<code>ignoreCase</code>、<code>multiline</code> 表示是否设置了该标志</p>
+<a id="more"></a>
+<p> &nbsp; &nbsp; - - -|  RegExp的实例方法：<br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;— <code>exec()</code>: 包含第一个匹配项信息的数组（[match[0],match[1],match[2]…]）；或者在没有匹配项的情况下返回null。返回的数组虽然是Array的实例，但包含两个额外的属性：index（匹配项的索引）和input（输入）。<br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;— <code>test()</code>:   /.*/.test(str) ==&gt;boolean  常用于if语句</p>
+<p> &nbsp; &nbsp; - - -|  RegExp的构造函数属性：<br>| 长属性名    | 短属性名    |  说明  |<br>|——–| :—–:| —- |<br>| input        | $_      |   最近一次要匹配的字符串。Opera未实现此属性    |<br>| lastMatch        | $&amp;      |   最近一次的匹配性。 Opera未实现此属性    |<br>| lastParen        | $+      |   最近一次匹配的捕获组。 Opera未实现此属性    |<br>|leftContext    |$<code>|input字符串中lastMatch之前的文本|
+|multiline    |$*|布尔值，是否所有表达式都使用多行模式。IE和Opera未实现此属性|
+|rightContext|$·|input字符串中lastMatch之后的文本|
+||\$1、\$2、\$3...|第一、第二、第三...匹配的捕获组 （</code>常用`）<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var text=&quot;this has been a short summer&quot;;</span><br><span class="line">var pattern=/(.)hort/g;</span><br><span class="line">/*</span><br><span class="line">*注意：Opera不支持input、lastMatch、lastParen和multiline属性</span><br><span class="line">*IE 不支持multiline属性</span><br><span class="line">*/</span><br><span class="line">if(pattern.test(text))</span><br><span class="line">&#123;</span><br><span class="line">    alert(RegExp.$_); // this has been a short summer</span><br><span class="line">    alert(RegExp.[&quot;$`&quot;]); //this has been a   </span><br><span class="line">    alert(RegExp.[&quot;$·&quot;]); //summer</span><br><span class="line">    alert(RegExp.[&quot;$&amp;&quot;]); //short    </span><br><span class="line">    alert(RegExp.[&quot;$+&quot;]); //s</span><br><span class="line">    alert(RegExp.[&quot;$*&quot;]); //false</span><br><span class="line">    alert(RegExp.[&quot;$1&quot;]); //s</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>###四、Function类型</p>
+<ol>
+<li>每个函数都是function类型的实例，*即函数是对象，而函数名是指针<br>- - -|  函数的两种定义方式：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> 1.function sum(num1, num2) &#123;//函数声明</span><br><span class="line">		return num1 + num2</span><br><span class="line">	&#125;</span><br><span class="line">2.var sum = function(num1, num2) &#123;//函数表达式</span><br><span class="line">		return num1 + num2</span><br><span class="line">	&#125;;</span><br><span class="line">*注意：用不含括号的函数名访问的是函数指针，而非调用函数</span><br><span class="line">		 即：var anotherSum = sum </span><br><span class="line">				 sum = null</span><br><span class="line">		         anotherSum(10,10)  //==&gt;20</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="2">
+<li>函数声明和函数表达式<br>- - -|  解析器会将函数声明提升，率先解析函数声明并生成引用;<br>- - -|  表达式则是按解析顺序自上而下执行。</li>
+</ol>
+<ol start="3">
+<li><p>函数内部属性（arguments, this）<br>- - -|  this：引用函数的执行环境</p>
+<p>- - -|  arguments：<strong>类数组</strong>对象，包含传入函数的所有参数。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - -  callee：<code>arguments.callee()</code>指向拥有该arguments对象的函数；常用于递归解耦<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - -  arguments[<code>Symbol.iterator</code>]()：返回一个新的Array迭代器对象，该对象包含参数中每个索引的值。  </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> /*将arguments转成数组对象的方法*/</span><br><span class="line">var args = Array.prototype.slice.call(arguments);</span><br><span class="line">var args = [].slice.call(arguments);</span><br><span class="line">const args = Array.from(arguments);// ES2015</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="4">
+<li><p>函数属性和方法<br>-  - 属性:length：函数希望接收的参数个数；prototype：保存所有实例方法<br>-  - 方法：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;–apply()和call():</p>
+<blockquote>
+<p>每个函数都包含两个非继承而来的方法：<code>apply()</code>和<code>call()</code>。这两个方法的用途都是在特定的作用域中调用函数，实际上等于函数体内<code>this</code>对象的值; 他们的第一参数都是作用域,<code>apply()</code>的第二参数为数组而<code>call()</code>则需将传递参数列举出来。<br>例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  function sum(num1, num2)&#123;</span><br><span class="line">      return num1 + num2;</span><br><span class="line">&#125;</span><br><span class="line">function callSum1(num1, num2)&#123;</span><br><span class="line">    return sum.apply(this, arguments);</span><br><span class="line">&#125;</span><br><span class="line">console.log(callSum1(10,10));//20</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>扩充作用域-&gt;例子:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">  window.color = &quot;red&quot;;</span><br><span class="line">var o = &#123; color: &quot;blue&quot; &#125;;</span><br><span class="line">function sayColor()&#123;</span><br><span class="line"> alert(this.color);</span><br><span class="line">&#125;</span><br><span class="line">sayColor(); //red</span><br><span class="line">sayColor.call(this); //red</span><br><span class="line">sayColor.call(window); //red</span><br><span class="line">sayColor.call(o); //blue</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p><strong><code>bind()</code></strong>:<br>call() / apply() ,都是立马就调用了对应的函数，而 <code>bind()</code> 不会， <code>bind()</code> 会生成一个新的函数，bind() 函数的参数跟 call() 一致,可以随时调用。<br>例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">window.color = &quot;red&quot;;</span><br><span class="line">var o = &#123; color: &quot;blue&quot; &#125;;</span><br><span class="line">function sayColor()&#123;</span><br><span class="line"> alert(this.color);</span><br><span class="line">&#125;</span><br><span class="line">var objectSayColor = sayColor.bind(o);</span><br><span class="line">objectSayColor(); //blue</span><br></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+        <tag>RegExp</tag>
       </tags>
   </entry>
   <entry>
@@ -1542,48 +1542,22 @@ alert(sum); //15
       </tags>
   </entry>
   <entry>
-    <title>滚动加载--优化滚动性能</title>
-    <url>/2019/01/20/%E6%BB%9A%E5%8A%A8%E5%8A%A0%E8%BD%BD--%E4%BC%98%E5%8C%96%E6%BB%9A%E5%8A%A8%E6%80%A7%E8%83%BD/</url>
+    <title>文件上传之验证后缀与内容是否一致</title>
+    <url>/2019/01/04/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B9%8B%E9%AA%8C%E8%AF%81%E5%90%8E%E7%BC%80%E4%B8%8E%E5%86%85%E5%AE%B9%E6%98%AF%E5%90%A6%E4%B8%80%E8%87%B4/</url>
     <content><![CDATA[<blockquote>
-<p>亲爱的儿子，我还没有追到你娘，提前祝你新年快乐！爸爸明年会努力的~</p>
+<p>在上传前验证，开发者们往往喜欢通过后缀或者<code>File.type()</code>去判断一个文件类型来决定是否符合上传要求。但这显然是不可靠的，当被别有用心的人利用后，就可能在服务器被执行。今天就来解决如何在前端验证文件内容跟后缀是否一致。</p>
 </blockquote>
-<p><img src="/images/hello.jpg" alt="hello~"></p>
 <a id="more"></a>
-<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><ul>
-<li>最近有用<a href="https://github.com/aliyun-UED/aliyun-sdk-js" target="_blank" rel="noopener">阿里云 sdk</a> 中的<a href="https://help.aliyun.com/document_detail/29007.html" target="_blank" rel="noopener">日志服务</a>,在它的 api 里发现它并不支持分页查询，倒是有个 offset 指定日志起点,所以需要配合鼠标滚动做一个懒加载。</li>
-</ul>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
-<li>最容易想到的就是做一个底部检测，当用户滚动到底部时再请求下一部分内容，并将结果拼接到上一次结果之后。</li>
-<li>但很多情况下返回内容不只有字符，还有媒体文件，这个时候浏览器的下载通道很容易被占满。这个时候 我们实际需要的其实是用户看得到的内容去做加载就可以，用户看不到的可以先用墓碑（占位符）。这么做可以大大减少流量浪费~</li>
-<li>理清思路后大致实现不难，不过滚动是个高频发事件，这在一些极端 case 下容易引起卡顿，需要进行优化，这也是本文重点。</li>
-</ol>
-<h2 id="优化滚动"><a href="#优化滚动" class="headerlink" title="优化滚动"></a>优化滚动</h2><ul>
-<li>常用两种优化方式</li>
-</ul>
-<ol>
-<li><code>Throttle</code>: 允许我们限制激活响应的数量。通过限制每秒回调的数量的方式来达到优化目的;</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// const fn = throttle(e =&gt; console.log(e, "123"), 300)</span></span><br><span class="line"><span class="comment">// const scroll = listen(document.body, "mousewheel", fn)</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">...props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [fn, threshhold = <span class="number">250</span>, scope] = props</span><br><span class="line">  <span class="keyword">let</span> last</span><br><span class="line">  <span class="keyword">let</span> deferTimer</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> context = scope || <span class="keyword">this</span></span><br><span class="line">    <span class="keyword">const</span> now = +<span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line">    <span class="keyword">if</span> (last &amp;&amp; now &lt; last + threshhold) &#123;</span><br><span class="line">      clearTimeout(deferTimer)</span><br><span class="line">      deferTimer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 停止滚动延迟后触发</span></span><br><span class="line">        last = now</span><br><span class="line">        fn.apply(context, [event, ...props])</span><br><span class="line">      &#125;, threshhold)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      last = now</span><br><span class="line">      fn.apply(context, [event, ...props])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li><code>Debounce</code>: 事件发生时，不会立即激活回调。而是等待一定的时间并检查相同的事件是否再次触发。如果是，我们重置定时器，并再次等待。如果在等待期间没有发生相同的事件，我们就立即激活回调。 =&gt; 使用于滚动结束后执行操作</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 基本防抖</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">...props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [action, wait = <span class="number">200</span>] = props</span><br><span class="line">  <span class="keyword">let</span> last</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> ctx = <span class="keyword">this</span></span><br><span class="line">    clearTimeout(last)</span><br><span class="line">    last = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      action.apply(ctx, [event, ...props])</span><br><span class="line">    &#125;, wait)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>lodash 实现</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; isObject, isFn &#125; <span class="keyword">from</span> <span class="string">"./is"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 截流函数</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;function&#125;</span> <span class="variable">fn</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> </span>[wait=250]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;object&#125;</span> <span class="variable">options</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, wait = <span class="number">250</span>, options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> leading = <span class="literal">true</span></span><br><span class="line">  <span class="keyword">let</span> trailing = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (isObject(options)) &#123;</span><br><span class="line">    leading = <span class="string">"leading"</span> <span class="keyword">in</span> options ? !!options.leading : leading</span><br><span class="line">    trailing = <span class="string">"trailing"</span> <span class="keyword">in</span> options ? !!options.trailing : trailing</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> debounce(func, wait, &#123;</span><br><span class="line">    leading,</span><br><span class="line">    trailing,</span><br><span class="line">    maxWait: wait</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 防抖函数</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;function&#125;</span> <span class="variable">func</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;*&#125;</span> <span class="variable">wait</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;object&#125;</span> <span class="variable">options</span></span></span></span><br><span class="line"><span class="comment"> *    - leading:Boolean 开始时调用</span></span><br><span class="line"><span class="comment"> *    - trailing:Boolean 结束时调用</span></span><br><span class="line"><span class="comment"> *    - maxWait:Number 最大等待时间</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">func, wait, options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> lastArgs, lastThis, maxWait, result, timerId, lastCallTime</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> lastInvokeTime = <span class="number">0</span></span><br><span class="line">  <span class="keyword">let</span> leading = <span class="literal">false</span></span><br><span class="line">  <span class="keyword">let</span> maxing = <span class="literal">false</span></span><br><span class="line">  <span class="keyword">let</span> trailing = <span class="literal">true</span></span><br><span class="line">  <span class="keyword">const</span> isBrowser = <span class="keyword">typeof</span> <span class="built_in">window</span> == <span class="string">"object"</span> &amp;&amp; <span class="built_in">window</span> !== <span class="literal">null</span></span><br><span class="line">  <span class="keyword">const</span> useRAF =</span><br><span class="line">    !wait &amp;&amp;</span><br><span class="line">    wait !== <span class="number">0</span> &amp;&amp;</span><br><span class="line">    isBrowser &amp;&amp;</span><br><span class="line">    <span class="keyword">typeof</span> <span class="built_in">window</span>.requestAnimationFrame === <span class="string">"function"</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!isFn(func)) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Expected a function"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  wait = +wait || <span class="number">0</span></span><br><span class="line">  <span class="keyword">if</span> (isObject(options)) &#123;</span><br><span class="line">    leading = !!options.leading</span><br><span class="line">    maxing = <span class="string">"maxWait"</span> <span class="keyword">in</span> options</span><br><span class="line">    maxWait = maxing ? <span class="built_in">Math</span>.max(+options.maxWait || <span class="number">0</span>, wait) : maxWait</span><br><span class="line">    trailing = <span class="string">"trailing"</span> <span class="keyword">in</span> options ? !!options.trailing : trailing</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">invokeFunc</span>(<span class="params">time</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> args = lastArgs</span><br><span class="line">    <span class="keyword">const</span> thisArg = lastThis</span><br><span class="line"></span><br><span class="line">    lastArgs = lastThis = <span class="literal">undefined</span></span><br><span class="line">    lastInvokeTime = time</span><br><span class="line">    result = func.apply(thisArg, args)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">startTimer</span>(<span class="params">pendingFunc, wait</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (useRAF) &#123;</span><br><span class="line">      <span class="built_in">window</span>.cancelAnimationFrame(timerId)</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">window</span>.requestAnimationFrame(pendingFunc)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> setTimeout(pendingFunc, wait)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">cancelTimer</span>(<span class="params">id</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (useRAF) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">window</span>.cancelAnimationFrame(id)</span><br><span class="line">    &#125;</span><br><span class="line">    clearTimeout(id)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">leadingEdge</span>(<span class="params">time</span>) </span>&#123;</span><br><span class="line">    lastInvokeTime = time</span><br><span class="line">    timerId = startTimer(timerExpired, wait)</span><br><span class="line">    <span class="keyword">return</span> leading ? invokeFunc(time) : result</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">remainingWait</span>(<span class="params">time</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> timeSinceLastCall = time - lastCallTime</span><br><span class="line">    <span class="keyword">const</span> timeSinceLastInvoke = time - lastInvokeTime</span><br><span class="line">    <span class="keyword">const</span> timeWaiting = wait - timeSinceLastCall</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> maxing</span><br><span class="line">      ? <span class="built_in">Math</span>.min(timeWaiting, maxWait - timeSinceLastInvoke)</span><br><span class="line">      : timeWaiting</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">shouldInvoke</span>(<span class="params">time</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> timeSinceLastCall = time - lastCallTime</span><br><span class="line">    <span class="keyword">const</span> timeSinceLastInvoke = time - lastInvokeTime</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 第一次调用 || 上一次已经停止 || 系统时间倒退 || 已经达到max限制</span></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      lastCallTime === <span class="literal">undefined</span> ||</span><br><span class="line">      timeSinceLastCall &gt;= wait ||</span><br><span class="line">      timeSinceLastCall &lt; <span class="number">0</span> ||</span><br><span class="line">      (maxing &amp;&amp; timeSinceLastInvoke &gt;= maxWait)</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">timerExpired</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> time = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">if</span> (shouldInvoke(time)) &#123;</span><br><span class="line">      <span class="comment">// 在 trailing edge 且时间符合条件时，调用 trailingEdge函数，否则重启定时器</span></span><br><span class="line">      <span class="keyword">return</span> trailingEdge(time)</span><br><span class="line">    &#125;</span><br><span class="line">    timerId = startTimer(timerExpired, remainingWait(time))</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">trailingEdge</span>(<span class="params">time</span>) </span>&#123;</span><br><span class="line">    timerId = <span class="literal">undefined</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (trailing &amp;&amp; lastArgs) &#123;</span><br><span class="line">      <span class="keyword">return</span> invokeFunc(time)</span><br><span class="line">    &#125;</span><br><span class="line">    lastArgs = lastThis = <span class="literal">undefined</span></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">cancel</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (timerId !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">      cancelTimer(timerId)</span><br><span class="line">    &#125;</span><br><span class="line">    lastInvokeTime = <span class="number">0</span></span><br><span class="line">    lastArgs = lastCallTime = lastThis = timerId = <span class="literal">undefined</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">flush</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> timerId === <span class="literal">undefined</span> ? result : trailingEdge(<span class="built_in">Date</span>.now())</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">pending</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> timerId !== <span class="literal">undefined</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">debounced</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> time = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">const</span> isInvoking = shouldInvoke(time)</span><br><span class="line"></span><br><span class="line">    lastArgs = args</span><br><span class="line">    lastThis = <span class="keyword">this</span></span><br><span class="line">    lastCallTime = time</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isInvoking) &#123;</span><br><span class="line">      <span class="keyword">if</span> (timerId === <span class="literal">undefined</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> leadingEdge(lastCallTime)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (maxing) &#123;</span><br><span class="line">        timerId = startTimer(timerExpired, wait)</span><br><span class="line">        <span class="keyword">return</span> invokeFunc(lastCallTime)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (timerId === <span class="literal">undefined</span>) &#123;</span><br><span class="line">      timerId = startTimer(timerExpired, wait)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">  &#125;</span><br><span class="line">  debounced.cancel = cancel</span><br><span class="line">  debounced.flush = flush</span><br><span class="line">  debounced.pending = pending</span><br><span class="line">  <span class="keyword">return</span> debounced</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123; throttle, debounce &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="判断到达底部"><a href="#判断到达底部" class="headerlink" title="判断到达底部"></a>判断到达底部</h2><ul>
-<li>scrollHeight &lt;=&gt; scrollTop + offsetHeight<br>对于预加载可以适当加个预加载高度 这样提前加载会更加流畅</li>
-</ul>
-<h2 id="dom-回收"><a href="#dom-回收" class="headerlink" title="dom 回收"></a>dom 回收</h2><p>由于每一个节点都会增加一些额外的内存、布局、样式和绘制。进行 DOM 回收可以使 dom 保持在一个比较低的数量上，进而加快上面提到的这些处理过程。在 dom 移除页面一定高度后对节点进行 <code>move()</code> 操作。为了保证滚动条的正确比例和防止高度塌陷，需要显示的声明高度。</p>
+<h2 id="1-Magic-number"><a href="#1-Magic-number" class="headerlink" title="1. Magic number"></a>1. Magic number</h2><p>既然要解析文件内容那这个 Magic Number 就很关键 =&gt; Magic number：即幻数，它可以用来标记文件或者协议的格式，很多文件都有幻数标志来表明该文件的格式。<br>以下是常见的文件头：<br>| 文件类型 | 文件头(16 进制) |<br>| ————————– | —————————- |<br>| JPEG (jpg) | FFD8FF |<br>| JPEG (jpg) | FFD8FF |<br>| PNG (png) | 89504E47 |<br>| GIF (gif) | 47494638 |<br>| TIFF (tif) | 49492A00 |<br>| Windows Bitmap (bmp) | 424D |<br>| CAD (dwg) | 41433130 |<br>| Adobe Photoshop (psd) | 38425053 |<br>| Rich Text Format (rtf) | 7B5C727466 |<br>| XML (xml) | 3C3F786D6C |<br>| HTML (html) | 68746D6C3E |<br>| Adobe Acrobat (pdf) | 255044462D312E |<br>| Email (eml) | 44656C69766572792D646174653A |<br>| Outlook Express (dbx) | CFAD12FEC5FD746F |<br>| Outlook (pst) | 2142444E |<br>| MS Word/Excel (xls.or.doc) | D0CF11E0 |<br>| MS Access (mdb) | 5374616E64617264204A |<br>| WordPerfect (wpd) | FF575043 |<br>| Postscript (eps.or.ps) | 252150532D41646F6265 |<br>| Quicken (qdf) | AC9EBD8F |<br>| Windows Password (pwl) | E3828596 |<br>| ZIP Archive (zip) | 504B0304 |<br>| RAR Archive (rar) | 52617221 |<br>| Wave (wav) | 57415645 |<br>| AVI (avi) | 41564920 |<br>| Real Audio (ram) | 2E7261FD |<br>| Real Media (rm) | 2E524D46 |<br>| MPEG (mpg) | 000001BA |<br>| MPEG (mpg) | 000001B3 |<br>| Quicktime (mov) | 6D6F6F76 |<br>| Windows Media (asf) | 3026B2758E66CF11 |<br>| MIDI (mid) | 4D546864 |</p>
+<h2 id="2-解析文件"><a href="#2-解析文件" class="headerlink" title="2. 解析文件"></a>2. 解析文件</h2><p>通常上传文件我们都会获取<code>File</code>形式的文件；<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader/FileReader" target="_blank" rel="noopener">FileReader 文档</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1. 使用FileReader以ArrayBuffer的形式读取数据</span></span><br><span class="line"><span class="comment">// 2. 使用Uint8Array换取文件头，看截取前面几位就看具体需要了</span></span><br><span class="line"><span class="keyword">const</span> reader = <span class="keyword">new</span> FileReader()</span><br><span class="line">reader.onload = <span class="function">(<span class="params">evt</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> result = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(evt.target.result.slice(<span class="number">0</span>, <span class="number">6</span>))</span><br><span class="line">  <span class="comment">// 将截取的result和magic number比较</span></span><br><span class="line">&#125;</span><br><span class="line">reader.readAsArrayBuffer(file)</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>javascript</category>
       </categories>
       <tags>
         <tag>javascript</tag>
-        <tag>addEventListener</tag>
-        <tag>mouseWheel</tag>
+        <tag>file upload</tag>
       </tags>
   </entry>
   <entry>
@@ -1631,7 +1605,86 @@ alert(sum); //15
       </tags>
   </entry>
   <entry>
-    <title>AST--使用编译的方式修改代码</title>
+    <title>滚动加载--优化滚动性能</title>
+    <url>/2019/01/20/%E6%BB%9A%E5%8A%A8%E5%8A%A0%E8%BD%BD--%E4%BC%98%E5%8C%96%E6%BB%9A%E5%8A%A8%E6%80%A7%E8%83%BD/</url>
+    <content><![CDATA[<blockquote>
+<p>亲爱的儿子，我还没有追到你娘，提前祝你新年快乐！爸爸明年会努力的~</p>
+</blockquote>
+<p><img src="/images/hello.jpg" alt="hello~"></p>
+<a id="more"></a>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><ul>
+<li>最近有用<a href="https://github.com/aliyun-UED/aliyun-sdk-js" target="_blank" rel="noopener">阿里云 sdk</a> 中的<a href="https://help.aliyun.com/document_detail/29007.html" target="_blank" rel="noopener">日志服务</a>,在它的 api 里发现它并不支持分页查询，倒是有个 offset 指定日志起点,所以需要配合鼠标滚动做一个懒加载。</li>
+</ul>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol>
+<li>最容易想到的就是做一个底部检测，当用户滚动到底部时再请求下一部分内容，并将结果拼接到上一次结果之后。</li>
+<li>但很多情况下返回内容不只有字符，还有媒体文件，这个时候浏览器的下载通道很容易被占满。这个时候 我们实际需要的其实是用户看得到的内容去做加载就可以，用户看不到的可以先用墓碑（占位符）。这么做可以大大减少流量浪费~</li>
+<li>理清思路后大致实现不难，不过滚动是个高频发事件，这在一些极端 case 下容易引起卡顿，需要进行优化，这也是本文重点。</li>
+</ol>
+<h2 id="优化滚动"><a href="#优化滚动" class="headerlink" title="优化滚动"></a>优化滚动</h2><ul>
+<li>常用两种优化方式</li>
+</ul>
+<ol>
+<li><code>Throttle</code>: 允许我们限制激活响应的数量。通过限制每秒回调的数量的方式来达到优化目的;</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// const fn = throttle(e =&gt; console.log(e, "123"), 300)</span></span><br><span class="line"><span class="comment">// const scroll = listen(document.body, "mousewheel", fn)</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">...props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [fn, threshhold = <span class="number">250</span>, scope] = props</span><br><span class="line">  <span class="keyword">let</span> last</span><br><span class="line">  <span class="keyword">let</span> deferTimer</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">event</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> context = scope || <span class="keyword">this</span></span><br><span class="line">    <span class="keyword">const</span> now = +<span class="keyword">new</span> <span class="built_in">Date</span>()</span><br><span class="line">    <span class="keyword">if</span> (last &amp;&amp; now &lt; last + threshhold) &#123;</span><br><span class="line">      clearTimeout(deferTimer)</span><br><span class="line">      deferTimer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 停止滚动延迟后触发</span></span><br><span class="line">        last = now</span><br><span class="line">        fn.apply(context, [event, ...props])</span><br><span class="line">      &#125;, threshhold)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      last = now</span><br><span class="line">      fn.apply(context, [event, ...props])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><code>Debounce</code>: 事件发生时，不会立即激活回调。而是等待一定的时间并检查相同的事件是否再次触发。如果是，我们重置定时器，并再次等待。如果在等待期间没有发生相同的事件，我们就立即激活回调。 =&gt; 使用于滚动结束后执行操作</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 基本防抖</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">...props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [action, wait = <span class="number">200</span>] = props</span><br><span class="line">  <span class="keyword">let</span> last</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> ctx = <span class="keyword">this</span></span><br><span class="line">    clearTimeout(last)</span><br><span class="line">    last = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      action.apply(ctx, [event, ...props])</span><br><span class="line">    &#125;, wait)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>lodash 实现</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; isObject, isFn &#125; <span class="keyword">from</span> <span class="string">"./is"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 截流函数</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;function&#125;</span> <span class="variable">fn</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number&#125;</span> </span>[wait=250]</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;object&#125;</span> <span class="variable">options</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">func, wait = <span class="number">250</span>, options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> leading = <span class="literal">true</span></span><br><span class="line">  <span class="keyword">let</span> trailing = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (isObject(options)) &#123;</span><br><span class="line">    leading = <span class="string">"leading"</span> <span class="keyword">in</span> options ? !!options.leading : leading</span><br><span class="line">    trailing = <span class="string">"trailing"</span> <span class="keyword">in</span> options ? !!options.trailing : trailing</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> debounce(func, wait, &#123;</span><br><span class="line">    leading,</span><br><span class="line">    trailing,</span><br><span class="line">    maxWait: wait</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 防抖函数</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;function&#125;</span> <span class="variable">func</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;*&#125;</span> <span class="variable">wait</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;object&#125;</span> <span class="variable">options</span></span></span></span><br><span class="line"><span class="comment"> *    - leading:Boolean 开始时调用</span></span><br><span class="line"><span class="comment"> *    - trailing:Boolean 结束时调用</span></span><br><span class="line"><span class="comment"> *    - maxWait:Number 最大等待时间</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">func, wait, options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> lastArgs, lastThis, maxWait, result, timerId, lastCallTime</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> lastInvokeTime = <span class="number">0</span></span><br><span class="line">  <span class="keyword">let</span> leading = <span class="literal">false</span></span><br><span class="line">  <span class="keyword">let</span> maxing = <span class="literal">false</span></span><br><span class="line">  <span class="keyword">let</span> trailing = <span class="literal">true</span></span><br><span class="line">  <span class="keyword">const</span> isBrowser = <span class="keyword">typeof</span> <span class="built_in">window</span> == <span class="string">"object"</span> &amp;&amp; <span class="built_in">window</span> !== <span class="literal">null</span></span><br><span class="line">  <span class="keyword">const</span> useRAF =</span><br><span class="line">    !wait &amp;&amp;</span><br><span class="line">    wait !== <span class="number">0</span> &amp;&amp;</span><br><span class="line">    isBrowser &amp;&amp;</span><br><span class="line">    <span class="keyword">typeof</span> <span class="built_in">window</span>.requestAnimationFrame === <span class="string">"function"</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!isFn(func)) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Expected a function"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  wait = +wait || <span class="number">0</span></span><br><span class="line">  <span class="keyword">if</span> (isObject(options)) &#123;</span><br><span class="line">    leading = !!options.leading</span><br><span class="line">    maxing = <span class="string">"maxWait"</span> <span class="keyword">in</span> options</span><br><span class="line">    maxWait = maxing ? <span class="built_in">Math</span>.max(+options.maxWait || <span class="number">0</span>, wait) : maxWait</span><br><span class="line">    trailing = <span class="string">"trailing"</span> <span class="keyword">in</span> options ? !!options.trailing : trailing</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">invokeFunc</span>(<span class="params">time</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> args = lastArgs</span><br><span class="line">    <span class="keyword">const</span> thisArg = lastThis</span><br><span class="line"></span><br><span class="line">    lastArgs = lastThis = <span class="literal">undefined</span></span><br><span class="line">    lastInvokeTime = time</span><br><span class="line">    result = func.apply(thisArg, args)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">startTimer</span>(<span class="params">pendingFunc, wait</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (useRAF) &#123;</span><br><span class="line">      <span class="built_in">window</span>.cancelAnimationFrame(timerId)</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">window</span>.requestAnimationFrame(pendingFunc)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> setTimeout(pendingFunc, wait)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">cancelTimer</span>(<span class="params">id</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (useRAF) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">window</span>.cancelAnimationFrame(id)</span><br><span class="line">    &#125;</span><br><span class="line">    clearTimeout(id)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">leadingEdge</span>(<span class="params">time</span>) </span>&#123;</span><br><span class="line">    lastInvokeTime = time</span><br><span class="line">    timerId = startTimer(timerExpired, wait)</span><br><span class="line">    <span class="keyword">return</span> leading ? invokeFunc(time) : result</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">remainingWait</span>(<span class="params">time</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> timeSinceLastCall = time - lastCallTime</span><br><span class="line">    <span class="keyword">const</span> timeSinceLastInvoke = time - lastInvokeTime</span><br><span class="line">    <span class="keyword">const</span> timeWaiting = wait - timeSinceLastCall</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> maxing</span><br><span class="line">      ? <span class="built_in">Math</span>.min(timeWaiting, maxWait - timeSinceLastInvoke)</span><br><span class="line">      : timeWaiting</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">shouldInvoke</span>(<span class="params">time</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> timeSinceLastCall = time - lastCallTime</span><br><span class="line">    <span class="keyword">const</span> timeSinceLastInvoke = time - lastInvokeTime</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 第一次调用 || 上一次已经停止 || 系统时间倒退 || 已经达到max限制</span></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      lastCallTime === <span class="literal">undefined</span> ||</span><br><span class="line">      timeSinceLastCall &gt;= wait ||</span><br><span class="line">      timeSinceLastCall &lt; <span class="number">0</span> ||</span><br><span class="line">      (maxing &amp;&amp; timeSinceLastInvoke &gt;= maxWait)</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">timerExpired</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> time = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">if</span> (shouldInvoke(time)) &#123;</span><br><span class="line">      <span class="comment">// 在 trailing edge 且时间符合条件时，调用 trailingEdge函数，否则重启定时器</span></span><br><span class="line">      <span class="keyword">return</span> trailingEdge(time)</span><br><span class="line">    &#125;</span><br><span class="line">    timerId = startTimer(timerExpired, remainingWait(time))</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">trailingEdge</span>(<span class="params">time</span>) </span>&#123;</span><br><span class="line">    timerId = <span class="literal">undefined</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (trailing &amp;&amp; lastArgs) &#123;</span><br><span class="line">      <span class="keyword">return</span> invokeFunc(time)</span><br><span class="line">    &#125;</span><br><span class="line">    lastArgs = lastThis = <span class="literal">undefined</span></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">cancel</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (timerId !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">      cancelTimer(timerId)</span><br><span class="line">    &#125;</span><br><span class="line">    lastInvokeTime = <span class="number">0</span></span><br><span class="line">    lastArgs = lastCallTime = lastThis = timerId = <span class="literal">undefined</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">flush</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> timerId === <span class="literal">undefined</span> ? result : trailingEdge(<span class="built_in">Date</span>.now())</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">pending</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> timerId !== <span class="literal">undefined</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">debounced</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> time = <span class="built_in">Date</span>.now()</span><br><span class="line">    <span class="keyword">const</span> isInvoking = shouldInvoke(time)</span><br><span class="line"></span><br><span class="line">    lastArgs = args</span><br><span class="line">    lastThis = <span class="keyword">this</span></span><br><span class="line">    lastCallTime = time</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (isInvoking) &#123;</span><br><span class="line">      <span class="keyword">if</span> (timerId === <span class="literal">undefined</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> leadingEdge(lastCallTime)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (maxing) &#123;</span><br><span class="line">        timerId = startTimer(timerExpired, wait)</span><br><span class="line">        <span class="keyword">return</span> invokeFunc(lastCallTime)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (timerId === <span class="literal">undefined</span>) &#123;</span><br><span class="line">      timerId = startTimer(timerExpired, wait)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">  &#125;</span><br><span class="line">  debounced.cancel = cancel</span><br><span class="line">  debounced.flush = flush</span><br><span class="line">  debounced.pending = pending</span><br><span class="line">  <span class="keyword">return</span> debounced</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123; throttle, debounce &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="判断到达底部"><a href="#判断到达底部" class="headerlink" title="判断到达底部"></a>判断到达底部</h2><ul>
+<li>scrollHeight &lt;=&gt; scrollTop + offsetHeight<br>对于预加载可以适当加个预加载高度 这样提前加载会更加流畅</li>
+</ul>
+<h2 id="dom-回收"><a href="#dom-回收" class="headerlink" title="dom 回收"></a>dom 回收</h2><p>由于每一个节点都会增加一些额外的内存、布局、样式和绘制。进行 DOM 回收可以使 dom 保持在一个比较低的数量上，进而加快上面提到的这些处理过程。在 dom 移除页面一定高度后对节点进行 <code>move()</code> 操作。为了保证滚动条的正确比例和防止高度塌陷，需要显示的声明高度。</p>
+]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+        <tag>addEventListener</tag>
+        <tag>mouseWheel</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用Proxy实现双向绑定</title>
+    <url>/2019/08/10/%E4%BD%BF%E7%94%A8proxy%E5%AE%9E%E7%8E%B0%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>技术从来不会受限于语言，受限你的，永远只是思想。（博主发现了一个有意思的机器学习库，TensorFlow 的 js 版本，有兴趣的同学可以看一下<a href="https://www.tensorflow.org/api_docs）" target="_blank" rel="noopener">https://www.tensorflow.org/api_docs）</a></p>
+</blockquote>
+<p>=&gt; 这里以<code>Proxy</code>为例来进行编码,当然,我们需要事先了解一下<a href="https://es6.ruanyifeng.com/#docs/proxy" target="_blank" rel="noopener">Proxy</a>的使用方法.</p>
+<p><code>Proxy</code>就像一个代理器,当有人对目标对象进行处理(set、has、get 等等操作)的时候它会首先经过它，这时我们可以使用代码进行处理，此时<code>Proxy</code>相当于一个中介或者叫代理人,它经常被用于代理模式中,可以做字段验证、缓存代理、访问控制等等。</p>
+<a id="more"></a>
+<h2 id="1-Object-defineProperty"><a href="#1-Object-defineProperty" class="headerlink" title="1.Object.defineProperty"></a>1.<code>Object.defineProperty</code></h2><p>众所周知，<code>vue</code>使用了<code>Object.defineProperty</code>来做数据劫持，它是利用劫持对象的访问器,在属性值发生变化时我们可以获取变化,从而进行进一步操作。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 例子：对对象属性a的拦截</span></span><br><span class="line"><span class="keyword">const</span> obj = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">'a'</span>, &#123;</span><br><span class="line">  <span class="keyword">get</span>: function() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'get val'</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="keyword">set</span>: function(newVal) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'set val:'</span> + newVal)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="2-与Object-defineProperty相比，Proxy的优势"><a href="#2-与Object-defineProperty相比，Proxy的优势" class="headerlink" title="2.与Object.defineProperty相比，Proxy的优势"></a>2.与<code>Object.defineProperty</code>相比，<code>Proxy</code>的优势</h2><ol>
+<li><p>数组作为特殊的对象，但<code>Object.defineProperty</code>无法监听数组变化。</p>
+</li>
+<li><p><code>Object.defineProperty</code>只能劫持对象的属性,因此我们需要对每个对象的每个属性进行遍历，如果属性值也是对象那么需要深度遍历,显然能劫持一个完整的对象是更好的选择。</p>
+</li>
+<li><p>Proxy 有多达 13 种拦截方法,不限于<code>apply、ownKeys、deleteProperty、has</code>等等是<code>Object.defineProperty</code>不具备的。</p>
+</li>
+<li><p><code>Proxy</code>返回的是一个新对象,我们可以只操作新的对象达到目的,而<code>Object.defineProperty</code>只能遍历对象属性直接修改</p>
+</li>
+<li><p><code>Proxy</code>作为新标准将受到浏览器厂商重点持续的性能优化</p>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Vue主要有两个方法</span></span><br><span class="line"><span class="comment"> * $proxy: 把输入对象属性代理到vue实例上</span></span><br><span class="line"><span class="comment"> * $watch: 监听对象的变化</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vue</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(data) &#123;</span><br><span class="line">    <span class="keyword">this</span>.$data = data</span><br><span class="line">    <span class="built_in">Object</span>.keys(data).forEach(<span class="function"><span class="params">key</span> =&gt;</span> <span class="keyword">this</span>.$proxy(key))</span><br><span class="line">  &#125;</span><br><span class="line">  $watch(key, cb) &#123;</span><br><span class="line">    <span class="keyword">new</span> Watcher(<span class="keyword">this</span>, key, cb)</span><br><span class="line">  &#125;</span><br><span class="line">  $proxy(key) &#123;</span><br><span class="line">    <span class="built_in">Reflect</span>.defineProperty(<span class="keyword">this</span>, key, &#123;</span><br><span class="line">      configurable: <span class="literal">true</span>,</span><br><span class="line">      enumerable: <span class="literal">true</span>,</span><br><span class="line">      <span class="keyword">get</span>: () =&gt; this.$data[key],</span><br><span class="line">      <span class="keyword">set</span>: val =&gt; &#123;</span><br><span class="line">        <span class="keyword">this</span>._data[key] = val</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Watcher</span></span><br><span class="line"><span class="comment"> * 监听数据变化，并通知变化</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Watcher</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(vm, key, callback) &#123;</span><br><span class="line">    <span class="keyword">this</span>.vm = vm <span class="comment">// vue实例</span></span><br><span class="line">    <span class="keyword">this</span>.callback = callback <span class="comment">// 回调：返回更新</span></span><br><span class="line">    <span class="keyword">this</span>.key = key <span class="comment">// 被订阅的数据</span></span><br><span class="line">    <span class="keyword">this</span>.val = <span class="keyword">this</span>.get() <span class="comment">// 维护更新之前的数据</span></span><br><span class="line">    vm.$data = <span class="keyword">this</span>.createProxy(vm.$data) <span class="comment">// 为数据做代理</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  update(newVal) &#123;</span><br><span class="line">    <span class="keyword">this</span>.callback(newVal)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">get</span>() &#123;</span><br><span class="line">    <span class="keyword">const</span> val = <span class="keyword">this</span>.vm.$data[<span class="keyword">this</span>.key]</span><br><span class="line">    <span class="keyword">return</span> val</span><br><span class="line">  &#125;</span><br><span class="line">  createProxy(data) &#123;</span><br><span class="line">    <span class="keyword">let</span> _this = <span class="keyword">this</span></span><br><span class="line">    <span class="keyword">let</span> handler = &#123;</span><br><span class="line">      <span class="keyword">get</span>(target, property) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Reflect</span>.get(target, property)</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="keyword">set</span>(target, property, value) &#123;</span><br><span class="line">        <span class="keyword">let</span> res = <span class="literal">null</span></span><br><span class="line">        <span class="keyword">if</span> (target[property] != value) &#123;</span><br><span class="line">          <span class="keyword">const</span> isOk = <span class="built_in">Reflect</span>.set(target, property, value)</span><br><span class="line">          <span class="keyword">if</span> (_this.key === property) &#123;</span><br><span class="line">            <span class="comment">// 同一层级</span></span><br><span class="line">            res = value</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res = _this.get()</span><br><span class="line">            <span class="built_in">console</span>.log(res)</span><br><span class="line">          &#125;</span><br><span class="line">          _this.callback(res)</span><br><span class="line">          <span class="keyword">return</span> isOk</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> toDeepProxy(data, handler)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">toDeepProxy</span>(<span class="params">object, handler</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (!isPureObject(object)) addSubProxy(object, handler)</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(object, handler)</span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="keyword">function</span> <span class="title">addSubProxy</span>(<span class="params">object, handler</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> prop <span class="keyword">in</span> object) &#123;</span><br><span class="line">          <span class="keyword">if</span> (<span class="keyword">typeof</span> object[prop] == <span class="string">'object'</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!isPureObject(object[prop])) addSubProxy(object[prop], handler)</span><br><span class="line">            object[prop] = <span class="keyword">new</span> <span class="built_in">Proxy</span>(object[prop], handler)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        object = <span class="keyword">new</span> <span class="built_in">Proxy</span>(object, handler)</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="keyword">function</span> <span class="title">isPureObject</span>(<span class="params">object</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> object !== <span class="string">'object'</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">for</span> (<span class="keyword">let</span> prop <span class="keyword">in</span> object) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> object[prop] == <span class="string">'object'</span>) &#123;</span><br><span class="line">              <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>双向绑定的完整例子已放在 <a href="https://codepen.io/zhaozeqing/pen/VoXjvy" target="_blank" rel="noopener">codepen</a> 上</p>
+]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+        <tag>es6</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>AST--使用编译的方式修改代码！</title>
     <url>/2019/12/12/AST--%E4%BD%BF%E7%94%A8%E7%BC%96%E8%AF%91%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BF%AE%E6%94%B9%E4%BB%A3%E7%A0%81/</url>
     <content><![CDATA[<p>最近有一个面板搭建的需求，环境为 react，而现有面板组件为 vue。<br>就有了现在这个转换需求~<br>AST(抽象语法树)：顾名思义，它把代码拆解成了树的形式。<br>接下来我会以代码增删改查的形式带大家初步了解”代码编辑”！</p>
 <blockquote>
@@ -1672,11 +1725,11 @@ alert(sum); //15
 <li>项目下创建 index.js</li>
 <li>写入:</li>
 </ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> parse = <span class="built_in">require</span>(<span class="string">'@babel/parser'</span>).parse;</span><br><span class="line"><span class="keyword">const</span> t = <span class="built_in">require</span>(<span class="string">'@babel/types'</span>);</span><br><span class="line"><span class="keyword">const</span> generate = <span class="built_in">require</span>(<span class="string">'@babel/generator'</span>).default;</span><br><span class="line"><span class="comment">// const traverse = require('@babel/traverse').default</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> code = <span class="string">''</span>;</span><br><span class="line"><span class="keyword">const</span> ast = parse(code);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 便于理解我一步步拆解，这个其实就是拆解代码的逆过程</span></span><br><span class="line"><span class="comment"> * 刚接触的话可以根据ast explore中生成的语法树中的type,</span></span><br><span class="line"><span class="comment"> * 去到<span class="doctag">@babel</span>/type中查找相应type,会有相应的方法和入参说明</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1.生成数字 1</span></span><br><span class="line"><span class="keyword">const</span> number = t.numericLiteral(<span class="number">1</span>);</span><br><span class="line"><span class="comment">// 2.生成二元表达式 1 + 1</span></span><br><span class="line"><span class="keyword">const</span> exp = t.binaryExpression(<span class="string">'+'</span>, number, number);</span><br><span class="line"><span class="comment">// 3.生成变量 a</span></span><br><span class="line"><span class="keyword">const</span> varible = t.identifier(<span class="string">'a'</span>);</span><br><span class="line"><span class="comment">// 4.生成变量声明 a = 1 + 1</span></span><br><span class="line"><span class="keyword">const</span> declarations = t.variableDeclarator(varible, exp);</span><br><span class="line"><span class="comment">// 5.生成变量声明 const a = 1 + 1</span></span><br><span class="line"><span class="keyword">const</span> content = t.variableDeclaration(<span class="string">'const'</span>, [declarations]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将内容放入body中</span></span><br><span class="line">ast.program.body.push(content);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> output = generate(ast, &#123; <span class="attr">quotes</span>: <span class="string">'single'</span>, <span class="attr">retainLines</span>: <span class="literal">true</span> &#125;);</span><br><span class="line"><span class="built_in">console</span>.log(output.code); <span class="comment">// const a = 1 + 1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> parse = <span class="built_in">require</span>(<span class="string">"@babel/parser"</span>).parse</span><br><span class="line"><span class="keyword">const</span> t = <span class="built_in">require</span>(<span class="string">"@babel/types"</span>)</span><br><span class="line"><span class="keyword">const</span> generate = <span class="built_in">require</span>(<span class="string">"@babel/generator"</span>).default</span><br><span class="line"><span class="comment">// const traverse = require('@babel/traverse').default</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> code = <span class="string">""</span></span><br><span class="line"><span class="keyword">const</span> ast = parse(code)</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 便于理解我一步步拆解，这个其实就是拆解代码的逆过程</span></span><br><span class="line"><span class="comment"> * 刚接触的话可以根据ast explore中生成的语法树中的type,</span></span><br><span class="line"><span class="comment"> * 去到<span class="doctag">@babel</span>/type中查找相应type,会有相应的方法和入参说明</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1.生成数字 1</span></span><br><span class="line"><span class="keyword">const</span> number = t.numericLiteral(<span class="number">1</span>)</span><br><span class="line"><span class="comment">// 2.生成二元表达式 1 + 1</span></span><br><span class="line"><span class="keyword">const</span> exp = t.binaryExpression(<span class="string">"+"</span>, number, number)</span><br><span class="line"><span class="comment">// 3.生成变量 a</span></span><br><span class="line"><span class="keyword">const</span> varible = t.identifier(<span class="string">"a"</span>)</span><br><span class="line"><span class="comment">// 4.生成变量声明 a = 1 + 1</span></span><br><span class="line"><span class="keyword">const</span> declarations = t.variableDeclarator(varible, exp)</span><br><span class="line"><span class="comment">// 5.生成变量声明 const a = 1 + 1</span></span><br><span class="line"><span class="keyword">const</span> content = t.variableDeclaration(<span class="string">"const"</span>, [declarations])</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将内容放入body中</span></span><br><span class="line">ast.program.body.push(content)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> output = generate(ast, &#123; <span class="attr">quotes</span>: <span class="string">"single"</span>, <span class="attr">retainLines</span>: <span class="literal">true</span> &#125;)</span><br><span class="line"><span class="built_in">console</span>.log(output.code) <span class="comment">// const a = 1 + 1</span></span><br></pre></td></tr></table></figure>
 <h2 id="三、删改：为什么放一起，因为改其实就是先删后增"><a href="#三、删改：为什么放一起，因为改其实就是先删后增" class="headerlink" title="三、删改：为什么放一起，因为改其实就是先删后增"></a>三、删改：为什么放一起，因为改其实就是先删后增</h2><ol>
 <li>替换： <code>replaceWith()</code> <code>replaceWithSourceString()</code><br>我们把<code>const a = 1 + 1</code> 改为 <code>1 * 1</code>，这个时候<code>traverse</code>就用上了<br>咱们把之前生成的<code>ast</code>放进来</li>
 </ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">traverse(ast, &#123;</span><br><span class="line">  <span class="comment">// 使用相应type来快速访问节点，这里快速来到二元表达式节点，即 1 + 1</span></span><br><span class="line">  <span class="comment">// 并使用path.replaceWith() 将节点 1 + 1替换</span></span><br><span class="line">  BinaryExpression(path) &#123;</span><br><span class="line">    <span class="keyword">if</span> (path.node.operator === <span class="string">'+'</span>) &#123;</span><br><span class="line">      path.replaceWith(</span><br><span class="line">        t.binaryExpression(<span class="string">'*'</span>, path.node.left, path.node.right)</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">traverse(ast, &#123;</span><br><span class="line">  <span class="comment">// 使用相应type来快速访问节点，这里快速来到二元表达式节点，即 1 + 1</span></span><br><span class="line">  <span class="comment">// 并使用path.replaceWith() 将节点 1 + 1替换</span></span><br><span class="line">  BinaryExpression(path) &#123;</span><br><span class="line">    <span class="keyword">if</span> (path.node.operator === <span class="string">"+"</span>) &#123;</span><br><span class="line">      path.replaceWith(t.binaryExpression(<span class="string">"*"</span>, path.node.left, path.node.right))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>tips：对于简单的静态节点还可以直接使用<strong>path.replaceWithSourceString(‘a*b’)</strong>来达到目的!!!</p>
 </blockquote>
@@ -1686,7 +1739,7 @@ alert(sum); //15
 <ul>
 <li>pushContainer：针对子节点为数组时，为数组 push 一个 node</li>
 </ul>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> code = <span class="string">`</span></span><br><span class="line"><span class="string">       const obj = &#123;</span></span><br><span class="line"><span class="string">           a: 'a',</span></span><br><span class="line"><span class="string">           b: 'b'</span></span><br><span class="line"><span class="string">       &#125;`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ast = parse(code);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> property = t.objectProperty(t.identifier(<span class="string">'c'</span>), t.stringLiteral(<span class="string">'c'</span>));</span><br><span class="line">traverse(ast, &#123;</span><br><span class="line">  ObjectExpression(path) &#123;</span><br><span class="line">    path.pushContainer(<span class="string">'properties'</span>, property);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> code = <span class="string">`</span></span><br><span class="line"><span class="string">       const obj = &#123;</span></span><br><span class="line"><span class="string">           a: 'a',</span></span><br><span class="line"><span class="string">           b: 'b'</span></span><br><span class="line"><span class="string">       &#125;`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ast = parse(code)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> property = t.objectProperty(t.identifier(<span class="string">"c"</span>), t.stringLiteral(<span class="string">"c"</span>))</span><br><span class="line">traverse(ast, &#123;</span><br><span class="line">  ObjectExpression(path) &#123;</span><br><span class="line">    path.pushContainer(<span class="string">"properties"</span>, property)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <ul>
 <li>unshiftContainer： 与 pushContainer 对应 =》 unshift</li>
 <li>insertAfter 兄弟节点的插入操作</li>
@@ -1751,59 +1804,6 @@ alert(sum); //15
         <tag>node</tag>
         <tag>react</tag>
         <tag>ast</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用Proxy实现双向绑定</title>
-    <url>/2019/08/10/%E4%BD%BF%E7%94%A8proxy%E5%AE%9E%E7%8E%B0%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>技术从来不会受限于语言，受限你的，永远只是思想。（博主发现了一个有意思的机器学习库，TensorFlow 的 js 版本，有兴趣的同学可以看一下<a href="https://www.tensorflow.org/api_docs）" target="_blank" rel="noopener">https://www.tensorflow.org/api_docs）</a></p>
-</blockquote>
-<p>=&gt; 这里以<code>Proxy</code>为例来进行编码,当然,我们需要事先了解一下<a href="https://es6.ruanyifeng.com/#docs/proxy" target="_blank" rel="noopener">Proxy</a>的使用方法.</p>
-<p><code>Proxy</code>就像一个代理器,当有人对目标对象进行处理(set、has、get 等等操作)的时候它会首先经过它，这时我们可以使用代码进行处理，此时<code>Proxy</code>相当于一个中介或者叫代理人,它经常被用于代理模式中,可以做字段验证、缓存代理、访问控制等等。</p>
-<a id="more"></a>
-<h2 id="1-Object-defineProperty"><a href="#1-Object-defineProperty" class="headerlink" title="1.Object.defineProperty"></a>1.<code>Object.defineProperty</code></h2><p>众所周知，<code>vue</code>使用了<code>Object.defineProperty</code>来做数据劫持，它是利用劫持对象的访问器,在属性值发生变化时我们可以获取变化,从而进行进一步操作。</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 例子：对对象属性a的拦截</span></span><br><span class="line"><span class="keyword">const</span> obj = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">'a'</span>, &#123;</span><br><span class="line">  <span class="keyword">get</span>: function() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'get val'</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="keyword">set</span>: function(newVal) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'set val:'</span> + newVal)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="2-与Object-defineProperty相比，Proxy的优势"><a href="#2-与Object-defineProperty相比，Proxy的优势" class="headerlink" title="2.与Object.defineProperty相比，Proxy的优势"></a>2.与<code>Object.defineProperty</code>相比，<code>Proxy</code>的优势</h2><ol>
-<li><p>数组作为特殊的对象，但<code>Object.defineProperty</code>无法监听数组变化。</p>
-</li>
-<li><p><code>Object.defineProperty</code>只能劫持对象的属性,因此我们需要对每个对象的每个属性进行遍历，如果属性值也是对象那么需要深度遍历,显然能劫持一个完整的对象是更好的选择。</p>
-</li>
-<li><p>Proxy 有多达 13 种拦截方法,不限于<code>apply、ownKeys、deleteProperty、has</code>等等是<code>Object.defineProperty</code>不具备的。</p>
-</li>
-<li><p><code>Proxy</code>返回的是一个新对象,我们可以只操作新的对象达到目的,而<code>Object.defineProperty</code>只能遍历对象属性直接修改</p>
-</li>
-<li><p><code>Proxy</code>作为新标准将受到浏览器厂商重点持续的性能优化</p>
-</li>
-</ol>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Vue主要有两个方法</span></span><br><span class="line"><span class="comment"> * $proxy: 把输入对象属性代理到vue实例上</span></span><br><span class="line"><span class="comment"> * $watch: 监听对象的变化</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vue</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(data) &#123;</span><br><span class="line">    <span class="keyword">this</span>.$data = data</span><br><span class="line">    <span class="built_in">Object</span>.keys(data).forEach(<span class="function"><span class="params">key</span> =&gt;</span> <span class="keyword">this</span>.$proxy(key))</span><br><span class="line">  &#125;</span><br><span class="line">  $watch(key, cb) &#123;</span><br><span class="line">    <span class="keyword">new</span> Watcher(<span class="keyword">this</span>, key, cb)</span><br><span class="line">  &#125;</span><br><span class="line">  $proxy(key) &#123;</span><br><span class="line">    <span class="built_in">Reflect</span>.defineProperty(<span class="keyword">this</span>, key, &#123;</span><br><span class="line">      configurable: <span class="literal">true</span>,</span><br><span class="line">      enumerable: <span class="literal">true</span>,</span><br><span class="line">      <span class="keyword">get</span>: () =&gt; this.$data[key],</span><br><span class="line">      <span class="keyword">set</span>: val =&gt; &#123;</span><br><span class="line">        <span class="keyword">this</span>._data[key] = val</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Watcher</span></span><br><span class="line"><span class="comment"> * 监听数据变化，并通知变化</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Watcher</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(vm, key, callback) &#123;</span><br><span class="line">    <span class="keyword">this</span>.vm = vm <span class="comment">// vue实例</span></span><br><span class="line">    <span class="keyword">this</span>.callback = callback <span class="comment">// 回调：返回更新</span></span><br><span class="line">    <span class="keyword">this</span>.key = key <span class="comment">// 被订阅的数据</span></span><br><span class="line">    <span class="keyword">this</span>.val = <span class="keyword">this</span>.get() <span class="comment">// 维护更新之前的数据</span></span><br><span class="line">    vm.$data = <span class="keyword">this</span>.createProxy(vm.$data) <span class="comment">// 为数据做代理</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  update(newVal) &#123;</span><br><span class="line">    <span class="keyword">this</span>.callback(newVal)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">get</span>() &#123;</span><br><span class="line">    <span class="keyword">const</span> val = <span class="keyword">this</span>.vm.$data[<span class="keyword">this</span>.key]</span><br><span class="line">    <span class="keyword">return</span> val</span><br><span class="line">  &#125;</span><br><span class="line">  createProxy(data) &#123;</span><br><span class="line">    <span class="keyword">let</span> _this = <span class="keyword">this</span></span><br><span class="line">    <span class="keyword">let</span> handler = &#123;</span><br><span class="line">      <span class="keyword">get</span>(target, property) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Reflect</span>.get(target, property)</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="keyword">set</span>(target, property, value) &#123;</span><br><span class="line">        <span class="keyword">let</span> res = <span class="literal">null</span></span><br><span class="line">        <span class="keyword">if</span> (target[property] != value) &#123;</span><br><span class="line">          <span class="keyword">const</span> isOk = <span class="built_in">Reflect</span>.set(target, property, value)</span><br><span class="line">          <span class="keyword">if</span> (_this.key === property) &#123;</span><br><span class="line">            <span class="comment">// 同一层级</span></span><br><span class="line">            res = value</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res = _this.get()</span><br><span class="line">            <span class="built_in">console</span>.log(res)</span><br><span class="line">          &#125;</span><br><span class="line">          _this.callback(res)</span><br><span class="line">          <span class="keyword">return</span> isOk</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> toDeepProxy(data, handler)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">toDeepProxy</span>(<span class="params">object, handler</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (!isPureObject(object)) addSubProxy(object, handler)</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(object, handler)</span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="keyword">function</span> <span class="title">addSubProxy</span>(<span class="params">object, handler</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> prop <span class="keyword">in</span> object) &#123;</span><br><span class="line">          <span class="keyword">if</span> (<span class="keyword">typeof</span> object[prop] == <span class="string">'object'</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!isPureObject(object[prop])) addSubProxy(object[prop], handler)</span><br><span class="line">            object[prop] = <span class="keyword">new</span> <span class="built_in">Proxy</span>(object[prop], handler)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        object = <span class="keyword">new</span> <span class="built_in">Proxy</span>(object, handler)</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="function"><span class="keyword">function</span> <span class="title">isPureObject</span>(<span class="params">object</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> object !== <span class="string">'object'</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">for</span> (<span class="keyword">let</span> prop <span class="keyword">in</span> object) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> object[prop] == <span class="string">'object'</span>) &#123;</span><br><span class="line">              <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>双向绑定的完整例子已放在 <a href="https://codepen.io/zhaozeqing/pen/VoXjvy" target="_blank" rel="noopener">codepen</a> 上</p>
-]]></content>
-      <categories>
-        <category>javascript</category>
-      </categories>
-      <tags>
-        <tag>javascript</tag>
-        <tag>es6</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>文件上传-验证后缀与内容是否一致</title>
-    <url>/2019/01/04/%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%B9%8B%E9%AA%8C%E8%AF%81%E5%90%8E%E7%BC%80%E4%B8%8E%E5%86%85%E5%AE%B9%E6%98%AF%E5%90%A6%E4%B8%80%E8%87%B4/</url>
-    <content><![CDATA[<blockquote>
-<p>在上传前验证，开发者们往往喜欢通过后缀或者<code>File.type()</code>去判断一个文件类型来决定是否符合上传要求。但这显然是不可靠的，当被别有用心的人利用后，就可能在服务器被执行。今天就来解决如何在前端验证文件内容跟后缀是否一致。</p>
-</blockquote>
-<a id="more"></a>
-<h2 id="1-Magic-number"><a href="#1-Magic-number" class="headerlink" title="1. Magic number"></a>1. Magic number</h2><p>既然要解析文件内容那这个 Magic Number 就很关键 =&gt; Magic number：即幻数，它可以用来标记文件或者协议的格式，很多文件都有幻数标志来表明该文件的格式。<br>以下是常见的文件头：<br>| 文件类型 | 文件头(16 进制) |<br>| ————————– | —————————- |<br>| JPEG (jpg) | FFD8FF |<br>| JPEG (jpg) | FFD8FF |<br>| PNG (png) | 89504E47 |<br>| GIF (gif) | 47494638 |<br>| TIFF (tif) | 49492A00 |<br>| Windows Bitmap (bmp) | 424D |<br>| CAD (dwg) | 41433130 |<br>| Adobe Photoshop (psd) | 38425053 |<br>| Rich Text Format (rtf) | 7B5C727466 |<br>| XML (xml) | 3C3F786D6C |<br>| HTML (html) | 68746D6C3E |<br>| Adobe Acrobat (pdf) | 255044462D312E |<br>| Email (eml) | 44656C69766572792D646174653A |<br>| Outlook Express (dbx) | CFAD12FEC5FD746F |<br>| Outlook (pst) | 2142444E |<br>| MS Word/Excel (xls.or.doc) | D0CF11E0 |<br>| MS Access (mdb) | 5374616E64617264204A |<br>| WordPerfect (wpd) | FF575043 |<br>| Postscript (eps.or.ps) | 252150532D41646F6265 |<br>| Quicken (qdf) | AC9EBD8F |<br>| Windows Password (pwl) | E3828596 |<br>| ZIP Archive (zip) | 504B0304 |<br>| RAR Archive (rar) | 52617221 |<br>| Wave (wav) | 57415645 |<br>| AVI (avi) | 41564920 |<br>| Real Audio (ram) | 2E7261FD |<br>| Real Media (rm) | 2E524D46 |<br>| MPEG (mpg) | 000001BA |<br>| MPEG (mpg) | 000001B3 |<br>| Quicktime (mov) | 6D6F6F76 |<br>| Windows Media (asf) | 3026B2758E66CF11 |<br>| MIDI (mid) | 4D546864 |</p>
-<h2 id="2-解析文件"><a href="#2-解析文件" class="headerlink" title="2. 解析文件"></a>2. 解析文件</h2><p>通常上传文件我们都会获取<code>File</code>形式的文件；<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader/FileReader" target="_blank" rel="noopener">FileReader 文档</a></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1. 使用FileReader以ArrayBuffer的形式读取数据</span></span><br><span class="line"><span class="comment">// 2. 使用Uint8Array换取文件头，看截取前面几位就看具体需要了</span></span><br><span class="line"><span class="keyword">const</span> reader = <span class="keyword">new</span> FileReader()</span><br><span class="line">reader.onload = <span class="function">(<span class="params">evt</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> result = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(evt.target.result.slice(<span class="number">0</span>, <span class="number">6</span>))</span><br><span class="line">  <span class="comment">// 将截取的result和magic number比较</span></span><br><span class="line">&#125;</span><br><span class="line">reader.readAsArrayBuffer(file)</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>javascript</category>
-      </categories>
-      <tags>
-        <tag>javascript</tag>
-        <tag>file upload</tag>
       </tags>
   </entry>
 </search>

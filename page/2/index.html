@@ -1133,7 +1133,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="./2018/03/20/2018-3-20-《高级程序设计》整理-二-正则与函数篇/">
+    <link itemprop="mainEntityOfPage" href="./2018/03/20/2018-3-20-《高级程序设计》整理-三-JS对象-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="赵泽清">
@@ -1152,7 +1152,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/20/2018-3-20-《高级程序设计》整理-二-正则与函数篇/" itemprop="url">《高级程序设计》整理(二)- - -正则与函数篇</a></h2>
+                <a class="post-title-link" href="/2018/03/20/2018-3-20-《高级程序设计》整理-三-JS对象-1/" itemprop="url">《高级程序设计》整理(三)- - -JS对象</a></h2>
         
 
         <div class="post-meta">
@@ -1237,13 +1237,24 @@
 
       
         
-          <p>《高级程序设计》整理(二)- - -正则与函数篇</p>
-<hr>
-<p>###一、正则（RegExp）<br> &nbsp; &nbsp; - - -| let pattern = / patern / ( i | g | m )    i:忽略大小写  g:全局匹配  m:多行匹配<br> &nbsp; &nbsp; &nbsp; &nbsp; （元字符需要转义—-&gt; ‘ ( { \ ^ $ | ) ? * + . ] } ‘ ）</p>
-<p> &nbsp; &nbsp;  - - -|   RegExp的实例属性：<code>global</code>、<code>ignoreCase</code>、<code>multiline</code> 表示是否设置了该标志</p>
+          <p>JS对象<br>一、属性类型</p>
+<ol>
+<li><p>数据属性</p>
+<ul>
+<li><p>[[Configurable]]<br>表示能否通过delete删除属性从而重新定义属性，能否修改属性的特性，能否把属性修改为访问器属性。直接在对象上定义的属性，默认值为true。</p>
+</li>
+<li><p>[[Enumerable]]<br>表示能否通过<code>for-in</code>循环返回属性。直接在对象上定义的属性，默认值为true。</p>
+</li>
+<li><p>[[Writable]]<br>表示能否修改属性的值。直接在对象上定义的属性，默认为true。</p>
+</li>
+<li><p>[[Value]]<br>包含这个属性的数据值；读取属性值的时候，从这个位置读取；写入属性值的时候，把值保存在这里。默认为undefined。</p>
+</li>
+</ul>
+</li>
+</ol>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/20/2018-3-20-《高级程序设计》整理-二-正则与函数篇/#more" rel="contents">
+            <a class="btn" href="/2018/03/20/2018-3-20-《高级程序设计》整理-三-JS对象-1/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
